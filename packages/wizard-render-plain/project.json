@@ -1,0 +1,27 @@
+{
+  "name": "@ng-orbit/wizard-render-plain",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "root": "packages/wizard-render-plain",
+  "sourceRoot": "packages/wizard-render-plain/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo \"TODO: build @ng-orbit/wizard-render-plain\""
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo \"TODO: test @ng-orbit/wizard-render-plain\""
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo \"TODO: lint @ng-orbit/wizard-render-plain\""
+      }
+    }
+  }
+}

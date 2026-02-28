@@ -1,0 +1,16 @@
+{
+  "name": "ng-orbit-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9",
+  "scripts": {
+    "nx": "nx",
+    "demo": "nx serve demo",
+    "build": "nx run-many -t build",
+    "test": "nx run-many -t test",
+    "lint": "nx run-many -t lint",
+    "format": "nx format:write"
+  },
+  "devDependencies": {
+    "nx": "^20.0.0"
+  }
+}

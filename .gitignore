@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+
+# Build outputs
+dist/
+build/
+tmp/
+out-tsc/
+*.tsbuildinfo
+
+# Test and coverage outputs
+coverage/
+.nyc_output/
+
+# Nx / Angular caches
+.nx/cache/
+.nx/workspace-data/
+.angular/cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Keep pnpm as single lockfile source in this repo
+package-lock.json
+yarn.lock
+
+# IDE / Editor
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# OS files
+.DS_Store
+Thumbs.db
