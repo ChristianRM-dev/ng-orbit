@@ -1,6 +1,6 @@
 {
   "name": "@ng-orbit/table-render-plain",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "root": "packages/table-render-plain",
   "sourceRoot": "packages/table-render-plain/src",
@@ -8,19 +8,19 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: build @ng-orbit/table-render-plain\""
+        "command": "tsc -p packages/table-render-plain/tsconfig.lib.json"
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: test @ng-orbit/table-render-plain\""
+        "command": "tsc -p packages/table-render-plain/tsconfig.spec.json --noEmit"
       }
     },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: lint @ng-orbit/table-render-plain\""
+        "command": "tsc -p packages/table-render-plain/tsconfig.lib.json --noEmit"
       }
     }
   }

@@ -3,64 +3,140 @@
 Package: `@ng-orbit/table`
 
 ## Goal
-Provide a headless table controller:
-- columns, rows, sorting, pagination, selection
-- templates per cell/row header
-- no rendering assumptions, no CSS
+Provide a headless table controller that manages UI intent only:
+- query intent (`page`, `pageSize`, `sort`, `search`, `filters`)
+- selection state
+- command API for renderers/consumers
 
-Consumers decide UI and styling.
+The core does not:
+- fetch data
+- apply sort/filter/search/pagination to rows in memory
+- render `<table>` markup
+- ship CSS
 
 ---
 
-## Public API (contract)
+## Public API
 
-### Column model
 ```ts
-export interface OrbitTableColumnDef<T = unknown> {
-  id: string;
-  header: string;
-  accessor?: (row: T) => unknown;
-  sortable?: boolean;            // default: false
-  width?: string;                // hint only; renderer may ignore
-  align?: 'start' | 'center' | 'end';
-}
-```
+import type { TemplateRef } from '@angular/core';
 
-### Sort model
-```ts
-export type OrbitSortDirection = 'asc' | 'desc' | '';
-export interface OrbitSortState {
+export type OrbitTableRowId = string | number;
+
+export type OrbitTableSortDirection = 'asc' | 'desc' | '';
+
+export interface OrbitTableSort {
   activeId: string | null;
-  direction: OrbitSortDirection;
+  direction: OrbitTableSortDirection;
+}
+
+export interface OrbitTableQuery {
+  page: number; // 1-based
+  pageSize: number;
+  sort: OrbitTableSort | null;
+  search: string;
+  filters: Record<string, unknown>;
+}
+
+export interface OrbitTableSelectionState {
+  mode: 'multi';
+  selected: ReadonlySet<OrbitTableRowId>;
+}
+
+export interface OrbitTableHeaderContext<T> {
+  column: OrbitTableColumn<T>;
+  query: OrbitTableQuery;
+  isSorted: boolean;
+  sortDir: OrbitTableSortDirection | null;
+}
+
+export interface OrbitTableCellContext<T> {
+  row: T;
+  column: OrbitTableColumn<T>;
+  rowIndex: number;
+  value: unknown;
+}
+
+export interface OrbitTableColumn<T> {
+  id: string;
+  header: string | TemplateRef<OrbitTableHeaderContext<T>>;
+  accessor?: (row: T) => unknown;
+  property?: keyof T;
+  sortable?: boolean;
+  sortField?: string;
+  headerTemplate?: TemplateRef<OrbitTableHeaderContext<T>>;
+  cellTemplate?: TemplateRef<OrbitTableCellContext<T>>;
 }
 ```
 
-### Controller
-Exposed via `exportAs="orbitTable"`.
+---
 
-Inputs:
-- `data: readonly T[]`
-- `columns: readonly OrbitTableColumnDef<T>[]`
-- `trackBy?: (index: number, row: T) => unknown`
-- `initialSort?: OrbitSortState`
+## Controller directive
 
-Signals:
-- `rows(): readonly T[]` (processed)
-- `columns(): readonly OrbitTableColumnDef<T>[]`
-- `sort(): OrbitSortState`
-- `selection(): ReadonlySet<unknown>`
+`OrbitTableDirective<T>` is standalone and exported as `orbitTable`.
+
+Selector:
+- `[orbitTable]`
+
+Export:
+- `exportAs: 'orbitTable'`
+
+Inputs (owned by parent):
+- `rows: readonly T[]`
+- `columns: readonly OrbitTableColumn<T>[]`
+- `total: number`
+- `loading: boolean`
+- `error: unknown | null`
+- `query: OrbitTableQuery`
+- `getRowId: (row: T) => OrbitTableRowId` (required)
+
+Outputs:
+- `orbitTableQueryChange: OrbitTableQuery`
+- `orbitTableSelectionChange: OrbitTableSelectionState`
+
+Exposed signals:
+- `rows()`
+- `columns()`
+- `total()`
+- `loading()`
+- `error()`
+- `query()`
+- `selection()`
+- `canPrevPage()`
+- `canNextPage()`
 
 Commands:
-- `setSort(columnId: string, direction?: OrbitSortDirection): void`
-- `toggleSort(columnId: string): void`
-- `toggleRow(row: T): void`
-- `clearSelection(): void`
-
-Templates (optional - implementation choice):
-- `cellTemplateMap?: Record<string, TemplateRef<...>>`
-- `headerTemplateMap?: Record<string, TemplateRef<...>>`
+- `toggleSort(columnId: string)`
+- `setSearch(value: string)`
+- `setPage(page: number)`
+- `setPageSize(size: number)`
+- `setFilters(filters: Record<string, unknown>)`
+- `toggleRow(row: T)`
+- `clearSelection()`
+- `isRowSelected(row: T)`
 
 ---
 
-## Optional kits and renderers
-Same approach as wizard: kit primitives + optional renderers.
+## Behavior rules
+
+1. Core is query-intent controller, not data processor.
+2. `rows()` mirrors parent input (no processed rows).
+3. Query normalization:
+   - `page >= 1`
+   - `pageSize >= 1`
+4. Commands reset page to 1:
+   - `toggleSort`
+   - `setSearch`
+   - `setFilters`
+   - `setPageSize`
+5. Canonical no-sort state is `query.sort = null`.
+6. Sort toggle cycle:
+   - `null -> asc -> desc -> null`
+7. Selection mode in v1:
+   - fixed `mode: 'multi'`
+   - identity by `getRowId`
+
+Default query:
+```ts
+{ page: 1, pageSize: 10, sort: null, search: '', filters: {} }
+```

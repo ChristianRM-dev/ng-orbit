@@ -95,5 +95,30 @@ pnpm build
 
 ---
 
+## Table MVP usage (headless + plain renderer)
+
+`@ng-orbit/table` exposes a headless controller.  
+`@ng-orbit/table-render-plain` is a minimal reference UI that calls controller commands.
+
+```html
+<section
+  orbitTable
+  #t="orbitTable"
+  [rows]="state.rows"
+  [columns]="columns"
+  [total]="state.total"
+  [loading]="state.loading"
+  [error]="state.error"
+  [query]="query"
+  [getRowId]="getRowId"
+  (orbitTableQueryChange)="onQueryChange($event)"
+  (orbitTableSelectionChange)="onSelectionChange($event)"
+>
+  <orbit-table-render-plain [table]="t"></orbit-table-render-plain>
+</section>
+```
+
+---
+
 ## License
 MIT

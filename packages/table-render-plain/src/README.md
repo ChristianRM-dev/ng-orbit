@@ -1,3 +1,7 @@
 # @ng-orbit/table-render-plain
 
-Placeholder. Implement per docs in /docs.
+Reference plain renderer for `@ng-orbit/table`.
+
+- Semantic HTML table
+- No CSS
+- Calls core commands only

@@ -1,3 +1,7 @@
 # @ng-orbit/table
 
-Placeholder. Implement per docs in /docs.
+Headless table controller for ng-orbit.
+
+- No table markup
+- No CSS
+- Exposes signals + commands via `exportAs="orbitTable"`

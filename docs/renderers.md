@@ -20,6 +20,23 @@ Renderers are full UI implementations:
 Renderers should:
 - Be optional dependencies
 - Stay thin: mostly mapping core state to framework UI
+- Not fetch data directly
+- Not own business filtering/sorting rules
+
+## Renderer interaction contract
+Renderers must talk to the headless controller only through commands.
+
+Flow:
+1) renderer calls controller command (`toggleSort`, `setSearch`, `setPage`, etc.)
+2) core controller emits `orbitTableQueryChange`
+3) parent/consumer fetches and updates inputs (`rows`, `total`, `loading`, `error`, `query`)
+4) renderer reflects updated state
+
+For table renderers:
+- `@ng-orbit/table-render-plain` is the reference implementation
+- it renders semantic HTML only
+- it ships no CSS
+- it emits no parent outputs directly (events leave via core controller outputs)
 
 ## Rule of thumb
 - If consumers frequently want different layouts: ship a kit, not a renderer.

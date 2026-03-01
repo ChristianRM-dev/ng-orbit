@@ -3,6 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
+    "paths": {
+      "@ng-orbit/table": [
+        "packages/table/src/public-api.ts"
+      ],
+      "@ng-orbit/table-render-plain": [
+        "packages/table-render-plain/src/public-api.ts"
+      ]
+    },
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "Bundler",
