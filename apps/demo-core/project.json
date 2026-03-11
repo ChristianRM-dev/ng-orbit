@@ -1,0 +1,33 @@
+{
+  "name": "demo-core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "root": "apps/demo-core",
+  "sourceRoot": "apps/demo-core/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng build demo-core"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng serve demo-core --host 127.0.0.1 --port 4200"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng test demo-core --watch=false"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/demo-core/tsconfig.app.json --noEmit"
+      }
+    }
+  }
+}

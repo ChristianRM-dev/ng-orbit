@@ -1,0 +1,33 @@
+{
+  "name": "demo-daisy",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "root": "apps/demo-daisy",
+  "sourceRoot": "apps/demo-daisy/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng build demo-daisy"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng serve demo-daisy --host 127.0.0.1 --port 4202"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng test demo-daisy --watch=false"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/demo-daisy/tsconfig.app.json --noEmit"
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "layout": {
+    "title": "ng-orbit daisy demo",
+    "subtitle": "Tailwind + Daisy design pattern",
+    "demoDaisy": "Daisy remote app",
+    "navigation": "Main navigation",
+    "language": "Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "nav": {
+    "tableDaisy": "Table daisy",
+    "wizardDaisy": "Wizard daisy"
+  },
+  "table": {
+    "pages": {
+      "daisyTitle": "Table renderer: DaisyUI",
+      "daisySubtitle": "Real Daisy classes with isolated app styles."
+    },
+    "meta": {
+      "total": "Total",
+      "selected": "Selected"
+    },
+    "scenarios": {
+      "label": "Data scenarios",
+      "normal": "Normal",
+      "empty": "Empty",
+      "error": "Error"
+    },
+    "columns": {
+      "id": "ID",
+      "fullName": "Full name",
+      "email": "Email",
+      "role": "Role",
+      "country": "Country"
+    },
+    "messages": {
+      "simulatedError": "Simulated network error for demo."
+    }
+  },
+  "wizard": {
+    "pages": {
+      "daisyTitle": "Wizard daisy placeholder",
+      "daisySubtitle": "Wizard Daisy renderer will be implemented in a next iteration."
+    }
+  }
+}

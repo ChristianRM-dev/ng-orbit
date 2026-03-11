@@ -9,7 +9,7 @@ ng-orbit targets **modern Angular**:
 - New control flow (`@if`, `@for`, `@switch`)
 - Design-system agnostic (Material, DaisyUI/Tailwind, custom UI)
 
-> Baseline: Angular **21.2.0**. First stable target: Angular **22**.
+> Baseline: Angular **21.2.1**. First stable target: Angular **22**.
 
 ---
 
@@ -58,7 +58,9 @@ This lets consumers fully control:
 
 This repo uses **pnpm workspaces** and **Nx**.
 
-- `apps/demo/` — demo Angular app showcasing core + kit + default renderers
+- `apps/demo-core/` — host app (core/plain + isolated remotes)
+- `apps/demo-material/` — Material visual environment
+- `apps/demo-daisy/` — Daisy visual environment
 - `packages/` — publishable libraries
 - `docs/` — architecture and component specifications
 
@@ -76,6 +78,15 @@ pnpm install
 ### Run demo
 ```bash
 pnpm demo
+```
+
+Composition model: iframe-isolated demos (stability-first), with federation configs reserved for a future phase.
+
+Individual apps:
+```bash
+pnpm demo:core
+pnpm demo:material
+pnpm demo:daisy
 ```
 
 ### Build all

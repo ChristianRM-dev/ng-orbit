@@ -1,0 +1,104 @@
+.ng-orbit-table-core {
+  &__toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.7rem;
+  }
+
+  &__search {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.84rem;
+    color: #3a5248;
+
+    input {
+      border: 1px solid #c4d0c8;
+      border-radius: 0.5rem;
+      padding: 0.38rem 0.5rem;
+      min-width: 210px;
+      background: #fff;
+    }
+  }
+
+  &__summary {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #395147;
+    font-size: 0.82rem;
+  }
+
+  &__table-wrap {
+    overflow-x: auto;
+    border: 1px solid #d7e0da;
+    border-radius: 0.65rem;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+
+    th,
+    td {
+      border-bottom: 1px solid #e1e8e3;
+      padding: 0.5rem;
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    tbody tr:hover {
+      background: #f5faf7;
+    }
+  }
+
+  &__sort-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.9;
+    }
+  }
+
+  &__pager {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    flex-wrap: wrap;
+    margin-top: 0.8rem;
+
+    button,
+    select {
+      border: 1px solid #c3d0c8;
+      background: #fff;
+      border-radius: 0.44rem;
+      padding: 0.32rem 0.46rem;
+      color: #223d34;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+    }
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.38rem;
+      font-size: 0.84rem;
+      color: #30493f;
+    }
+  }
+}

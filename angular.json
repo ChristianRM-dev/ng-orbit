@@ -1,0 +1,106 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "pnpm",
+    "cache": { "enabled": false },
+    "analytics": "5d8619b8-ad0c-4831-a0df-d9a83572da9e"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "demo-core": {
+      "projectType": "application",
+      "root": "apps/demo-core",
+      "sourceRoot": "apps/demo-core/src",
+      "prefix": "ng-orbit-core",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/demo-core/src/main.ts",
+            "tsConfig": "apps/demo-core/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              { "glob": "**/*", "input": "apps/demo-core/public", "output": "/" }
+            ],
+            "styles": ["apps/demo-core/src/styles.scss"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial", "maximumWarning": "500kB", "maximumError": "1MB" },
+                { "type": "anyComponentStyle", "maximumWarning": "12kB", "maximumError": "18kB" }
+              ],
+              "optimization": { "fonts": false },
+              "outputHashing": "all"
+            },
+            "development": { "optimization": false, "sourceMap": true }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "demo-core:build:production" },
+            "development": { "buildTarget": "demo-core:build:development" }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "demo-material": {
+      "projectType": "application",
+      "root": "apps/demo-material",
+      "sourceRoot": "apps/demo-material/src",
+      "prefix": "ng-orbit-material",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/demo-material/src/main.ts",
+            "tsConfig": "apps/demo-material/tsconfig.app.json",
+            "assets": [
+              { "glob": "**/*", "input": "apps/demo-material/public", "output": "/" }
+            ],
+            "styles": ["apps/demo-material/src/styles.scss"]
+          },
+          "configurations": {
+            "production": { "optimization": { "fonts": false }, "outputHashing": "all" },
+            "development": { "optimization": false, "sourceMap": true }
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "demo-daisy": {
+      "projectType": "application",
+      "root": "apps/demo-daisy",
+      "sourceRoot": "apps/demo-daisy/src",
+      "prefix": "ng-orbit-daisy",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "apps/demo-daisy/src/main.ts",
+            "tsConfig": "apps/demo-daisy/tsconfig.app.json",
+            "assets": [
+              { "glob": "**/*", "input": "apps/demo-daisy/public", "output": "/" }
+            ],
+            "styles": ["apps/demo-daisy/src/styles.scss"]
+          },
+          "configurations": {
+            "production": { "optimization": { "fonts": false }, "outputHashing": "all" },
+            "development": { "optimization": false, "sourceMap": true }
+          }
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "defaultConfiguration": "development"
+        }
+      }
+    }
+  }
+}

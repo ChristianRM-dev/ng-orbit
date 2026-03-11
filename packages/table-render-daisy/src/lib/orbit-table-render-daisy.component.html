@@ -1,0 +1,108 @@
+<section class="space-y-4">
+  <div class="flex flex-wrap items-end gap-3">
+    <label class="form-control w-full max-w-xs">
+      <div class="label"><span class="label-text">Search</span></div>
+      <input
+        type="search"
+        class="input input-bordered"
+        [value]="table().query().search"
+        (input)="onSearchInput($event)"
+      />
+    </label>
+
+    <div class="join">
+      <button
+        class="btn join-item"
+        type="button"
+        [disabled]="!table().canPrevPage()"
+        (click)="table().setPage(table().query().page - 1)"
+      >
+        Prev
+      </button>
+      <button class="btn join-item btn-ghost" type="button" disabled>
+        {{ table().query().page }} / {{ totalPages() }}
+      </button>
+      <button
+        class="btn join-item"
+        type="button"
+        [disabled]="!table().canNextPage()"
+        (click)="table().setPage(table().query().page + 1)"
+      >
+        Next
+      </button>
+    </div>
+
+    <label class="form-control w-24">
+      <div class="label"><span class="label-text">Size</span></div>
+      <select class="select select-bordered" [value]="table().query().pageSize" (change)="onPageSizeChange($event)">
+        @for (size of pageSizeOptions; track size) {
+          <option [value]="size">{{ size }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <div class="overflow-x-auto rounded-box border border-base-content/10 bg-base-100">
+    <table class="table table-zebra w-full">
+      <thead>
+        <tr>
+          <th>Select</th>
+          @for (column of table().columns(); track column.id) {
+            <th>
+              <button class="btn btn-ghost btn-sm px-0" type="button" [disabled]="!column.sortable" (click)="table().toggleSort(column.id)">
+                <ng-container
+                  [ngTemplateOutlet]="resolveHeaderTemplate(column) ?? null"
+                  [ngTemplateOutletContext]="getHeaderContext(column)"
+                ></ng-container>
+                @if (!resolveHeaderTemplate(column)) {
+                  {{ resolveHeaderLabel(column) }}
+                }
+                <span class="text-xs opacity-60">{{ getSortIndicator(column) }}</span>
+              </button>
+            </th>
+          }
+        </tr>
+      </thead>
+
+      <tbody>
+        @if (table().loading()) {
+          <tr>
+            <td [attr.colspan]="table().columns().length + 1">Loading...</td>
+          </tr>
+        }
+        @if (!table().loading() && table().error()) {
+          <tr>
+            <td [attr.colspan]="table().columns().length + 1">Error: {{ table().error() }}</td>
+          </tr>
+        }
+        @if (!table().loading() && !table().error() && table().rows().length === 0) {
+          <tr>
+            <td [attr.colspan]="table().columns().length + 1">No rows</td>
+          </tr>
+        }
+
+        @if (!table().loading() && !table().error() && table().rows().length > 0) {
+          @for (row of table().rows(); track table().resolveRowId(row); let rowIndex = $index) {
+            <tr>
+              <td>
+                <input type="checkbox" class="checkbox checkbox-sm" [checked]="table().isRowSelected(row)" (change)="table().toggleRow(row)" />
+              </td>
+              @for (column of table().columns(); track column.id) {
+                <td>
+                  @if (column.cellTemplate) {
+                    <ng-container
+                      [ngTemplateOutlet]="column.cellTemplate"
+                      [ngTemplateOutletContext]="getCellContext(row, column, rowIndex)"
+                    ></ng-container>
+                  } @else {
+                    {{ resolveCellValue(row, column) }}
+                  }
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

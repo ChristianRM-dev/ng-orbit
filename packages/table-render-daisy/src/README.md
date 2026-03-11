@@ -1,3 +1,7 @@
 # @ng-orbit/table-render-daisy
 
-Placeholder. Implement per docs in /docs.
+DaisyUI renderer for `@ng-orbit/table`.
+
+- Uses Tailwind + Daisy classes from host app
+- Calls only core controller commands
+- No data fetching logic

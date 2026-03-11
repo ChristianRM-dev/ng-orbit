@@ -1,0 +1,116 @@
+<section class="ng-orbit-table-page">
+  <header class="ng-orbit-table-page__header">
+    <h2 class="ng-orbit-table-page__title">{{ 'table.pages.coreTitle' | translate }}</h2>
+    <p class="ng-orbit-table-page__subtitle">{{ 'table.pages.coreSubtitle' | translate }}</p>
+  </header>
+
+  <section
+    orbitTable
+    #table="orbitTable"
+    [rows]="facade.rows()"
+    [columns]="facade.columns()"
+    [total]="facade.total()"
+    [loading]="facade.loading()"
+    [error]="facade.error()"
+    [query]="facade.query()"
+    [getRowId]="facade.getRowId"
+    (orbitTableQueryChange)="facade.onQueryChange($event)"
+    (orbitTableSelectionChange)="facade.onSelectionChange($event)"
+  >
+    <div class="ng-orbit-table-core__toolbar">
+      <label class="ng-orbit-table-core__search">
+        <span>{{ 'table.controls.search' | translate }}</span>
+        <input
+          type="search"
+          [value]="table.query().search"
+          (input)="table.setSearch(parseSearch($event))"
+        />
+      </label>
+
+      <div class="ng-orbit-table-core__summary">
+        <span>{{ 'table.meta.total' | translate }}: {{ table.total() }}</span>
+        <span>{{ 'table.meta.selected' | translate }}: {{ table.selection().selected.size }}</span>
+      </div>
+    </div>
+
+    <div class="ng-orbit-table-core__table-wrap">
+      <table class="ng-orbit-table-core__table">
+        <thead>
+          <tr>
+            <th scope="col">{{ 'table.controls.select' | translate }}</th>
+            @for (column of table.columns(); track column.id) {
+              <th scope="col">
+                <button
+                  class="ng-orbit-table-core__sort-btn"
+                  type="button"
+                  [disabled]="!column.sortable"
+                  (click)="table.toggleSort(column.id)"
+                >
+                  {{ renderHeader(column) }}
+                  <small>{{ facade.getSortIndicator(column.id) }}</small>
+                </button>
+              </th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @if (table.loading()) {
+            <tr>
+              <td [attr.colspan]="table.columns().length + 1">
+                {{ 'table.states.loading' | translate }}
+              </td>
+            </tr>
+          }
+
+          @if (!table.loading() && table.error()) {
+            <tr>
+              <td [attr.colspan]="table.columns().length + 1">{{ table.error() }}</td>
+            </tr>
+          }
+
+          @if (!table.loading() && !table.error() && table.rows().length === 0) {
+            <tr>
+              <td [attr.colspan]="table.columns().length + 1">
+                {{ 'table.states.empty' | translate }}
+              </td>
+            </tr>
+          }
+
+          @for (row of table.rows(); track row.id) {
+            <tr>
+              <td>
+                <input type="checkbox" [checked]="table.isRowSelected(row)" (change)="table.toggleRow(row)" />
+              </td>
+              @for (column of table.columns(); track column.id) {
+                <td>
+                  {{ facade.resolveCellValue(row, column) }}
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="ng-orbit-table-core__pager">
+      <button type="button" [disabled]="!table.canPrevPage()" (click)="table.setPage(table.query().page - 1)">
+        {{ 'table.pagination.prev' | translate }}
+      </button>
+      <span>
+        {{ 'table.pagination.page' | translate }} {{ table.query().page }} / {{ facade.totalPages() }}
+      </span>
+      <button type="button" [disabled]="!table.canNextPage()" (click)="table.setPage(table.query().page + 1)">
+        {{ 'table.pagination.next' | translate }}
+      </button>
+
+      <label>
+        {{ 'table.pagination.pageSize' | translate }}
+        <select [value]="table.query().pageSize" (change)="table.setPageSize(parsePageSize($event))">
+          <option [value]="10">10</option>
+          <option [value]="25">25</option>
+          <option [value]="50">50</option>
+        </select>
+      </label>
+    </footer>
+  </section>
+</section>

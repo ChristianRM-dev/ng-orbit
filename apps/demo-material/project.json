@@ -1,0 +1,33 @@
+{
+  "name": "demo-material",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "root": "apps/demo-material",
+  "sourceRoot": "apps/demo-material/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng build demo-material"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng serve demo-material --host 127.0.0.1 --port 4201"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ng test demo-material --watch=false"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p apps/demo-material/tsconfig.app.json --noEmit"
+      }
+    }
+  }
+}

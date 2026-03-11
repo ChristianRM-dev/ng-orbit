@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+@use './styles/tokens';
+@use './styles/base';
+@use './styles/layout';
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: mat.$blue-palette,
+        tertiary: mat.$azure-palette
+      ),
+      typography: Roboto,
+      density: 0
+    )
+  );
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

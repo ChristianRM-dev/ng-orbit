@@ -1,0 +1,7 @@
+@use './styles/tokens';
+@use './styles/base';
+@use './styles/layout';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

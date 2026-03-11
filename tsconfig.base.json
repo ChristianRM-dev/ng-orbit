@@ -7,6 +7,12 @@
       "@ng-orbit/table": [
         "packages/table/src/public-api.ts"
       ],
+      "@ng-orbit/table-render-daisy": [
+        "packages/table-render-daisy/src/public-api.ts"
+      ],
+      "@ng-orbit/table-render-material": [
+        "packages/table-render-material/src/public-api.ts"
+      ],
       "@ng-orbit/table-render-plain": [
         "packages/table-render-plain/src/public-api.ts"
       ]

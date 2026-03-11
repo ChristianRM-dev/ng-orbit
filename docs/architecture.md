@@ -41,4 +41,4 @@ Renderers must be optional dependencies so core stays lightweight.
 - ng-orbit does not own consumer forms (wizard steps are consumer components).
 
 ## Angular target
-Development baseline is Angular 21.2.0, with first stable release aiming at Angular 22.
+Development baseline is Angular 21.2.1, with first stable release aiming at Angular 22.

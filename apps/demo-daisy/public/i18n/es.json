@@ -1,0 +1,47 @@
+{
+  "layout": {
+    "title": "demo daisy ng-orbit",
+    "subtitle": "Design pattern Tailwind + Daisy",
+    "demoDaisy": "Aplicación remota Daisy",
+    "navigation": "Navegación principal",
+    "language": "Idioma",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "nav": {
+    "tableDaisy": "Tabla daisy",
+    "wizardDaisy": "Wizard daisy"
+  },
+  "table": {
+    "pages": {
+      "daisyTitle": "Renderer de tabla: DaisyUI",
+      "daisySubtitle": "Clases Daisy reales con estilos aislados por app."
+    },
+    "meta": {
+      "total": "Total",
+      "selected": "Seleccionadas"
+    },
+    "scenarios": {
+      "label": "Escenarios de datos",
+      "normal": "Normal",
+      "empty": "Vacío",
+      "error": "Error"
+    },
+    "columns": {
+      "id": "ID",
+      "fullName": "Nombre",
+      "email": "Correo",
+      "role": "Rol",
+      "country": "País"
+    },
+    "messages": {
+      "simulatedError": "Error de red simulado para el demo."
+    }
+  },
+  "wizard": {
+    "pages": {
+      "daisyTitle": "Wizard daisy placeholder",
+      "daisySubtitle": "El renderer Daisy de wizard se implementará en una siguiente iteración."
+    }
+  }
+}

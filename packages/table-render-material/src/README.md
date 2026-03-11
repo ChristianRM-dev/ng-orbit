@@ -1,3 +1,7 @@
 # @ng-orbit/table-render-material
 
-Placeholder. Implement per docs in /docs.
+Angular Material renderer for `@ng-orbit/table`.
+
+- Uses Angular Material components
+- Calls only core controller commands
+- No data fetching logic

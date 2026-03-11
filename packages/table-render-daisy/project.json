@@ -1,6 +1,6 @@
 {
   "name": "@ng-orbit/table-render-daisy",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "root": "packages/table-render-daisy",
   "sourceRoot": "packages/table-render-daisy/src",
@@ -8,19 +8,19 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: build @ng-orbit/table-render-daisy\""
+        "command": "tsc -p packages/table-render-daisy/tsconfig.lib.json"
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: test @ng-orbit/table-render-daisy\""
+        "command": "tsc -p packages/table-render-daisy/tsconfig.spec.json --noEmit"
       }
     },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: lint @ng-orbit/table-render-daisy\""
+        "command": "tsc -p packages/table-render-daisy/tsconfig.lib.json --noEmit"
       }
     }
   }

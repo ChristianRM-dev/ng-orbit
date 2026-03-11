@@ -1,0 +1,47 @@
+{
+  "layout": {
+    "title": "ng-orbit material demo",
+    "subtitle": "Angular Material design pattern",
+    "demoMaterial": "Material remote app",
+    "navigation": "Main navigation",
+    "language": "Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "nav": {
+    "tableMaterial": "Table material",
+    "wizardMaterial": "Wizard material"
+  },
+  "table": {
+    "pages": {
+      "materialTitle": "Table renderer: Angular Material",
+      "materialSubtitle": "Real Material look with isolated app styles."
+    },
+    "meta": {
+      "total": "Total",
+      "selected": "Selected"
+    },
+    "scenarios": {
+      "label": "Data scenarios",
+      "normal": "Normal",
+      "empty": "Empty",
+      "error": "Error"
+    },
+    "columns": {
+      "id": "ID",
+      "fullName": "Full name",
+      "email": "Email",
+      "role": "Role",
+      "country": "Country"
+    },
+    "messages": {
+      "simulatedError": "Simulated network error for demo."
+    }
+  },
+  "wizard": {
+    "pages": {
+      "materialTitle": "Wizard material placeholder",
+      "materialSubtitle": "Wizard Material renderer will be implemented in a next iteration."
+    }
+  }
+}

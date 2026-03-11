@@ -4,7 +4,9 @@ This repository is a pnpm workspace monorepo managed with Nx.
 
 ## Top-level layout
 - `apps/`
-  - `demo/` — Angular demo app showcasing usage of core, kits, and optional renderers
+  - `demo-core/` — host app with core/plain demos and isolated remote embeds
+  - `demo-material/` — Angular Material visual demo app
+  - `demo-daisy/` — DaisyUI visual demo app
 - `packages/`
   - publishable libraries (`@ng-orbit/*`)
 - `docs/` — specifications and architecture
