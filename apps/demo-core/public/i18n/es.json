@@ -1,0 +1,86 @@
+{
+  "layout": {
+    "title": "demo core ng-orbit",
+    "subtitle": "Core headless + renderer plain con remotos aislados",
+    "demoCore": "Aplicación host core",
+    "navigation": "Navegación principal",
+    "language": "Idioma",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "nav": {
+    "tablePlain": "Tabla plain",
+    "tableCore": "Tabla core",
+    "tableMaterial": "Tabla material",
+    "tableDaisy": "Tabla daisy",
+    "wizardCore": "Wizard core",
+    "wizardMaterial": "Wizard material",
+    "wizardDaisy": "Wizard daisy"
+  },
+  "table": {
+    "pages": {
+      "plainTitle": "Página de tabla: renderer plain",
+      "plainSubtitle": "Renderer semántico de referencia sin estilos de design system.",
+      "coreTitle": "Página de tabla: markup del consumidor",
+      "coreSubtitle": "Markup controlado por el consumidor usando el controller headless.",
+      "materialTitle": "Renderer de tabla: Angular Material",
+      "materialSubtitle": "Look real de Material con estilos aislados por app.",
+      "daisyTitle": "Renderer de tabla: DaisyUI",
+      "daisySubtitle": "Clases Daisy reales con estilos aislados por app."
+    },
+    "meta": {
+      "total": "Total",
+      "selected": "Seleccionadas"
+    },
+    "scenarios": {
+      "label": "Escenarios de datos",
+      "normal": "Normal",
+      "empty": "Vacío",
+      "error": "Error"
+    },
+    "controls": {
+      "search": "Buscar",
+      "select": "Seleccionar"
+    },
+    "states": {
+      "loading": "Cargando...",
+      "empty": "Sin filas"
+    },
+    "pagination": {
+      "prev": "Anterior",
+      "next": "Siguiente",
+      "page": "Página",
+      "pageSize": "Tamaño de página"
+    },
+    "columns": {
+      "id": "ID",
+      "fullName": "Nombre",
+      "email": "Correo",
+      "role": "Rol",
+      "country": "País"
+    },
+    "messages": {
+      "simulatedError": "Error de red simulado para el demo."
+    }
+  },
+  "wizard": {
+    "pages": {
+      "coreTitle": "Wizard core placeholder",
+      "coreSubtitle": "El renderer core de wizard se implementará en una siguiente iteración.",
+      "materialTitle": "Wizard material placeholder",
+      "materialSubtitle": "El renderer Material de wizard se implementará en una siguiente iteración.",
+      "daisyTitle": "Wizard daisy placeholder",
+      "daisySubtitle": "El renderer Daisy de wizard se implementará en una siguiente iteración."
+    },
+    "placeholder": {
+      "title": "Wizard placeholder",
+      "subtitle": "Las rutas de wizard están disponibles; la implementación está pendiente."
+    }
+  },
+  "remote": {
+    "title": "Demo remoto",
+    "subtitle": "Aplicación remota embebida en iframe aislado.",
+    "missingManifest": "El manifest de remotos no está disponible. Inicia las apps remotas y recarga.",
+    "unavailable": "La app remota no responde. Verifica que el remoto esté corriendo en su puerto configurado."
+  }
+}

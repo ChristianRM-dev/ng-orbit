@@ -1,0 +1,86 @@
+{
+  "layout": {
+    "title": "ng-orbit core demo",
+    "subtitle": "Headless core + plain renderer with isolated remotes",
+    "demoCore": "Core host app",
+    "navigation": "Main navigation",
+    "language": "Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "nav": {
+    "tablePlain": "Table plain",
+    "tableCore": "Table core",
+    "tableMaterial": "Table material",
+    "tableDaisy": "Table daisy",
+    "wizardCore": "Wizard core",
+    "wizardMaterial": "Wizard material",
+    "wizardDaisy": "Wizard daisy"
+  },
+  "table": {
+    "pages": {
+      "plainTitle": "Table page: plain renderer",
+      "plainSubtitle": "Reference semantic renderer with no design-system styles.",
+      "coreTitle": "Table page: core-only markup",
+      "coreSubtitle": "Consumer-owned markup using the headless table controller.",
+      "materialTitle": "Table renderer: Angular Material",
+      "materialSubtitle": "Real Material look with isolated app styles.",
+      "daisyTitle": "Table renderer: DaisyUI",
+      "daisySubtitle": "Real Daisy classes with isolated app styles."
+    },
+    "meta": {
+      "total": "Total",
+      "selected": "Selected"
+    },
+    "scenarios": {
+      "label": "Data scenarios",
+      "normal": "Normal",
+      "empty": "Empty",
+      "error": "Error"
+    },
+    "controls": {
+      "search": "Search",
+      "select": "Select"
+    },
+    "states": {
+      "loading": "Loading...",
+      "empty": "No rows"
+    },
+    "pagination": {
+      "prev": "Prev",
+      "next": "Next",
+      "page": "Page",
+      "pageSize": "Page size"
+    },
+    "columns": {
+      "id": "ID",
+      "fullName": "Full name",
+      "email": "Email",
+      "role": "Role",
+      "country": "Country"
+    },
+    "messages": {
+      "simulatedError": "Simulated network error for demo."
+    }
+  },
+  "wizard": {
+    "pages": {
+      "coreTitle": "Wizard core placeholder",
+      "coreSubtitle": "Wizard core renderer will be implemented in a next iteration.",
+      "materialTitle": "Wizard material placeholder",
+      "materialSubtitle": "Wizard Material renderer will be implemented in a next iteration.",
+      "daisyTitle": "Wizard daisy placeholder",
+      "daisySubtitle": "Wizard Daisy renderer will be implemented in a next iteration."
+    },
+    "placeholder": {
+      "title": "Wizard placeholder",
+      "subtitle": "Wizard routes are available, implementation is pending."
+    }
+  },
+  "remote": {
+    "title": "Remote demo",
+    "subtitle": "Remote app embedded via isolated iframe.",
+    "missingManifest": "Remote manifest is unavailable. Start the remote demo app(s) and reload.",
+    "unavailable": "Remote app is unreachable. Verify the remote is running on its configured port."
+  }
+}
