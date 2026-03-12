@@ -29,6 +29,7 @@ import type {
     MatTableModule
   ],
   templateUrl: './orbit-table-render-material.component.html',
+  styleUrl: './orbit-table-render-material.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrbitTableRenderMaterialComponent<T> {

@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { OrbitTableDirective } from '@ng-orbit/table';
 import { OrbitTableRenderPlainComponent } from '@ng-orbit/table-render-plain';
-import { TranslatePipe } from '@ngx-translate/core';
 import { TableDemoFacade } from './table-demo.facade';
 
 @Component({
   selector: 'ng-orbit-table-plain-page',
   standalone: true,
-  imports: [OrbitTableDirective, OrbitTableRenderPlainComponent, TranslatePipe],
+  imports: [OrbitTableDirective, OrbitTableRenderPlainComponent],
   providers: [TableDemoFacade],
   templateUrl: './table-plain-page.component.html',
   styleUrl: './table-plain-page.component.scss',

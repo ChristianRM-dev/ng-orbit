@@ -1,43 +1,16 @@
-<section class="ng-orbit-table-page">
-  <header class="ng-orbit-table-page__header">
-    <h2 class="ng-orbit-table-page__title">{{ 'table.pages.plainTitle' | translate }}</h2>
-    <p class="ng-orbit-table-page__subtitle">{{ 'table.pages.plainSubtitle' | translate }}</p>
-  </header>
-
-  <div class="ng-orbit-table-page__meta">
-    <span class="ng-orbit-table-page__badge">
-      {{ 'table.meta.total' | translate }}: {{ facade.total() }}
-    </span>
-    <span class="ng-orbit-table-page__badge">
-      {{ 'table.meta.selected' | translate }}: {{ facade.selectedCount() }}
-    </span>
-  </div>
-
-  <div class="ng-orbit-table-page__scenarios" role="group" [attr.aria-label]="'table.scenarios.label' | translate">
-    <button type="button" class="ng-orbit-table-page__scenario-btn" (click)="facade.applyScenarioSearch('')">
-      {{ 'table.scenarios.normal' | translate }}
-    </button>
-    <button type="button" class="ng-orbit-table-page__scenario-btn" (click)="facade.applyScenarioSearch('empty')">
-      {{ 'table.scenarios.empty' | translate }}
-    </button>
-    <button type="button" class="ng-orbit-table-page__scenario-btn" (click)="facade.applyScenarioSearch('error')">
-      {{ 'table.scenarios.error' | translate }}
-    </button>
-  </div>
-
-  <section
-    orbitTable
-    #table="orbitTable"
-    [rows]="facade.rows()"
-    [columns]="facade.columns()"
-    [total]="facade.total()"
-    [loading]="facade.loading()"
-    [error]="facade.error()"
-    [query]="facade.query()"
-    [getRowId]="facade.getRowId"
-    (orbitTableQueryChange)="facade.onQueryChange($event)"
-    (orbitTableSelectionChange)="facade.onSelectionChange($event)"
-  >
-    <orbit-table-render-plain [table]="table" />
-  </section>
+<section
+  class="ng-orbit-table-surface"
+  orbitTable
+  #table="orbitTable"
+  [rows]="facade.rows()"
+  [columns]="facade.columns()"
+  [total]="facade.total()"
+  [loading]="facade.loading()"
+  [error]="facade.error()"
+  [query]="facade.query()"
+  [getRowId]="facade.getRowId"
+  (orbitTableQueryChange)="facade.onQueryChange($event)"
+  (orbitTableSelectionChange)="facade.onSelectionChange($event)"
+>
+  <orbit-table-render-plain [table]="table" />
 </section>

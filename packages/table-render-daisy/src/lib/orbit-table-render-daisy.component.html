@@ -1,7 +1,9 @@
-<section class="space-y-4">
-  <div class="flex flex-wrap items-end gap-3">
-    <label class="form-control w-full max-w-xs">
-      <div class="label"><span class="label-text">Search</span></div>
+<section class="ng-orbit-daisy-render">
+  <div class="ng-orbit-daisy-render__top-controls">
+    <label class="form-control ng-orbit-daisy-render__search">
+      <div class="label">
+        <span class="label-text">Search</span>
+      </div>
       <input
         type="search"
         class="input input-bordered"
@@ -9,40 +11,9 @@
         (input)="onSearchInput($event)"
       />
     </label>
-
-    <div class="join">
-      <button
-        class="btn join-item"
-        type="button"
-        [disabled]="!table().canPrevPage()"
-        (click)="table().setPage(table().query().page - 1)"
-      >
-        Prev
-      </button>
-      <button class="btn join-item btn-ghost" type="button" disabled>
-        {{ table().query().page }} / {{ totalPages() }}
-      </button>
-      <button
-        class="btn join-item"
-        type="button"
-        [disabled]="!table().canNextPage()"
-        (click)="table().setPage(table().query().page + 1)"
-      >
-        Next
-      </button>
-    </div>
-
-    <label class="form-control w-24">
-      <div class="label"><span class="label-text">Size</span></div>
-      <select class="select select-bordered" [value]="table().query().pageSize" (change)="onPageSizeChange($event)">
-        @for (size of pageSizeOptions; track size) {
-          <option [value]="size">{{ size }}</option>
-        }
-      </select>
-    </label>
   </div>
 
-  <div class="overflow-x-auto rounded-box border border-base-content/10 bg-base-100">
+  <div class="ng-orbit-daisy-render__table-wrap overflow-x-auto rounded-box border border-base-content/10 bg-base-100">
     <table class="table table-zebra w-full">
       <thead>
         <tr>
@@ -105,4 +76,39 @@
       </tbody>
     </table>
   </div>
+
+  <footer class="ng-orbit-daisy-render__bottom-controls">
+    <div class="join">
+      <button
+        class="btn join-item"
+        type="button"
+        [disabled]="!table().canPrevPage()"
+        (click)="table().setPage(table().query().page - 1)"
+      >
+        Prev
+      </button>
+      <button class="btn join-item btn-ghost" type="button" disabled>
+        {{ table().query().page }} / {{ totalPages() }}
+      </button>
+      <button
+        class="btn join-item"
+        type="button"
+        [disabled]="!table().canNextPage()"
+        (click)="table().setPage(table().query().page + 1)"
+      >
+        Next
+      </button>
+    </div>
+
+    <label class="form-control w-24">
+      <div class="label">
+        <span class="label-text">Size</span>
+      </div>
+      <select class="select select-bordered" [value]="table().query().pageSize" (change)="onPageSizeChange($event)">
+        @for (size of pageSizeOptions; track size) {
+          <option [value]="size">{{ size }}</option>
+        }
+      </select>
+    </label>
+  </footer>
 </section>

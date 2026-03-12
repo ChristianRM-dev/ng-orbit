@@ -13,6 +13,7 @@ import type {
   standalone: true,
   imports: [NgTemplateOutlet],
   templateUrl: './orbit-table-render-daisy.component.html',
+  styleUrl: './orbit-table-render-daisy.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrbitTableRenderDaisyComponent<T> {

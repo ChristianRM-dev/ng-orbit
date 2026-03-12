@@ -12,7 +12,8 @@ import type {
   selector: 'orbit-table-render-plain',
   standalone: true,
   imports: [NgTemplateOutlet],
-  templateUrl: './orbit-table-render-plain.component.html'
+  templateUrl: './orbit-table-render-plain.component.html',
+  styleUrl: './orbit-table-render-plain.component.scss'
 })
 export class OrbitTableRenderPlainComponent<T> {
   readonly table = input.required<OrbitTableDirective<T>>();

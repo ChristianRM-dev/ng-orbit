@@ -1,2 +1,6 @@
-@use './table-page.shared';
-@use './table-core.shared';
+@use "./table-page.shared";
+@use "./table-core.shared";
+
+.ng-orbit-table-surface {
+  padding: 0.85rem;
+}

@@ -1,5 +1,5 @@
 <section class="ng-orbit-material-render">
-  <div class="ng-orbit-material-render__toolbar">
+  <div class="ng-orbit-material-render__top-controls">
     <mat-form-field appearance="outline" class="ng-orbit-material-render__search">
       <mat-label>Search</mat-label>
       <input
@@ -9,7 +9,73 @@
         (input)="onSearchInput($event)"
       />
     </mat-form-field>
+  </div>
 
+  <div class="ng-orbit-material-render__table-wrap">
+    <table mat-table [dataSource]="table().rows()" class="mat-elevation-z1 ng-orbit-material-render__table">
+      <ng-container matColumnDef="__select">
+        <th mat-header-cell *matHeaderCellDef>Select</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [checked]="table().isRowSelected(row)" (change)="table().toggleRow(row)"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      @for (column of table().columns(); track column.id) {
+        <ng-container [matColumnDef]="column.id">
+          <th mat-header-cell *matHeaderCellDef>
+            <button
+              mat-button
+              type="button"
+              [disabled]="!column.sortable"
+              (click)="table().toggleSort(column.id)"
+            >
+              <ng-container
+                [ngTemplateOutlet]="resolveHeaderTemplate(column) ?? null"
+                [ngTemplateOutletContext]="getHeaderContext(column)"
+              ></ng-container>
+              @if (!resolveHeaderTemplate(column)) {
+                {{ resolveHeaderLabel(column) }}
+              }
+              @if (column.sortable) {
+                <mat-icon>{{ getSortIcon(column) }}</mat-icon>
+              }
+            </button>
+          </th>
+          <td mat-cell *matCellDef="let row; let rowIndex = index">
+            @if (column.cellTemplate) {
+              <ng-container
+                [ngTemplateOutlet]="column.cellTemplate"
+                [ngTemplateOutletContext]="getCellContext(row, column, rowIndex)"
+              ></ng-container>
+            } @else {
+              {{ resolveCellValue(row, column) }}
+            }
+          </td>
+        </ng-container>
+      }
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
+
+      @if (table().loading()) {
+        <tr>
+          <td [attr.colspan]="displayedColumns().length">Loading...</td>
+        </tr>
+      }
+      @if (!table().loading() && table().error()) {
+        <tr>
+          <td [attr.colspan]="displayedColumns().length">Error: {{ table().error() }}</td>
+        </tr>
+      }
+      @if (!table().loading() && !table().error() && table().rows().length === 0) {
+        <tr>
+          <td [attr.colspan]="displayedColumns().length">No rows</td>
+        </tr>
+      }
+    </table>
+  </div>
+
+  <footer class="ng-orbit-material-render__bottom-controls">
     <div class="ng-orbit-material-render__pager-actions">
       <button
         mat-stroked-button
@@ -28,77 +94,15 @@
       >
         Next
       </button>
-
-      <mat-form-field appearance="outline" class="ng-orbit-material-render__page-size">
-        <mat-label>Size</mat-label>
-        <mat-select [value]="table().query().pageSize" (selectionChange)="table().setPageSize($event.value)">
-          @for (size of pageSizeOptions; track size) {
-            <mat-option [value]="size">{{ size }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
     </div>
-  </div>
 
-  <table mat-table [dataSource]="table().rows()" class="mat-elevation-z1 ng-orbit-material-render__table">
-    <ng-container matColumnDef="__select">
-      <th mat-header-cell *matHeaderCellDef>Select</th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox [checked]="table().isRowSelected(row)" (change)="table().toggleRow(row)"></mat-checkbox>
-      </td>
-    </ng-container>
-
-    @for (column of table().columns(); track column.id) {
-      <ng-container [matColumnDef]="column.id">
-        <th mat-header-cell *matHeaderCellDef>
-          <button
-            mat-button
-            type="button"
-            [disabled]="!column.sortable"
-            (click)="table().toggleSort(column.id)"
-          >
-            <ng-container
-              [ngTemplateOutlet]="resolveHeaderTemplate(column) ?? null"
-              [ngTemplateOutletContext]="getHeaderContext(column)"
-            ></ng-container>
-            @if (!resolveHeaderTemplate(column)) {
-              {{ resolveHeaderLabel(column) }}
-            }
-            @if (column.sortable) {
-              <mat-icon>{{ getSortIcon(column) }}</mat-icon>
-            }
-          </button>
-        </th>
-        <td mat-cell *matCellDef="let row; let rowIndex = index">
-          @if (column.cellTemplate) {
-            <ng-container
-              [ngTemplateOutlet]="column.cellTemplate"
-              [ngTemplateOutletContext]="getCellContext(row, column, rowIndex)"
-            ></ng-container>
-          } @else {
-            {{ resolveCellValue(row, column) }}
-          }
-        </td>
-      </ng-container>
-    }
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
-
-    @if (table().loading()) {
-      <tr>
-        <td [attr.colspan]="displayedColumns().length">Loading...</td>
-      </tr>
-    }
-    @if (!table().loading() && table().error()) {
-      <tr>
-        <td [attr.colspan]="displayedColumns().length">Error: {{ table().error() }}</td>
-      </tr>
-    }
-    @if (!table().loading() && !table().error() && table().rows().length === 0) {
-      <tr>
-        <td [attr.colspan]="displayedColumns().length">No rows</td>
-      </tr>
-    }
-  </table>
+    <mat-form-field appearance="outline" class="ng-orbit-material-render__page-size">
+      <mat-label>Size</mat-label>
+      <mat-select [value]="table().query().pageSize" (selectionChange)="table().setPageSize($event.value)">
+        @for (size of pageSizeOptions; track size) {
+          <mat-option [value]="size">{{ size }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </footer>
 </section>

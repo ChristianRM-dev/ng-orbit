@@ -1,60 +1,7 @@
-.ng-orbit-table-page {
-  background: rgb(255 255 255 / 0.86);
+.ng-orbit-table-surface {
+  min-height: calc(100dvh - 180px);
   border: 1px solid #d8e1db;
-  border-radius: 0.9rem;
-  box-shadow: 0 10px 24px rgb(22 40 31 / 0.06);
-  padding: 1rem;
-
-  &__header {
-    margin-bottom: 0.95rem;
-  }
-
-  &__title {
-    margin: 0;
-    color: #1c372e;
-    font-size: 1.03rem;
-  }
-
-  &__subtitle {
-    margin: 0.24rem 0 0;
-    color: #4d6459;
-    font-size: 0.87rem;
-  }
-
-  &__meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 0.7rem;
-  }
-
-  &__badge {
-    border: 1px solid #cfdbd3;
-    border-radius: 999px;
-    padding: 0.22rem 0.62rem;
-    font-size: 0.8rem;
-    color: #294238;
-    background: #f4f8f5;
-  }
-
-  &__scenarios {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
-    margin: 0 0 0.95rem;
-  }
-
-  &__scenario-btn {
-    border: 1px solid #bccac1;
-    border-radius: 0.52rem;
-    background: #fff;
-    color: #244137;
-    font-size: 0.82rem;
-    padding: 0.37rem 0.58rem;
-    cursor: pointer;
-
-    &:hover {
-      background: #f2f7f3;
-    }
-  }
+  border-radius: 0.65rem;
+  overflow: hidden;
+  background: #fff;
 }

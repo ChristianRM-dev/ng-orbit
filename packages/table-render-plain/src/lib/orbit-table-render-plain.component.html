@@ -1,123 +1,129 @@
-<section>
-  <label>
-    Search
-    <input
-      type="search"
-      [value]="table().query().search"
-      (input)="onSearchInput($event)"
-    />
-  </label>
-</section>
+<section class="ng-orbit-plain-render">
+  <div class="ng-orbit-plain-render__top-controls">
+    <label class="ng-orbit-plain-render__search">
+      Search
+      <input
+        type="search"
+        [value]="table().query().search"
+        (input)="onSearchInput($event)"
+      />
+    </label>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th scope="col">Select</th>
-      @for (column of table().columns(); track column.id) {
-        <th scope="col">
-          @if (column.sortable) {
-            <button type="button" (click)="table().toggleSort(column.id)">
-              <ng-container
-                [ngTemplateOutlet]="resolveHeaderTemplate(column) ?? null"
-                [ngTemplateOutletContext]="getHeaderContext(column)"
-              >
-              </ng-container>
-              @if (!resolveHeaderTemplate(column)) {
-                {{ resolveHeaderLabel(column) }}
-              }
-              <small>{{ getSortIndicator(column) }}</small>
-            </button>
-          } @else {
-            <ng-container
-              [ngTemplateOutlet]="resolveHeaderTemplate(column) ?? null"
-              [ngTemplateOutletContext]="getHeaderContext(column)"
-            >
-            </ng-container>
-            @if (!resolveHeaderTemplate(column)) {
-              {{ resolveHeaderLabel(column) }}
-            }
-          }
-        </th>
-      }
-    </tr>
-  </thead>
-
-  <tbody>
-    @if (table().loading()) {
-      <tr>
-        <td [attr.colspan]="table().columns().length + 1">Loading...</td>
-      </tr>
-    }
-
-    @if (!table().loading() && table().error()) {
-      <tr>
-        <td [attr.colspan]="table().columns().length + 1">
-          Error: {{ table().error() }}
-        </td>
-      </tr>
-    }
-
-    @if (!table().loading() && !table().error() && table().rows().length === 0) {
-      <tr>
-        <td [attr.colspan]="table().columns().length + 1">No rows</td>
-      </tr>
-    }
-
-    @if (!table().loading() && !table().error() && table().rows().length > 0) {
-      @for (row of table().rows(); track table().resolveRowId(row); let rowIndex = $index) {
+  <div class="ng-orbit-plain-render__table-wrap">
+    <table class="ng-orbit-plain-render__table">
+      <thead>
         <tr>
-          <td>
-            <input
-              type="checkbox"
-              [checked]="table().isRowSelected(row)"
-              (change)="table().toggleRow(row)"
-            />
-          </td>
-
+          <th scope="col">Select</th>
           @for (column of table().columns(); track column.id) {
-            <td>
-              @if (column.cellTemplate) {
+            <th scope="col">
+              @if (column.sortable) {
+                <button type="button" (click)="table().toggleSort(column.id)">
+                  <ng-container
+                    [ngTemplateOutlet]="resolveHeaderTemplate(column) ?? null"
+                    [ngTemplateOutletContext]="getHeaderContext(column)"
+                  >
+                  </ng-container>
+                  @if (!resolveHeaderTemplate(column)) {
+                    {{ resolveHeaderLabel(column) }}
+                  }
+                  <small>{{ getSortIndicator(column) }}</small>
+                </button>
+              } @else {
                 <ng-container
-                  [ngTemplateOutlet]="column.cellTemplate"
-                  [ngTemplateOutletContext]="getCellContext(row, column, rowIndex)"
+                  [ngTemplateOutlet]="resolveHeaderTemplate(column) ?? null"
+                  [ngTemplateOutletContext]="getHeaderContext(column)"
                 >
                 </ng-container>
-              } @else {
-                {{ resolveCellValue(row, column) }}
+                @if (!resolveHeaderTemplate(column)) {
+                  {{ resolveHeaderLabel(column) }}
+                }
               }
-            </td>
+            </th>
           }
         </tr>
-      }
-    }
-  </tbody>
-</table>
+      </thead>
 
-<nav aria-label="Pagination controls">
-  <button
-    type="button"
-    [disabled]="!table().canPrevPage()"
-    (click)="table().setPage(table().query().page - 1)"
-  >
-    Prev
-  </button>
-  <span>Page {{ table().query().page }} / {{ getTotalPages() }}</span>
-  <button
-    type="button"
-    [disabled]="!table().canNextPage()"
-    (click)="table().setPage(table().query().page + 1)"
-  >
-    Next
-  </button>
+      <tbody>
+        @if (table().loading()) {
+          <tr>
+            <td [attr.colspan]="table().columns().length + 1">Loading...</td>
+          </tr>
+        }
 
-  <label>
-    Page size
-    <select [value]="table().query().pageSize" (change)="onPageSizeChange($event)">
-      @for (size of pageSizeOptions; track size) {
-        <option [value]="size">
-          {{ size }}
-        </option>
-      }
-    </select>
-  </label>
-</nav>
+        @if (!table().loading() && table().error()) {
+          <tr>
+            <td [attr.colspan]="table().columns().length + 1">
+              Error: {{ table().error() }}
+            </td>
+          </tr>
+        }
+
+        @if (!table().loading() && !table().error() && table().rows().length === 0) {
+          <tr>
+            <td [attr.colspan]="table().columns().length + 1">No rows</td>
+          </tr>
+        }
+
+        @if (!table().loading() && !table().error() && table().rows().length > 0) {
+          @for (row of table().rows(); track table().resolveRowId(row); let rowIndex = $index) {
+            <tr>
+              <td>
+                <input
+                  type="checkbox"
+                  [checked]="table().isRowSelected(row)"
+                  (change)="table().toggleRow(row)"
+                />
+              </td>
+
+              @for (column of table().columns(); track column.id) {
+                <td>
+                  @if (column.cellTemplate) {
+                    <ng-container
+                      [ngTemplateOutlet]="column.cellTemplate"
+                      [ngTemplateOutletContext]="getCellContext(row, column, rowIndex)"
+                    >
+                    </ng-container>
+                  } @else {
+                    {{ resolveCellValue(row, column) }}
+                  }
+                </td>
+              }
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <nav class="ng-orbit-plain-render__bottom-controls" aria-label="Pagination controls">
+    <div class="ng-orbit-plain-render__pager-actions">
+      <button
+        type="button"
+        [disabled]="!table().canPrevPage()"
+        (click)="table().setPage(table().query().page - 1)"
+      >
+        Prev
+      </button>
+      <span>Page {{ table().query().page }} / {{ getTotalPages() }}</span>
+      <button
+        type="button"
+        [disabled]="!table().canNextPage()"
+        (click)="table().setPage(table().query().page + 1)"
+      >
+        Next
+      </button>
+    </div>
+
+    <label class="ng-orbit-plain-render__page-size">
+      Page size
+      <select [value]="table().query().pageSize" (change)="onPageSizeChange($event)">
+        @for (size of pageSizeOptions; track size) {
+          <option [value]="size">
+            {{ size }}
+          </option>
+        }
+      </select>
+    </label>
+  </nav>
+</section>
