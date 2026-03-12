@@ -1,0 +1,41 @@
+<section class="ng-orbit-hub">
+  <header class="ng-orbit-hub__header">
+    <h2 class="ng-orbit-hub__title">{{ 'wizard.hub.title' | translate }}</h2>
+    <p class="ng-orbit-hub__subtitle">{{ 'wizard.hub.subtitle' | translate }}</p>
+  </header>
+
+  <nav class="ng-orbit-hub__tabs" [attr.aria-label]="'renderers.label' | translate">
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        class="ng-orbit-hub__tab"
+        [class.ng-orbit-hub__tab--active]="renderer() === tab.id"
+        (click)="selectRenderer(tab.id)"
+      >
+        {{ tab.labelKey | translate }}
+      </button>
+    }
+  </nav>
+
+  @if (renderer() === 'core') {
+    <ng-orbit-wizard-placeholder-page />
+  }
+
+  @if (renderer() === 'material') {
+    <ng-orbit-remote-iframe-page
+      remoteName="demo-material"
+      remotePath="/wizard/material"
+      [lang]="activeLanguage()"
+      renderer="material"
+    />
+  }
+
+  @if (renderer() === 'daisy') {
+    <ng-orbit-remote-iframe-page
+      remoteName="demo-daisy"
+      remotePath="/wizard/daisy"
+      [lang]="activeLanguage()"
+      renderer="daisy"
+    />
+  }
+</section>

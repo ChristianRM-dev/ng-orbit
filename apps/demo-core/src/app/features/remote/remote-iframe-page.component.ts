@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  signal
+} from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
 import { RemoteManifestService } from '../../core/remote/remote-manifest.service';
 
@@ -12,30 +19,30 @@ import { RemoteManifestService } from '../../core/remote/remote-manifest.service
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemoteIframePageComponent {
-  private readonly route = inject(ActivatedRoute);
+  private readonly sanitizer = inject(DomSanitizer);
   private readonly remoteManifestService = inject(RemoteManifestService);
 
-  protected readonly titleKey = computed(
-    () => this.route.snapshot.data['titleKey'] as string ?? 'remote.title'
-  );
-  protected readonly subtitleKey = computed(
-    () => this.route.snapshot.data['subtitleKey'] as string ?? 'remote.subtitle'
-  );
+  readonly remoteName = input.required<string>();
+  readonly remotePath = input.required<string>();
+  readonly lang = input<'en' | 'es'>('en');
+  readonly renderer = input<string>('');
 
-  protected readonly iframeSrc = computed(() => {
-    const remoteName = this.route.snapshot.data['remoteName'] as string;
-    const remotePath = this.route.snapshot.data['remotePath'] as string;
-    const baseUrl = this.remoteManifestService.resolveRemoteBaseUrl(remoteName);
+  protected readonly iframeSrc = computed<SafeResourceUrl | null>(() => {
+    const baseUrl = this.remoteManifestService.resolveRemoteBaseUrl(this.remoteName());
 
     if (!baseUrl) {
-      return '';
+      return null;
     }
 
-    if (!remotePath) {
-      return baseUrl;
+    const resolvedUrl = resolveRemoteUrl(baseUrl, this.remotePath(), {
+      lang: this.lang(),
+      renderer: this.renderer()
+    });
+    if (!resolvedUrl) {
+      return null;
     }
 
-    return `${baseUrl}${remotePath.startsWith('/') ? '' : '/'}${remotePath}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(resolvedUrl);
   });
 
   protected readonly hasFrameError = signal(false);
@@ -47,4 +54,36 @@ export class RemoteIframePageComponent {
   protected onFrameError(): void {
     this.hasFrameError.set(true);
   }
+}
+
+function resolveRemoteUrl(
+  baseUrl: string,
+  remotePath: string | undefined,
+  queryParams: Record<string, string>
+): string | null {
+  const normalizedPath = remotePath?.trim() ?? '';
+
+  try {
+    const resolved = normalizedPath
+      ? new URL(normalizedPath, withTrailingSlash(baseUrl))
+      : new URL(baseUrl);
+
+    if (resolved.protocol !== 'http:' && resolved.protocol !== 'https:') {
+      return null;
+    }
+
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (value) {
+        resolved.searchParams.set(key, value);
+      }
+    }
+
+    return resolved.toString();
+  } catch {
+    return null;
+  }
+}
+
+function withTrailingSlash(url: string): string {
+  return url.endsWith('/') ? url : `${url}/`;
 }

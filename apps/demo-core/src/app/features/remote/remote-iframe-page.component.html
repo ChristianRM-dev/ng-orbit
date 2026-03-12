@@ -1,9 +1,4 @@
 <section class="ng-orbit-remote-page">
-  <header class="ng-orbit-remote-page__header">
-    <h2 class="ng-orbit-remote-page__title">{{ titleKey() | translate }}</h2>
-    <p class="ng-orbit-remote-page__subtitle">{{ subtitleKey() | translate }}</p>
-  </header>
-
   @if (!iframeSrc()) {
     <div class="ng-orbit-remote-page__fallback">
       {{ 'remote.missingManifest' | translate }}
@@ -15,7 +10,7 @@
       <iframe
         class="ng-orbit-remote-page__frame"
         [src]="iframeSrc()"
-        [title]="titleKey() | translate"
+        [title]="'remote.title' | translate"
         (load)="onFrameLoad()"
         (error)="onFrameError()"
       ></iframe>

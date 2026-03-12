@@ -1,28 +1,8 @@
 .ng-orbit-remote-page {
-  background: rgb(255 255 255 / 0.86);
-  border: 1px solid #d8e1db;
-  border-radius: 0.9rem;
-  box-shadow: 0 10px 24px rgb(22 40 31 / 0.06);
-  padding: 1rem;
-
-  &__header {
-    margin-bottom: 0.8rem;
-  }
-
-  &__title {
-    margin: 0;
-    color: #1c372e;
-    font-size: 1.03rem;
-  }
-
-  &__subtitle {
-    margin: 0.24rem 0 0;
-    color: #4d6459;
-    font-size: 0.87rem;
-  }
+  min-height: calc(100dvh - 180px);
 
   &__frame-wrap {
-    min-height: 70dvh;
+    min-height: calc(100dvh - 180px);
     border: 1px solid #d8e1db;
     border-radius: 0.65rem;
     overflow: hidden;
@@ -31,7 +11,7 @@
 
   &__frame {
     width: 100%;
-    min-height: 70dvh;
+    min-height: calc(100dvh - 180px);
     border: 0;
     display: block;
   }

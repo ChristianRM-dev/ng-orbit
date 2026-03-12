@@ -22,9 +22,6 @@ export const appConfig = {
       fallbackLang: "en",
       lang: "en",
     }),
-    ...provideTranslateHttpLoader({
-      prefix: "./assets/i18n/",
-      suffix: ".json",
-    }),
+ 
   ],
 };

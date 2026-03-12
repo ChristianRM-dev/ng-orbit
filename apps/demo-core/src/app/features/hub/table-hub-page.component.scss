@@ -1,0 +1,45 @@
+.ng-orbit-hub {
+  &__header {
+    margin-bottom: 0.75rem;
+  }
+
+  &__title {
+    margin: 0;
+    color: #1c372e;
+    font-size: 1.03rem;
+  }
+
+  &__subtitle {
+    margin: 0.24rem 0 0;
+    color: #4d6459;
+    font-size: 0.87rem;
+  }
+
+  &__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0 0 0.95rem;
+  }
+
+  &__tab {
+    border: 1px solid #bccac1;
+    border-radius: 0.52rem;
+    background: #fff;
+    color: #244137;
+    font-size: 0.82rem;
+    padding: 0.37rem 0.58rem;
+    cursor: pointer;
+
+    &:hover {
+      background: #f2f7f3;
+    }
+
+    &--active {
+      background: #dce9df;
+      border-color: #a8bbaf;
+      color: #173025;
+      font-weight: 600;
+    }
+  }
+}

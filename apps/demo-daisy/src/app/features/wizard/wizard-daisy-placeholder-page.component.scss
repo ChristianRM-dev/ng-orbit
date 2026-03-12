@@ -1,1 +1,17 @@
-@use '../table/table-page.shared';
+:host {
+  display: block;
+}
+
+.ng-orbit-remote-content {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+
+  &__message {
+    margin: 0;
+    color: #30493f;
+    font-size: 0.95rem;
+    text-align: center;
+  }
+}

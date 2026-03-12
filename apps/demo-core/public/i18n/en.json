@@ -9,6 +9,8 @@
     "closeMenu": "Close menu"
   },
   "nav": {
+    "table": "Table",
+    "wizard": "Wizard",
     "tablePlain": "Table plain",
     "tableCore": "Table core",
     "tableMaterial": "Table material",
@@ -18,6 +20,10 @@
     "wizardDaisy": "Wizard daisy"
   },
   "table": {
+    "hub": {
+      "title": "Table",
+      "subtitle": "Choose a renderer and compare behavior in the same shell."
+    },
     "pages": {
       "plainTitle": "Table page: plain renderer",
       "plainSubtitle": "Reference semantic renderer with no design-system styles.",
@@ -64,6 +70,10 @@
     }
   },
   "wizard": {
+    "hub": {
+      "title": "Wizard",
+      "subtitle": "Choose a renderer while keeping a single host layout."
+    },
     "pages": {
       "coreTitle": "Wizard core placeholder",
       "coreSubtitle": "Wizard core renderer will be implemented in a next iteration.",
@@ -82,5 +92,12 @@
     "subtitle": "Remote app embedded via isolated iframe.",
     "missingManifest": "Remote manifest is unavailable. Start the remote demo app(s) and reload.",
     "unavailable": "Remote app is unreachable. Verify the remote is running on its configured port."
+  },
+  "renderers": {
+    "label": "Renderer options",
+    "core": "Core",
+    "plain": "Plain",
+    "material": "Material",
+    "daisy": "Daisy"
   }
 }

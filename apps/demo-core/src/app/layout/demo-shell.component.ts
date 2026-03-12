@@ -20,13 +20,8 @@ export class DemoShellComponent {
   private readonly i18nService = inject(DemoI18nService);
 
   protected readonly navItems: readonly NavItem[] = [
-    { path: '/table/plain', labelKey: 'nav.tablePlain' },
-    { path: '/table/core', labelKey: 'nav.tableCore' },
-    { path: '/table/material', labelKey: 'nav.tableMaterial' },
-    { path: '/table/daisy', labelKey: 'nav.tableDaisy' },
-    { path: '/wizard/core', labelKey: 'nav.wizardCore' },
-    { path: '/wizard/material', labelKey: 'nav.wizardMaterial' },
-    { path: '/wizard/daisy', labelKey: 'nav.wizardDaisy' }
+    { path: '/table', labelKey: 'nav.table' },
+    { path: '/wizard', labelKey: 'nav.wizard' }
   ];
 
   private readonly sidebarOpen = signal(false);

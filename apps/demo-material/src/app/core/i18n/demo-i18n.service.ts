@@ -34,6 +34,13 @@ export class DemoI18nService {
   }
 
   private resolveInitialLanguage(): DemoLanguage {
+    if (typeof window !== 'undefined') {
+      const languageFromQuery = new URLSearchParams(window.location.search).get('lang');
+      if (languageFromQuery === 'en' || languageFromQuery === 'es') {
+        return languageFromQuery;
+      }
+    }
+
     if (typeof window === 'undefined' || !window.localStorage) {
       return 'en';
     }

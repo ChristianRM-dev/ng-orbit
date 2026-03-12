@@ -9,88 +9,97 @@ export const appRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'table/plain'
+        redirectTo: 'table'
       },
+      {
+        path: 'table',
+        loadComponent: () =>
+          import('./features/hub/table-hub-page.component').then(
+            (module) => module.TableHubPageComponent
+          )
+      },
+      {
+        path: 'wizard',
+        loadComponent: () =>
+          import('./features/hub/wizard-hub-page.component').then(
+            (module) => module.WizardHubPageComponent
+          )
+      },
+      // Legacy aliases. These routes keep old URLs working while canonical routes
+      // are `/table?renderer=...` and `/wizard?renderer=...`.
       {
         path: 'table/core',
         loadComponent: () =>
-          import('./features/table/table-core-page.component').then(
-            (module) => module.TableCorePageComponent
-          )
+          import('./features/hub/table-hub-page.component').then(
+            (module) => module.TableHubPageComponent
+          ),
+        data: {
+          renderer: 'core'
+        }
       },
       {
         path: 'table/plain',
         loadComponent: () =>
-          import('./features/table/table-plain-page.component').then(
-            (module) => module.TablePlainPageComponent
-          )
+          import('./features/hub/table-hub-page.component').then(
+            (module) => module.TableHubPageComponent
+          ),
+        data: {
+          renderer: 'plain'
+        }
       },
       {
         path: 'table/material',
         loadComponent: () =>
-          import('./features/remote/remote-iframe-page.component').then(
-            (module) => module.RemoteIframePageComponent
+          import('./features/hub/table-hub-page.component').then(
+            (module) => module.TableHubPageComponent
           ),
         data: {
-          remoteName: 'demo-material',
-          remotePath: '/table/material',
-          titleKey: 'table.pages.materialTitle',
-          subtitleKey: 'table.pages.materialSubtitle'
+          renderer: 'material'
         }
       },
       {
         path: 'table/daisy',
         loadComponent: () =>
-          import('./features/remote/remote-iframe-page.component').then(
-            (module) => module.RemoteIframePageComponent
+          import('./features/hub/table-hub-page.component').then(
+            (module) => module.TableHubPageComponent
           ),
         data: {
-          remoteName: 'demo-daisy',
-          remotePath: '/table/daisy',
-          titleKey: 'table.pages.daisyTitle',
-          subtitleKey: 'table.pages.daisySubtitle'
+          renderer: 'daisy'
         }
       },
       {
         path: 'wizard/core',
         loadComponent: () =>
-          import('./features/wizard/wizard-placeholder-page.component').then(
-            (module) => module.WizardPlaceholderPageComponent
+          import('./features/hub/wizard-hub-page.component').then(
+            (module) => module.WizardHubPageComponent
           ),
         data: {
-          titleKey: 'wizard.pages.coreTitle',
-          subtitleKey: 'wizard.pages.coreSubtitle'
+          renderer: 'core'
         }
       },
       {
         path: 'wizard/material',
         loadComponent: () =>
-          import('./features/remote/remote-iframe-page.component').then(
-            (module) => module.RemoteIframePageComponent
+          import('./features/hub/wizard-hub-page.component').then(
+            (module) => module.WizardHubPageComponent
           ),
         data: {
-          remoteName: 'demo-material',
-          remotePath: '/wizard/material',
-          titleKey: 'wizard.pages.materialTitle',
-          subtitleKey: 'wizard.pages.materialSubtitle'
+          renderer: 'material'
         }
       },
       {
         path: 'wizard/daisy',
         loadComponent: () =>
-          import('./features/remote/remote-iframe-page.component').then(
-            (module) => module.RemoteIframePageComponent
+          import('./features/hub/wizard-hub-page.component').then(
+            (module) => module.WizardHubPageComponent
           ),
         data: {
-          remoteName: 'demo-daisy',
-          remotePath: '/wizard/daisy',
-          titleKey: 'wizard.pages.daisyTitle',
-          subtitleKey: 'wizard.pages.daisySubtitle'
+          renderer: 'daisy'
         }
       },
       {
         path: '**',
-        redirectTo: 'table/plain'
+        redirectTo: 'table'
       }
     ]
   }

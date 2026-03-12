@@ -9,6 +9,8 @@
     "closeMenu": "Cerrar menú"
   },
   "nav": {
+    "table": "Tabla",
+    "wizard": "Wizard",
     "tablePlain": "Tabla plain",
     "tableCore": "Tabla core",
     "tableMaterial": "Tabla material",
@@ -18,6 +20,10 @@
     "wizardDaisy": "Wizard daisy"
   },
   "table": {
+    "hub": {
+      "title": "Tabla",
+      "subtitle": "Elige un renderer y compara comportamiento en el mismo shell."
+    },
     "pages": {
       "plainTitle": "Página de tabla: renderer plain",
       "plainSubtitle": "Renderer semántico de referencia sin estilos de design system.",
@@ -64,6 +70,10 @@
     }
   },
   "wizard": {
+    "hub": {
+      "title": "Wizard",
+      "subtitle": "Elige un renderer manteniendo un único layout host."
+    },
     "pages": {
       "coreTitle": "Wizard core placeholder",
       "coreSubtitle": "El renderer core de wizard se implementará en una siguiente iteración.",
@@ -82,5 +92,12 @@
     "subtitle": "Aplicación remota embebida en iframe aislado.",
     "missingManifest": "El manifest de remotos no está disponible. Inicia las apps remotas y recarga.",
     "unavailable": "La app remota no responde. Verifica que el remoto esté corriendo en su puerto configurado."
+  },
+  "renderers": {
+    "label": "Opciones de renderer",
+    "core": "Core",
+    "plain": "Plain",
+    "material": "Material",
+    "daisy": "Daisy"
   }
 }

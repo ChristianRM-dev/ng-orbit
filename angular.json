@@ -45,6 +45,13 @@
             "development": { "buildTarget": "demo-core:build:development" }
           },
           "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "demo-core:build:development",
+            "tsConfig": "apps/demo-core/tsconfig.spec.json"
+          }
         }
       }
     },
@@ -67,11 +74,23 @@
           "configurations": {
             "production": { "optimization": { "fonts": false }, "outputHashing": "all" },
             "development": { "optimization": false, "sourceMap": true }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "demo-material:build:production" },
+            "development": { "buildTarget": "demo-material:build:development" }
+          },
           "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "demo-material:build:development",
+            "tsConfig": "apps/demo-material/tsconfig.spec.json"
+          }
         }
       }
     },
@@ -94,11 +113,23 @@
           "configurations": {
             "production": { "optimization": { "fonts": false }, "outputHashing": "all" },
             "development": { "optimization": false, "sourceMap": true }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "demo-daisy:build:production" },
+            "development": { "buildTarget": "demo-daisy:build:development" }
+          },
           "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "demo-daisy:build:development",
+            "tsConfig": "apps/demo-daisy/tsconfig.spec.json"
+          }
         }
       }
     }

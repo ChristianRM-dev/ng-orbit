@@ -1,1 +1,8 @@
-@use './table-page.shared';
+:host {
+  display: block;
+}
+
+.ng-orbit-remote-content {
+  min-height: 100dvh;
+  padding: 0;
+}
