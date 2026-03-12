@@ -5,6 +5,8 @@
   "scripts": {
     "nx": "NX_DAEMON=false NX_ISOLATE_PLUGINS=false nx",
     "demo": "concurrently -c auto -n core,material,daisy \"pnpm demo:core\" \"pnpm demo:material\" \"pnpm demo:daisy\"",
+    "demo:stop": "node scripts/demo-stop-ports.mjs",
+    "demo:restart": "pnpm demo:stop && pnpm demo",
     "demo:core": "pnpm nx serve demo-core",
     "demo:material": "pnpm nx serve demo-material",
     "demo:daisy": "pnpm nx serve demo-daisy",
