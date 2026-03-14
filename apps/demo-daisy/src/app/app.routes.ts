@@ -16,8 +16,8 @@ export const appRoutes: Routes = [
   {
     path: 'wizard/daisy',
     loadComponent: () =>
-      import('./features/wizard/wizard-daisy-placeholder-page.component').then(
-        (module) => module.WizardDaisyPlaceholderPageComponent
+      import('./features/wizard/wizard-daisy-page.component').then(
+        (module) => module.WizardDaisyPageComponent
       )
   },
   {

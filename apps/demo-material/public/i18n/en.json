@@ -40,8 +40,46 @@
   },
   "wizard": {
     "pages": {
-      "materialTitle": "Wizard material placeholder",
-      "materialSubtitle": "Wizard Material renderer will be implemented in a next iteration."
+      "materialTitle": "Wizard renderer: Angular Material",
+      "materialSubtitle": "Real Material components driven by a headless wizard controller."
+    },
+    "modes": {
+      "multi": "Multi-step",
+      "single": "Single-step"
+    },
+    "steps": {
+      "account": {
+        "title": "Account",
+        "fullName": "Full name",
+        "email": "Email",
+        "accountType": "Account type",
+        "personal": "Personal",
+        "business": "Business"
+      },
+      "company": {
+        "title": "Company",
+        "name": "Company name"
+      },
+      "details": {
+        "title": "Details",
+        "country": "Country",
+        "city": "City"
+      },
+      "summary": {
+        "title": "Summary"
+      },
+      "single": {
+        "title": "Single form",
+        "displayName": "Display name",
+        "email": "Email"
+      }
+    },
+    "summary": {
+      "title": "Review before finishing",
+      "note": "Summary step is optional and can finish the flow."
+    },
+    "messages": {
+      "completed": "Wizard completed successfully."
     }
   }
 }

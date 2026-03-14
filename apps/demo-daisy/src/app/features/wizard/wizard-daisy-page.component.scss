@@ -1,0 +1,49 @@
+.ng-orbit-wizard-daisy-page {
+  display: grid;
+  gap: 1rem;
+
+  &__header {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  &__title {
+    margin: 0;
+  }
+
+  &__subtitle {
+    margin: 0;
+  }
+
+  &__form-grid {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  &__summary {
+    display: grid;
+    gap: 0.65rem;
+
+    h3,
+    p {
+      margin: 0;
+    }
+
+    dl {
+      display: grid;
+      gap: 0.45rem;
+      margin: 0;
+      grid-template-columns: minmax(130px, 180px) 1fr;
+    }
+
+    dt {
+      font-weight: 600;
+    }
+
+    dd {
+      margin: 0;
+      opacity: 0.85;
+    }
+  }
+}

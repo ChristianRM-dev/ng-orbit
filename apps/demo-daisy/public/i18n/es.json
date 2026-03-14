@@ -40,8 +40,46 @@
   },
   "wizard": {
     "pages": {
-      "daisyTitle": "Wizard daisy placeholder",
-      "daisySubtitle": "El renderer Daisy de wizard se implementará en una siguiente iteración."
+      "daisyTitle": "Renderer de wizard: DaisyUI",
+      "daisySubtitle": "Clases Daisy reales controladas por un wizard headless."
+    },
+    "modes": {
+      "multi": "Multi-step",
+      "single": "Una sola página"
+    },
+    "steps": {
+      "account": {
+        "title": "Cuenta",
+        "fullName": "Nombre completo",
+        "email": "Correo",
+        "accountType": "Tipo de cuenta",
+        "personal": "Personal",
+        "business": "Empresa"
+      },
+      "company": {
+        "title": "Empresa",
+        "name": "Nombre de empresa"
+      },
+      "details": {
+        "title": "Detalles",
+        "country": "País",
+        "city": "Ciudad"
+      },
+      "summary": {
+        "title": "Resumen"
+      },
+      "single": {
+        "title": "Formulario único",
+        "displayName": "Nombre visible",
+        "email": "Correo"
+      }
+    },
+    "summary": {
+      "title": "Revisión antes de finalizar",
+      "note": "El paso resumen es opcional y puede finalizar el flujo."
+    },
+    "messages": {
+      "completed": "Wizard completado correctamente."
     }
   }
 }

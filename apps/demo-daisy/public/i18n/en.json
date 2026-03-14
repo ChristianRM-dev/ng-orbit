@@ -40,8 +40,46 @@
   },
   "wizard": {
     "pages": {
-      "daisyTitle": "Wizard daisy placeholder",
-      "daisySubtitle": "Wizard Daisy renderer will be implemented in a next iteration."
+      "daisyTitle": "Wizard renderer: DaisyUI",
+      "daisySubtitle": "Real Daisy classes powered by a headless wizard controller."
+    },
+    "modes": {
+      "multi": "Multi-step",
+      "single": "Single-step"
+    },
+    "steps": {
+      "account": {
+        "title": "Account",
+        "fullName": "Full name",
+        "email": "Email",
+        "accountType": "Account type",
+        "personal": "Personal",
+        "business": "Business"
+      },
+      "company": {
+        "title": "Company",
+        "name": "Company name"
+      },
+      "details": {
+        "title": "Details",
+        "country": "Country",
+        "city": "City"
+      },
+      "summary": {
+        "title": "Summary"
+      },
+      "single": {
+        "title": "Single form",
+        "displayName": "Display name",
+        "email": "Email"
+      }
+    },
+    "summary": {
+      "title": "Review before finishing",
+      "note": "Summary step is optional and can finish the flow."
+    },
+    "messages": {
+      "completed": "Wizard completed successfully."
     }
   }
 }

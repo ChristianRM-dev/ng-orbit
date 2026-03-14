@@ -16,8 +16,8 @@ export const appRoutes: Routes = [
   {
     path: 'wizard/material',
     loadComponent: () =>
-      import('./features/wizard/wizard-material-placeholder-page.component').then(
-        (module) => module.WizardMaterialPlaceholderPageComponent
+      import('./features/wizard/wizard-material-page.component').then(
+        (module) => module.WizardMaterialPageComponent
       )
   },
   {

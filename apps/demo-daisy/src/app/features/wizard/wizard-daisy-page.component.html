@@ -1,0 +1,162 @@
+<section
+  class="ng-orbit-remote-content ng-orbit-wizard-daisy-page"
+  orbitWizard
+  #wizard="orbitWizard"
+  [steps]="facade.steps()"
+  (stepChange)="facade.onStepChange()"
+  (completed)="facade.onCompleted()"
+>
+  <header class="ng-orbit-wizard-daisy-page__header">
+    <h2 class="ng-orbit-wizard-daisy-page__title">{{ 'wizard.pages.daisyTitle' | translate }}</h2>
+    <p class="ng-orbit-wizard-daisy-page__subtitle">{{ 'wizard.pages.daisySubtitle' | translate }}</p>
+
+    <div class="join">
+      <button
+        class="btn join-item"
+        type="button"
+        [disabled]="facade.mode() === 'multi'"
+        (click)="onModeChange('multi', wizard)"
+      >
+        {{ 'wizard.modes.multi' | translate }}
+      </button>
+      <button
+        class="btn join-item"
+        type="button"
+        [disabled]="facade.mode() === 'single'"
+        (click)="onModeChange('single', wizard)"
+      >
+        {{ 'wizard.modes.single' | translate }}
+      </button>
+    </div>
+  </header>
+
+  <orbit-wizard-render-daisy [wizard]="wizard">
+    @if (facade.isSingleMode()) {
+      <form
+        class="ng-orbit-wizard-daisy-page__form-grid"
+        [formGroup]="facade.singleForm"
+        [orbitWizardStepFormSync]="wizard"
+        orbitWizardStepId="single"
+        [orbitWizardStepForm]="facade.singleForm"
+      >
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text">{{ 'wizard.steps.single.displayName' | translate }}</span>
+          </div>
+          <input type="text" class="input input-bordered" formControlName="displayName" />
+        </label>
+
+        <label class="form-control">
+          <div class="label">
+            <span class="label-text">{{ 'wizard.steps.single.email' | translate }}</span>
+          </div>
+          <input type="email" class="input input-bordered" formControlName="email" />
+        </label>
+      </form>
+    } @else {
+      @switch (wizard.current().id) {
+        @case ('account') {
+          <form
+            class="ng-orbit-wizard-daisy-page__form-grid"
+            [formGroup]="facade.accountForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="account"
+            [orbitWizardStepForm]="facade.accountForm"
+          >
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">{{ 'wizard.steps.account.fullName' | translate }}</span>
+              </div>
+              <input type="text" class="input input-bordered" formControlName="fullName" />
+            </label>
+
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">{{ 'wizard.steps.account.email' | translate }}</span>
+              </div>
+              <input type="email" class="input input-bordered" formControlName="email" />
+            </label>
+
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">{{ 'wizard.steps.account.accountType' | translate }}</span>
+              </div>
+              <select class="select select-bordered" formControlName="accountType">
+                <option value="personal">{{ 'wizard.steps.account.personal' | translate }}</option>
+                <option value="business">{{ 'wizard.steps.account.business' | translate }}</option>
+              </select>
+            </label>
+          </form>
+        }
+
+        @case ('company') {
+          <form
+            class="ng-orbit-wizard-daisy-page__form-grid"
+            [formGroup]="facade.companyForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="company"
+            [orbitWizardStepForm]="facade.companyForm"
+          >
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">{{ 'wizard.steps.company.name' | translate }}</span>
+              </div>
+              <input type="text" class="input input-bordered" formControlName="companyName" />
+            </label>
+          </form>
+        }
+
+        @case ('details') {
+          <form
+            class="ng-orbit-wizard-daisy-page__form-grid"
+            [formGroup]="facade.detailsForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="details"
+            [orbitWizardStepForm]="facade.detailsForm"
+          >
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">{{ 'wizard.steps.details.country' | translate }}</span>
+              </div>
+              <input type="text" class="input input-bordered" formControlName="country" />
+            </label>
+
+            <label class="form-control">
+              <div class="label">
+                <span class="label-text">{{ 'wizard.steps.details.city' | translate }}</span>
+              </div>
+              <input type="text" class="input input-bordered" formControlName="city" />
+            </label>
+          </form>
+        }
+
+        @case ('summary') {
+          <section class="ng-orbit-wizard-daisy-page__summary">
+            <h3>{{ 'wizard.summary.title' | translate }}</h3>
+            <p>{{ 'wizard.summary.note' | translate }}</p>
+            <dl>
+              <dt>{{ 'wizard.steps.account.fullName' | translate }}</dt>
+              <dd>{{ facade.accountForm.controls.fullName.value }}</dd>
+              <dt>{{ 'wizard.steps.account.email' | translate }}</dt>
+              <dd>{{ facade.accountForm.controls.email.value }}</dd>
+              @if (facade.showCompanyStep()) {
+                <dt>{{ 'wizard.steps.company.name' | translate }}</dt>
+                <dd>{{ facade.companyForm.controls.companyName.value }}</dd>
+              }
+              <dt>{{ 'wizard.steps.details.country' | translate }}</dt>
+              <dd>{{ facade.detailsForm.controls.country.value }}</dd>
+              <dt>{{ 'wizard.steps.details.city' | translate }}</dt>
+              <dd>{{ facade.detailsForm.controls.city.value }}</dd>
+            </dl>
+          </section>
+        }
+      }
+    }
+  </orbit-wizard-render-daisy>
+
+  @if (facade.completionMessage()) {
+    <div class="alert alert-success">
+      <span>{{ facade.completionMessage() }}</span>
+    </div>
+  }
+</section>

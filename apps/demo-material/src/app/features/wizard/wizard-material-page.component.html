@@ -1,0 +1,144 @@
+<section
+  class="ng-orbit-remote-content ng-orbit-wizard-material-page"
+  orbitWizard
+  #wizard="orbitWizard"
+  [steps]="facade.steps()"
+  (stepChange)="facade.onStepChange()"
+  (completed)="facade.onCompleted()"
+>
+  <header class="ng-orbit-wizard-material-page__header">
+    <h2 class="ng-orbit-wizard-material-page__title">{{ 'wizard.pages.materialTitle' | translate }}</h2>
+    <p class="ng-orbit-wizard-material-page__subtitle">{{ 'wizard.pages.materialSubtitle' | translate }}</p>
+
+    <div class="ng-orbit-wizard-material-page__mode-switch">
+      <button
+        mat-stroked-button
+        type="button"
+        [disabled]="facade.mode() === 'multi'"
+        (click)="onModeChange('multi', wizard)"
+      >
+        {{ 'wizard.modes.multi' | translate }}
+      </button>
+      <button
+        mat-stroked-button
+        type="button"
+        [disabled]="facade.mode() === 'single'"
+        (click)="onModeChange('single', wizard)"
+      >
+        {{ 'wizard.modes.single' | translate }}
+      </button>
+    </div>
+  </header>
+
+  <orbit-wizard-render-material [wizard]="wizard">
+    @if (facade.isSingleMode()) {
+      <form
+        class="ng-orbit-wizard-material-page__form-grid"
+        [formGroup]="facade.singleForm"
+        [orbitWizardStepFormSync]="wizard"
+        orbitWizardStepId="single"
+        [orbitWizardStepForm]="facade.singleForm"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'wizard.steps.single.displayName' | translate }}</mat-label>
+          <input matInput type="text" formControlName="displayName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'wizard.steps.single.email' | translate }}</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+      </form>
+    } @else {
+      @switch (wizard.current().id) {
+        @case ('account') {
+          <form
+            class="ng-orbit-wizard-material-page__form-grid"
+            [formGroup]="facade.accountForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="account"
+            [orbitWizardStepForm]="facade.accountForm"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'wizard.steps.account.fullName' | translate }}</mat-label>
+              <input matInput type="text" formControlName="fullName" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'wizard.steps.account.email' | translate }}</mat-label>
+              <input matInput type="email" formControlName="email" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'wizard.steps.account.accountType' | translate }}</mat-label>
+              <mat-select formControlName="accountType">
+                <mat-option value="personal">{{ 'wizard.steps.account.personal' | translate }}</mat-option>
+                <mat-option value="business">{{ 'wizard.steps.account.business' | translate }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
+        }
+
+        @case ('company') {
+          <form
+            class="ng-orbit-wizard-material-page__form-grid"
+            [formGroup]="facade.companyForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="company"
+            [orbitWizardStepForm]="facade.companyForm"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'wizard.steps.company.name' | translate }}</mat-label>
+              <input matInput type="text" formControlName="companyName" />
+            </mat-form-field>
+          </form>
+        }
+
+        @case ('details') {
+          <form
+            class="ng-orbit-wizard-material-page__form-grid"
+            [formGroup]="facade.detailsForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="details"
+            [orbitWizardStepForm]="facade.detailsForm"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'wizard.steps.details.country' | translate }}</mat-label>
+              <input matInput type="text" formControlName="country" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'wizard.steps.details.city' | translate }}</mat-label>
+              <input matInput type="text" formControlName="city" />
+            </mat-form-field>
+          </form>
+        }
+
+        @case ('summary') {
+          <section class="ng-orbit-wizard-material-page__summary">
+            <h3>{{ 'wizard.summary.title' | translate }}</h3>
+            <p>{{ 'wizard.summary.note' | translate }}</p>
+            <dl>
+              <dt>{{ 'wizard.steps.account.fullName' | translate }}</dt>
+              <dd>{{ facade.accountForm.controls.fullName.value }}</dd>
+              <dt>{{ 'wizard.steps.account.email' | translate }}</dt>
+              <dd>{{ facade.accountForm.controls.email.value }}</dd>
+              @if (facade.showCompanyStep()) {
+                <dt>{{ 'wizard.steps.company.name' | translate }}</dt>
+                <dd>{{ facade.companyForm.controls.companyName.value }}</dd>
+              }
+              <dt>{{ 'wizard.steps.details.country' | translate }}</dt>
+              <dd>{{ facade.detailsForm.controls.country.value }}</dd>
+              <dt>{{ 'wizard.steps.details.city' | translate }}</dt>
+              <dd>{{ facade.detailsForm.controls.city.value }}</dd>
+            </dl>
+          </section>
+        }
+      }
+    }
+  </orbit-wizard-render-material>
+
+  @if (facade.completionMessage()) {
+    <p class="ng-orbit-wizard-material-page__status">{{ facade.completionMessage() }}</p>
+  }
+</section>
