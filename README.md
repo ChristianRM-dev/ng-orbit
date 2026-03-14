@@ -68,6 +68,27 @@ See `docs/repo-structure.md`.
 
 ---
 
+## Consumer docs
+
+The fastest way to understand the library as a consumer is to run the local docs host:
+
+```bash
+pnpm install
+pnpm demo
+```
+
+Open:
+- `http://127.0.0.1:4200/table`
+- `http://127.0.0.1:4200/wizard`
+
+Each feature page includes:
+- `Overview` for mental model and responsibilities
+- `API` for controller inputs, outputs, signals, commands, and types
+- `Renders` for optional renderer packages and "build your own" guidance
+- `Examples` for live previews plus integration snippets
+
+`demo-core` is the consumer-facing docs host. `demo-material` and `demo-daisy` remain isolated preview apps used by the docs host for renderer demos.
+
 ## Getting started
 
 ### Install
@@ -75,12 +96,12 @@ See `docs/repo-structure.md`.
 pnpm install
 ```
 
-### Run demo
+### Run local docs and demos
 ```bash
 pnpm demo
 ```
 
-Composition model: iframe-isolated demos (stability-first), with federation configs reserved for a future phase.
+Composition model: iframe-isolated previews (stability-first), with federation configs reserved for a future phase.
 
 Individual apps:
 ```bash
@@ -97,6 +118,10 @@ pnpm build
 ---
 
 ## Documentation
+- Consumer docs host:
+  - `/table`
+  - `/wizard`
+- Internal markdown specs:
 - `docs/architecture.md`
 - `docs/components/table.md`
 - `docs/components/wizard.md`
