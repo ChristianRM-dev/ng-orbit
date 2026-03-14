@@ -1,0 +1,64 @@
+.ng-orbit-code {
+  border: 1px solid #d5dde3;
+  border-radius: 1rem;
+  background:
+    linear-gradient(180deg, rgb(248 250 252 / 0.98), rgb(244 247 249 / 0.98));
+  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.8rem 0.95rem;
+    border-bottom: 1px solid #dde5ea;
+    background: rgb(255 255 255 / 0.8);
+  }
+
+  &__title-wrap {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #4a6270;
+  }
+
+  &__copy {
+    border: 1px solid #cad6dd;
+    border-radius: 999px;
+    background: #fff;
+    color: #274453;
+    cursor: pointer;
+    padding: 0.42rem 0.82rem;
+    font-size: 0.84rem;
+    font-weight: 650;
+    flex: 0 0 auto;
+  }
+
+  &__body {
+    margin: 0;
+    padding: 1rem;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    color: #143040;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    font-family: 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  }
+
+  &__body code {
+    display: block;
+    min-width: max-content;
+    white-space: pre;
+  }
+}

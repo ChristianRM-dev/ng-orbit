@@ -2,17 +2,17 @@
   <button
     class="ng-orbit-shell__backdrop"
     type="button"
-    [attr.aria-label]="'layout.closeMenu' | translate"
+    aria-label="Close navigation"
     (click)="closeSidebar()"
   ></button>
 
   <aside class="ng-orbit-sidebar">
     <div class="ng-orbit-sidebar__brand">
       <span class="ng-orbit-sidebar__logo">ng-orbit</span>
-      <span class="ng-orbit-sidebar__caption">{{ 'layout.demoCore' | translate }}</span>
+      <span class="ng-orbit-sidebar__caption">Consumer documentation host</span>
     </div>
 
-    <nav class="ng-orbit-sidebar__nav" [attr.aria-label]="'layout.navigation' | translate">
+    <nav class="ng-orbit-sidebar__nav" aria-label="Main navigation">
       @for (item of navItems; track item.path) {
         <a
           class="ng-orbit-sidebar__item"
@@ -20,7 +20,7 @@
           [routerLink]="item.path"
           (click)="closeSidebar()"
         >
-          {{ item.labelKey | translate }}
+          {{ item.labelKey }}
         </a>
       }
     </nav>
@@ -31,38 +31,17 @@
       <button
         class="ng-orbit-topbar__menu-toggle"
         type="button"
-        [attr.aria-label]="'layout.openMenu' | translate"
+        aria-label="Open navigation"
         (click)="toggleSidebar()"
       >
         ☰
       </button>
 
       <div class="ng-orbit-topbar__title-wrap">
-        <h1 class="ng-orbit-topbar__title">{{ 'layout.title' | translate }}</h1>
-        <p class="ng-orbit-topbar__subtitle">{{ 'layout.subtitle' | translate }}</p>
-      </div>
-
-      <div
-        class="ng-orbit-topbar__languages"
-        role="group"
-        [attr.aria-label]="'layout.language' | translate"
-      >
-        <button
-          class="ng-orbit-topbar__lang-btn"
-          type="button"
-          [class.ng-orbit-topbar__lang-btn--active]="activeLanguage() === 'en'"
-          (click)="setLanguage('en')"
-        >
-          EN
-        </button>
-        <button
-          class="ng-orbit-topbar__lang-btn"
-          type="button"
-          [class.ng-orbit-topbar__lang-btn--active]="activeLanguage() === 'es'"
-          (click)="setLanguage('es')"
-        >
-          ES
-        </button>
+        <h1 class="ng-orbit-topbar__title">ng-orbit Docs</h1>
+        <p class="ng-orbit-topbar__subtitle">
+          Headless Angular primitives with consumer-owned UI, data, and workflows.
+        </p>
       </div>
     </header>
 

@@ -1,0 +1,212 @@
+<section class="ng-orbit-docs">
+  <header class="ng-orbit-docs__hero">
+    <div class="ng-orbit-docs__hero-copy">
+      <span class="ng-orbit-docs__eyebrow">{{ docs().packageName }}</span>
+      <h2 class="ng-orbit-docs__title">{{ docs().title }}</h2>
+      <p class="ng-orbit-docs__summary">{{ docs().summary }}</p>
+      <p class="ng-orbit-docs__tagline">{{ docs().tagline }}</p>
+    </div>
+
+    <div class="ng-orbit-docs__hero-codes">
+      <ng-orbit-docs-code-block [title]="installTitle()" [code]="docs().installSnippet" />
+      <ng-orbit-docs-code-block title="Import" [code]="docs().importSnippet" />
+    </div>
+  </header>
+
+  <nav class="ng-orbit-docs__tabs" aria-label="Documentation tabs">
+    @for (tab of tabs; track tab.id) {
+      <button
+        class="ng-orbit-docs__tab"
+        type="button"
+        [class.ng-orbit-docs__tab--active]="activeTab() === tab.id"
+        (click)="selectTab(tab.id)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </nav>
+
+  @if (activeTab() === 'overview') {
+    <section class="ng-orbit-docs__overview">
+      <div class="ng-orbit-docs__overview-grid">
+        @for (section of docs().overviewSections; track section.title) {
+          <article class="ng-orbit-docs__section-card ng-orbit-card">
+            <h3>{{ section.title }}</h3>
+            <p>{{ section.body }}</p>
+
+            @if (section.points?.length) {
+              <ul>
+                @for (point of section.points; track point) {
+                  <li>{{ point }}</li>
+                }
+              </ul>
+            }
+          </article>
+        }
+      </div>
+
+      <ng-orbit-docs-code-block title="Quickstart" [code]="docs().quickstartSnippet" />
+    </section>
+  }
+
+  @if (activeTab() === 'api') {
+    <section class="ng-orbit-docs__api">
+      <p class="ng-orbit-docs__section-lead">{{ docs().apiSummary }}</p>
+
+      <div class="ng-orbit-docs__api-groups">
+        @for (group of docs().apiGroups; track group.id) {
+          <article class="ng-orbit-docs__api-group ng-orbit-card">
+            <header class="ng-orbit-docs__api-group-header">
+              <h3>{{ group.title }}</h3>
+              @if (group.description) {
+                <p>{{ group.description }}</p>
+              }
+            </header>
+
+            <div class="ng-orbit-docs__api-entries">
+              @for (entry of group.entries; track entry.name) {
+                <section class="ng-orbit-docs__api-entry">
+                  <div class="ng-orbit-docs__api-entry-title">
+                    <strong>{{ entry.name }}</strong>
+                  </div>
+
+                  @if (entry.signature) {
+                    <pre>{{ entry.signature }}</pre>
+                  }
+
+                  <p>{{ entry.description }}</p>
+
+                  @if (entry.details?.length) {
+                    <ul>
+                      @for (detail of entry.details; track detail) {
+                        <li>{{ detail }}</li>
+                      }
+                    </ul>
+                  }
+                </section>
+              }
+            </div>
+          </article>
+        }
+      </div>
+    </section>
+  }
+
+  @if (activeTab() === 'renders' && activeRenderer()) {
+    <section class="ng-orbit-docs__renders">
+      <aside class="ng-orbit-docs__selector ng-orbit-card">
+        <p class="ng-orbit-docs__selector-label">Render options</p>
+
+        <div class="ng-orbit-docs__selector-list">
+          @for (renderer of docs().renders; track renderer.id) {
+            <button
+              class="ng-orbit-docs__selector-item"
+              type="button"
+              [class.ng-orbit-docs__selector-item--active]="activeRendererId() === renderer.id"
+              (click)="selectRenderer(renderer.id)"
+            >
+              <span>{{ renderer.label }}</span>
+              <small>{{ renderer.packageName }}</small>
+            </button>
+          }
+        </div>
+      </aside>
+
+      <div class="ng-orbit-docs__content-stack">
+        <article class="ng-orbit-docs__detail-card ng-orbit-card">
+          <header class="ng-orbit-docs__detail-header">
+            <div>
+              <span class="ng-orbit-docs__eyebrow">{{ activeRenderer()!.packageName }}</span>
+              <h3>{{ activeRenderer()!.label }}</h3>
+            </div>
+            <p>{{ activeRenderer()!.summary }}</p>
+          </header>
+
+          <p>{{ activeRenderer()!.description }}</p>
+
+          @if (activeRenderer()!.requirements?.length) {
+            <ul class="ng-orbit-docs__detail-list">
+              @for (requirement of activeRenderer()!.requirements; track requirement) {
+                <li>{{ requirement }}</li>
+              }
+            </ul>
+          }
+        </article>
+
+        <div class="ng-orbit-docs__preview-grid">
+          <section class="ng-orbit-docs__preview-card ng-orbit-card">
+            <header class="ng-orbit-docs__preview-header">
+              <h3>Live preview</h3>
+              <p>Rendered inside the docs host using the real controller contract.</p>
+            </header>
+
+            <ng-orbit-docs-preview-host [preview]="activeRenderer()!.preview" />
+          </section>
+
+          <ng-orbit-docs-code-block
+            [title]="activeRenderer()!.snippetTitle"
+            [code]="activeRenderer()!.snippet"
+          />
+        </div>
+      </div>
+    </section>
+  }
+
+  @if (activeTab() === 'examples' && activeExample()) {
+    <section class="ng-orbit-docs__examples">
+      <aside class="ng-orbit-docs__selector ng-orbit-card">
+        <p class="ng-orbit-docs__selector-label">Example scenarios</p>
+
+        <div class="ng-orbit-docs__selector-list">
+          @for (example of docs().examples; track example.id) {
+            <button
+              class="ng-orbit-docs__selector-item"
+              type="button"
+              [class.ng-orbit-docs__selector-item--active]="activeExampleId() === example.id"
+              (click)="selectExample(example.id)"
+            >
+              <span>{{ example.label }}</span>
+              <small>{{ example.title }}</small>
+            </button>
+          }
+        </div>
+      </aside>
+
+      <div class="ng-orbit-docs__content-stack">
+        <article class="ng-orbit-docs__detail-card ng-orbit-card">
+          <header class="ng-orbit-docs__detail-header">
+            <div>
+              <span class="ng-orbit-docs__eyebrow">Consumer example</span>
+              <h3>{{ activeExample()!.title }}</h3>
+            </div>
+            <p>{{ activeExample()!.description }}</p>
+          </header>
+
+          @if (activeExample()!.notes?.length) {
+            <ul class="ng-orbit-docs__detail-list">
+              @for (note of activeExample()!.notes; track note) {
+                <li>{{ note }}</li>
+              }
+            </ul>
+          }
+        </article>
+
+        <div class="ng-orbit-docs__preview-grid">
+          <section class="ng-orbit-docs__preview-card ng-orbit-card">
+            <header class="ng-orbit-docs__preview-header">
+              <h3>Live preview</h3>
+              <p>Try the interaction and compare it with the snippet on the right.</p>
+            </header>
+
+            <ng-orbit-docs-preview-host [preview]="activeExample()!.preview" />
+          </section>
+
+          <ng-orbit-docs-code-block
+            [title]="activeExample()!.snippetTitle"
+            [code]="activeExample()!.snippet"
+          />
+        </div>
+      </div>
+    </section>
+  }
+</section>

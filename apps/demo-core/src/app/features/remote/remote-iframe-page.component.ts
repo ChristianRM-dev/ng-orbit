@@ -6,6 +6,7 @@ import {
   input,
   signal
 } from '@angular/core';
+import { NgStyle } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
 import { RemoteManifestService } from '../../core/remote/remote-manifest.service';
@@ -13,7 +14,7 @@ import { RemoteManifestService } from '../../core/remote/remote-manifest.service
 @Component({
   selector: 'ng-orbit-remote-iframe-page',
   standalone: true,
-  imports: [TranslatePipe],
+  imports: [NgStyle, TranslatePipe],
   templateUrl: './remote-iframe-page.component.html',
   styleUrl: './remote-iframe-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -26,6 +27,7 @@ export class RemoteIframePageComponent {
   readonly remotePath = input.required<string>();
   readonly lang = input<'en' | 'es'>('en');
   readonly renderer = input<string>('');
+  readonly frameHeight = input('640px');
 
   protected readonly iframeSrc = computed<SafeResourceUrl | null>(() => {
     const baseUrl = this.remoteManifestService.resolveRemoteBaseUrl(this.remoteName());
@@ -46,6 +48,9 @@ export class RemoteIframePageComponent {
   });
 
   protected readonly hasFrameError = signal(false);
+  protected readonly frameStyles = computed(() => ({
+    '--ng-orbit-remote-frame-height': this.frameHeight()
+  }));
 
   protected onFrameLoad(): void {
     this.hasFrameError.set(false);

@@ -1,8 +1,8 @@
 .ng-orbit-remote-page {
-  min-height: calc(100dvh - 180px);
+  min-height: var(--ng-orbit-remote-frame-height, 640px);
 
   &__frame-wrap {
-    min-height: calc(100dvh - 180px);
+    min-height: var(--ng-orbit-remote-frame-height, 640px);
     border: 1px solid #d8e1db;
     border-radius: 0.65rem;
     overflow: hidden;
@@ -11,7 +11,7 @@
 
   &__frame {
     width: 100%;
-    min-height: calc(100dvh - 180px);
+    min-height: var(--ng-orbit-remote-frame-height, 640px);
     border: 0;
     display: block;
   }

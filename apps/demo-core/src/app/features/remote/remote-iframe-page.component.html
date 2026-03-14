@@ -6,7 +6,7 @@
   }
 
   @if (iframeSrc()) {
-    <div class="ng-orbit-remote-page__frame-wrap">
+    <div class="ng-orbit-remote-page__frame-wrap" [ngStyle]="frameStyles()">
       <iframe
         class="ng-orbit-remote-page__frame"
         [src]="iframeSrc()"

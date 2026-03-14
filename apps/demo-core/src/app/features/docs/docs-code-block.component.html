@@ -1,0 +1,15 @@
+<section class="ng-orbit-code">
+  <header class="ng-orbit-code__header">
+    <div class="ng-orbit-code__title-wrap">
+      @if (title()) {
+        <p class="ng-orbit-code__title">{{ title() }}</p>
+      }
+    </div>
+
+    <button class="ng-orbit-code__copy" type="button" (click)="copyCode()">
+      {{ copied() ? 'Copied' : 'Copy' }}
+    </button>
+  </header>
+
+  <pre class="ng-orbit-code__body"><code>{{ code() }}</code></pre>
+</section>

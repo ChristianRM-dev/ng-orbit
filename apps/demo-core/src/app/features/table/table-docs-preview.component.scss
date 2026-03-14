@@ -1,0 +1,114 @@
+.ng-orbit-table-docs-preview,
+.ng-orbit-table-swap {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.ng-orbit-table-docs-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+
+  &__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1rem;
+    border: 1px solid #d7e0e5;
+    border-radius: 1rem;
+    background: #f7fafc;
+    min-width: 0;
+  }
+
+  &__label,
+  &__stats dt {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #5c7581;
+  }
+
+  &__meta pre {
+    margin: 0.55rem 0 0;
+    padding: 0.8rem;
+    border-radius: 0.85rem;
+    background: #102533;
+    color: #eef6fb;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    font-family: 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+  }
+
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0;
+  }
+
+  &__stats div {
+    min-width: 6rem;
+  }
+
+  &__stats dd {
+    margin: 0.2rem 0 0;
+    color: #163547;
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+}
+
+.ng-orbit-table-swap {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    min-width: 0;
+  }
+
+  &__label {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #5c7481;
+  }
+
+  &__header h3 {
+    margin: 0.25rem 0 0;
+    color: #17374a;
+    font-size: 1.15rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    min-width: 0;
+  }
+
+  &__actions button {
+    border: 1px solid #d2dce2;
+    border-radius: 999px;
+    background: #fff;
+    color: #214153;
+    cursor: pointer;
+    padding: 0.58rem 0.95rem;
+    font-weight: 650;
+  }
+
+  &__action--active {
+    border-color: #0f6cbd;
+    background: #0f6cbd;
+    color: #fff;
+  }
+}

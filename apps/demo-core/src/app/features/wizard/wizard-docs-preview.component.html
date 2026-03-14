@@ -1,0 +1,153 @@
+<section
+  class="ng-orbit-wizard-docs"
+  orbitWizard
+  #wizard="orbitWizard"
+  [steps]="steps()"
+  (stepChange)="onStepChange()"
+  (completed)="onCompleted()"
+>
+  <header class="ng-orbit-wizard-docs__header">
+    <div>
+      <p class="ng-orbit-wizard-docs__eyebrow">Headless wizard preview</p>
+      <h3>{{ title() }}</h3>
+    </div>
+    <p>{{ subtitle() }}</p>
+  </header>
+
+  <nav class="ng-orbit-wizard-docs__steps" aria-label="Wizard steps">
+    @for (step of wizard.steps(); track step.id) {
+      @if (step.showInNav) {
+        <button
+          type="button"
+          class="ng-orbit-wizard-docs__step"
+          [class.ng-orbit-wizard-docs__step--active]="wizard.current().id === step.id"
+          [class.ng-orbit-wizard-docs__step--visited]="wizard.isVisited(step.id)"
+          [disabled]="wizard.current().id !== step.id && !wizard.canGoTo(step.id)"
+          (click)="wizard.goTo(step.id)"
+        >
+          <span>{{ step.title ?? step.id }}</span>
+        </button>
+      }
+    }
+  </nav>
+
+  <div class="ng-orbit-wizard-docs__surface">
+    @if (isSingleMode()) {
+      <form
+        class="ng-orbit-wizard-docs__form-grid"
+        [formGroup]="singleForm"
+        [orbitWizardStepFormSync]="wizard"
+        orbitWizardStepId="single"
+        [orbitWizardStepForm]="singleForm"
+      >
+        <label>
+          <span>Display name</span>
+          <input type="text" formControlName="displayName" />
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" formControlName="email" />
+        </label>
+      </form>
+    } @else {
+      @switch (wizard.current().id) {
+        @case ('account') {
+          <form
+            class="ng-orbit-wizard-docs__form-grid"
+            [formGroup]="accountForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="account"
+            [orbitWizardStepForm]="accountForm"
+          >
+            <label>
+              <span>Full name</span>
+              <input type="text" formControlName="fullName" />
+            </label>
+
+            <label>
+              <span>Email</span>
+              <input type="email" formControlName="email" />
+            </label>
+
+            @if (includesConditionalCompany()) {
+              <label>
+                <span>Account type</span>
+                <select formControlName="accountType">
+                  <option value="personal">Personal</option>
+                  <option value="business">Business</option>
+                </select>
+              </label>
+            }
+          </form>
+        }
+
+        @case ('company') {
+          <form
+            class="ng-orbit-wizard-docs__form-grid"
+            [formGroup]="companyForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="company"
+            [orbitWizardStepForm]="companyForm"
+          >
+            <label>
+              <span>Company name</span>
+              <input type="text" formControlName="companyName" />
+            </label>
+          </form>
+        }
+
+        @case ('details') {
+          <form
+            class="ng-orbit-wizard-docs__form-grid"
+            [formGroup]="detailsForm"
+            [orbitWizardStepFormSync]="wizard"
+            orbitWizardStepId="details"
+            [orbitWizardStepForm]="detailsForm"
+          >
+            <label>
+              <span>Country</span>
+              <input type="text" formControlName="country" />
+            </label>
+
+            <label>
+              <span>City</span>
+              <input type="text" formControlName="city" />
+            </label>
+          </form>
+        }
+
+        @case ('summary') {
+          <section class="ng-orbit-wizard-docs__summary">
+            <h4>Summary</h4>
+            <dl>
+              <dt>Full name</dt>
+              <dd>{{ accountForm.controls.fullName.value }}</dd>
+              <dt>Email</dt>
+              <dd>{{ accountForm.controls.email.value }}</dd>
+              @if (showsCompanyStep()) {
+                <dt>Company</dt>
+                <dd>{{ companyForm.controls.companyName.value }}</dd>
+              }
+              <dt>Country</dt>
+              <dd>{{ detailsForm.controls.country.value }}</dd>
+              <dt>City</dt>
+              <dd>{{ detailsForm.controls.city.value }}</dd>
+            </dl>
+          </section>
+        }
+      }
+    }
+  </div>
+
+  <footer class="ng-orbit-wizard-docs__footer">
+    <button type="button" [disabled]="!wizard.canPrev()" (click)="wizard.prev()">Back</button>
+    <button type="button" [disabled]="!wizard.canNext()" (click)="wizard.next()">
+      {{ nextLabel(wizard) }}
+    </button>
+  </footer>
+
+  @if (completionMessage()) {
+    <p class="ng-orbit-wizard-docs__status">{{ completionMessage() }}</p>
+  }
+</section>

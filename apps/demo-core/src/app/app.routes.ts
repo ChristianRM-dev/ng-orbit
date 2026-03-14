@@ -34,7 +34,7 @@ export const appRoutes: Routes = [
             (module) => module.TableHubPageComponent
           ),
         data: {
-          renderer: 'core'
+          renderer: 'custom'
         }
       },
       {
@@ -74,7 +74,7 @@ export const appRoutes: Routes = [
             (module) => module.WizardHubPageComponent
           ),
         data: {
-          renderer: 'core'
+          renderer: 'custom'
         }
       },
       {
