@@ -1,6 +1,6 @@
 {
   "name": "@ng-orbit/wizard",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "root": "packages/wizard",
   "sourceRoot": "packages/wizard/src",
@@ -8,19 +8,19 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: build @ng-orbit/wizard\""
+        "command": "tsc -p packages/wizard/tsconfig.lib.json"
       }
     },
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: test @ng-orbit/wizard\""
+        "command": "tsc -p packages/wizard/tsconfig.spec.json --noEmit"
       }
     },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "echo \"TODO: lint @ng-orbit/wizard\""
+        "command": "tsc -p packages/wizard/tsconfig.lib.json --noEmit"
       }
     }
   }

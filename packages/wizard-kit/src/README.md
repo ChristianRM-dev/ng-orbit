@@ -1,3 +1,7 @@
 # @ng-orbit/wizard-kit
 
-Placeholder. Implement per docs in /docs.
+UI helpers and integration primitives for `@ng-orbit/wizard`.
+
+- No business logic
+- No CSS
+- Focused on template-first composition

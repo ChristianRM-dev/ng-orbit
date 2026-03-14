@@ -1,3 +1,7 @@
 # @ng-orbit/wizard
 
-Placeholder. Implement per docs in /docs.
+Headless wizard controller for ng-orbit.
+
+- No form ownership
+- No CSS
+- Exposes signals + commands via `exportAs="orbitWizard"`

@@ -15,6 +15,18 @@
       ],
       "@ng-orbit/table-render-plain": [
         "packages/table-render-plain/src/public-api.ts"
+      ],
+      "@ng-orbit/wizard": [
+        "packages/wizard/src/public-api.ts"
+      ],
+      "@ng-orbit/wizard-kit": [
+        "packages/wizard-kit/src/public-api.ts"
+      ],
+      "@ng-orbit/wizard-render-daisy": [
+        "packages/wizard-render-daisy/src/public-api.ts"
+      ],
+      "@ng-orbit/wizard-render-material": [
+        "packages/wizard-render-material/src/public-api.ts"
       ]
     },
     "target": "ES2022",
