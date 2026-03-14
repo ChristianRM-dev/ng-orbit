@@ -1,0 +1,51 @@
+<section class="ng-orbit-daisy-wizard-render">
+  @if (navSteps().length > 0) {
+    <ul class="steps steps-horizontal w-full">
+      @for (step of navSteps(); track step.id) {
+        <li class="step" [class.step-primary]="isStepPrimary(step)">
+          <button
+            class="btn btn-ghost btn-sm"
+            type="button"
+            [disabled]="!canSelectStep(step.id)"
+            (click)="wizard().goTo(step.id)"
+          >
+            {{ stepTitle(step) }}
+          </button>
+        </li>
+      }
+    </ul>
+  }
+
+  <progress class="progress progress-primary w-full" [value]="progressPercent()" max="100"></progress>
+
+  <div class="ng-orbit-daisy-wizard-render__meta">
+    <span>
+      Step {{ currentStepPosition() }} / {{ enabledSteps().length }}
+    </span>
+    <strong>{{ currentStepLabel() }}</strong>
+  </div>
+
+  <div class="ng-orbit-daisy-wizard-render__content rounded-box border border-base-content/10 bg-base-100">
+    <ng-content />
+  </div>
+
+  <footer class="ng-orbit-daisy-wizard-render__footer">
+    <button
+      class="btn"
+      type="button"
+      [disabled]="!wizard().canPrev()"
+      (click)="wizard().prev()"
+    >
+      Prev
+    </button>
+
+    <button
+      class="btn btn-primary"
+      type="button"
+      [disabled]="!wizard().canNext()"
+      (click)="wizard().next()"
+    >
+      {{ nextLabel() }}
+    </button>
+  </footer>
+</section>

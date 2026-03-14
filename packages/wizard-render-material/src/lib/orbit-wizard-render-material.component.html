@@ -1,0 +1,55 @@
+<section class="ng-orbit-material-wizard-render">
+  @if (navSteps().length > 0) {
+    <mat-stepper
+      [selectedIndex]="selectedNavIndex()"
+      (selectedIndexChange)="onSelectedNavIndexChange($event)"
+    >
+      @for (step of navSteps(); track step.id) {
+        <mat-step [optional]="step.optional" [completed]="isStepCompleted(step)">
+          <ng-template matStepLabel>
+            <button
+              mat-button
+              type="button"
+              [disabled]="!canSelectStep(step.id)"
+              (click)="wizard().goTo(step.id)"
+            >
+              {{ stepTitle(step) }}
+            </button>
+          </ng-template>
+        </mat-step>
+      }
+    </mat-stepper>
+  }
+
+  <div class="ng-orbit-material-wizard-render__meta">
+    <span>
+      Step {{ currentStepPosition() }} / {{ enabledSteps().length }}
+    </span>
+    <strong>{{ currentStepLabel() }}</strong>
+  </div>
+
+  <div class="ng-orbit-material-wizard-render__content">
+    <ng-content />
+  </div>
+
+  <footer class="ng-orbit-material-wizard-render__footer">
+    <button
+      mat-stroked-button
+      type="button"
+      [disabled]="!wizard().canPrev()"
+      (click)="wizard().prev()"
+    >
+      Prev
+    </button>
+
+    <button
+      mat-flat-button
+      type="button"
+      color="primary"
+      [disabled]="!wizard().canNext()"
+      (click)="wizard().next()"
+    >
+      {{ nextLabel() }}
+    </button>
+  </footer>
+</section>

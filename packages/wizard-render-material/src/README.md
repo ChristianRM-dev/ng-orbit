@@ -1,3 +1,7 @@
 # @ng-orbit/wizard-render-material
 
-Placeholder. Implement per docs in /docs.
+Angular Material renderer for `@ng-orbit/wizard`.
+
+- Uses Angular Material components
+- Talks only to the headless wizard controller
+- No business logic or data fetching
