@@ -1,76 +1,53 @@
 # ng-orbit
 
-**ng-orbit** is a modern **Angular headless component library** focused on orchestration and composition:
-data tables, form wizards, and other reusable primitives that **do not depend on any UI framework**.
+ng-orbit is a headless Angular component library for tables, wizards, and other reusable UI
+contracts where the consuming app should keep ownership of data, forms, and business logic.
 
-ng-orbit targets **modern Angular**:
-- Standalone-first
-- Signals-first APIs
-- New control flow (`@if`, `@for`, `@switch`)
-- Design-system agnostic (Material, DaisyUI/Tailwind, custom UI)
+ng-orbit targets modern Angular:
+- standalone-first
+- signals-first APIs
+- new control flow
+- design-system agnostic integration
 
-> Baseline: Angular **21.2.1**. First stable target: Angular **22**.
+## What is ready today
 
----
+### Core packages
+- `@ng-orbit/table`
+- `@ng-orbit/wizard`
 
-## Why headless?
+### Ready helper packages
+- `@ng-orbit/wizard-kit` — Angular forms validity bridge for wizard steps
 
-UI frameworks and design systems differ a lot:
-- Some teams want **Angular Material**.
-- Others want **Tailwind/DaisyUI**.
-- Some teams have a custom design system.
-
-ng-orbit separates concerns:
-- **Core (headless)**: state + logic + accessibility contracts + events (no CSS, no HTML assumptions).
-- **Kits / Renderers (optional)**: UI primitives or fully composed renderers for common stacks.
-
-This lets consumers fully control:
-- Titles vs no titles
-- Progress indicators vs none
-- Steppers vs tabs vs sidebar navigation
-- Table styling, cell templates, row actions
-
----
-
-## Packages
-
-### Core
-- `@ng-orbit/table` — headless table state & contracts
-- `@ng-orbit/wizard` — headless wizard state & contracts
-
-### Optional UI kits (primitives, template-first)
-- `@ng-orbit/table-kit` — composable building blocks
-- `@ng-orbit/wizard-kit` — composable building blocks
-
-### Optional renderers (quick start)
+### Ready renderer packages
 - `@ng-orbit/table-render-plain`
 - `@ng-orbit/table-render-material`
 - `@ng-orbit/table-render-daisy`
-- `@ng-orbit/wizard-render-plain`
 - `@ng-orbit/wizard-render-material`
 - `@ng-orbit/wizard-render-daisy`
 
-> Renderers are optional. The recommended path is core + kit (consumer owns UI).
+### Placeholders in the repo
+- `@ng-orbit/table-kit` — placeholder, not consumer-ready
+- `@ng-orbit/wizard-render-plain` — placeholder, not consumer-ready
 
----
+## How to think about the library
 
-## Repo structure (Nx + pnpm)
+- `core` or `headless` packages own state, commands, events, and stable UI contracts
+- `kit` packages provide small composition helpers without becoming a renderer
+- `renderer` packages provide a ready-to-install first UI layer for a specific stack
+- `adapter` describes the integration layer between a headless controller and your product UI
 
-This repo uses **pnpm workspaces** and **Nx**.
+There is no separate published `adapter-*` package family today. The installable fast path is
+the renderer packages listed above.
 
-- `apps/demo-core/` — host app (core/plain + isolated remotes)
-- `apps/demo-material/` — Material visual environment
-- `apps/demo-daisy/` — Daisy visual environment
-- `packages/` — publishable libraries
-- `docs/` — architecture and component specifications
+## Recommended path
 
-See `docs/repo-structure.md`.
-
----
+- Use `@ng-orbit/table` or `@ng-orbit/wizard` when your product owns the final UI
+- Add `@ng-orbit/wizard-kit` when Angular forms should drive wizard validity
+- Add a renderer package when you want a faster first integration and can accept its visual stack
 
 ## Consumer docs
 
-The fastest way to understand the library as a consumer is to run the local docs host:
+Run the local docs host:
 
 ```bash
 pnpm install
@@ -80,81 +57,59 @@ pnpm demo
 Open:
 - `http://127.0.0.1:4200/table`
 - `http://127.0.0.1:4200/wizard`
+- `http://127.0.0.1:4200/adapters`
 
-Each feature page includes:
-- `Overview` for mental model and responsibilities
-- `API` for controller inputs, outputs, signals, commands, and types
-- `Renders` for optional renderer packages and "build your own" guidance
-- `Examples` for live previews plus integration snippets
+Each docs page includes:
+- `Overview` for the mental model and ownership boundaries
+- `API` for inputs, outputs, signals, commands, and key types
+- `Renders` or `Patterns` for installable UI packages and custom integration guidance
+- `Examples` for live previews plus copyable snippets
 
-`demo-core` is the consumer-facing docs host. `demo-material` and `demo-daisy` remain isolated preview apps used by the docs host for renderer demos.
+## Workspace structure
 
-## Getting started
+- `apps/demo-core/` — consumer-facing docs host
+- `apps/demo-material/` — isolated Material previews
+- `apps/demo-daisy/` — isolated DaisyUI previews
+- `packages/` — publishable libraries and placeholders
+- `docs/` — architecture notes and internal specifications
 
-### Install
+## Local development
+
+Install dependencies:
+
 ```bash
 pnpm install
 ```
 
-### Run local docs and demos
+Run docs and previews:
+
 ```bash
 pnpm demo
 ```
 
-Composition model: iframe-isolated previews (stability-first), with federation configs reserved for a future phase.
+Run a single app:
 
-Individual apps:
 ```bash
 pnpm demo:core
 pnpm demo:material
 pnpm demo:daisy
 ```
 
-### Build all
+Build everything:
+
 ```bash
 pnpm build
 ```
 
----
+## Internal docs
 
-## Documentation
-- Consumer docs host:
-  - `/table`
-  - `/wizard`
-- Internal markdown specs:
 - `docs/architecture.md`
+- `docs/renderers.md`
 - `docs/components/table.md`
 - `docs/components/wizard.md`
-- `docs/renderers.md`
 - `docs/repo-structure.md`
 - `docs/demo.md`
 
----
-
-## Table MVP usage (headless + plain renderer)
-
-`@ng-orbit/table` exposes a headless controller.  
-`@ng-orbit/table-render-plain` is a minimal reference UI that calls controller commands.
-
-```html
-<section
-  orbitTable
-  #t="orbitTable"
-  [rows]="state.rows"
-  [columns]="columns"
-  [total]="state.total"
-  [loading]="state.loading"
-  [error]="state.error"
-  [query]="query"
-  [getRowId]="getRowId"
-  (orbitTableQueryChange)="onQueryChange($event)"
-  (orbitTableSelectionChange)="onSelectionChange($event)"
->
-  <orbit-table-render-plain [table]="t"></orbit-table-render-plain>
-</section>
-```
-
----
-
 ## License
+
 MIT

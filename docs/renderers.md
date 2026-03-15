@@ -1,43 +1,80 @@
-# Renderers and Kits
+# Renderers, Kits, and Adapters
 
-## Kits (recommended)
-Kits are primitives designed for composition:
-- They provide computed UI data and template outlets.
-- Consumers decide layout, styling, and which pieces to show.
-
-Examples:
-- Wizard kit: nav, progress, footer buttons
-- Table kit: header builder, sorting helpers, selection helpers
-
-Kits must not ship CSS.
-
-## Renderers (optional)
-Renderers are full UI implementations:
-- Plain: semantic HTML
-- DaisyUI: class-based styling (requires DaisyUI in the host app)
-- Material: uses Angular Material components (requires Material in host app)
-
-Renderers should:
-- Be optional dependencies
-- Stay thin: mostly mapping core state to framework UI
-- Not fetch data directly
-- Not own business filtering/sorting rules
-
-## Renderer interaction contract
-Renderers must talk to the headless controller only through commands.
-
-Flow:
-1) renderer calls controller command (`toggleSort`, `setSearch`, `setPage`, etc.)
-2) core controller emits `orbitTableQueryChange`
-3) parent/consumer fetches and updates inputs (`rows`, `total`, `loading`, `error`, `query`)
-4) renderer reflects updated state
-
-For table renderers:
-- `@ng-orbit/table-render-plain` is the reference implementation
-- it renders semantic HTML only
-- it ships no CSS
-- it emits no parent outputs directly (events leave via core controller outputs)
+This document explains how to choose between the different integration layers in ng-orbit.
 
 ## Rule of thumb
-- If consumers frequently want different layouts: ship a kit, not a renderer.
-- If you want fast adoption + demos: ship at least plain renderer as reference.
+
+- choose `core` when your product owns the final UI
+- add a `kit` when repeated wiring should be reduced without shipping a full renderer
+- add a `renderer` when you want a ready-to-install first UI layer
+- use `adapter` as the concept name for the layer connecting headless state to your UI
+
+## Ready packages today
+
+### Core
+- `@ng-orbit/table`
+- `@ng-orbit/wizard`
+
+### Helper package
+- `@ng-orbit/wizard-kit`
+
+### Ready renderer packages
+- `@ng-orbit/table-render-plain`
+- `@ng-orbit/table-render-material`
+- `@ng-orbit/table-render-daisy`
+- `@ng-orbit/wizard-render-material`
+- `@ng-orbit/wizard-render-daisy`
+
+## Placeholders in the repo
+
+These exist in the workspace but should not be presented as consumer-ready:
+- `@ng-orbit/table-kit`
+- `@ng-orbit/wizard-render-plain`
+
+## How renderer interaction works
+
+The renderer contract is intentionally simple:
+
+1. a renderer reads state from the headless controller
+2. a renderer calls controller commands in response to user intent
+3. the parent feature reacts to emitted outputs
+4. the parent updates inputs such as `rows`, `query`, `loading`, `error`, or step definitions
+
+Example flow for table:
+
+1. renderer calls `toggleSort`, `setSearch`, `setPage`, or `toggleRow`
+2. `OrbitTableDirective` emits `orbitTableQueryChange` or `orbitTableSelectionChange`
+3. the consuming feature maps the query to backend params and fetches data
+4. the renderer reflects the updated inputs
+
+Example flow for wizard:
+
+1. renderer calls `next`, `prev`, `goTo`, or `setValid`
+2. `OrbitWizardDirective` updates current, visited, validity, and progress state
+3. the consuming feature decides what completion means and persists data if needed
+
+## Adapter boundaries
+
+What belongs in an adapter:
+- markup and layout
+- component composition
+- mapping UI events into controller commands
+- framework-specific visual integration
+
+What stays outside:
+- backend interaction
+- business validation rules
+- form ownership
+- submission side effects
+- analytics and product-specific orchestration
+
+## Consumer guidance
+
+- if you already have a design system, start with the headless controller and build a custom adapter
+- if you use Angular forms for wizard steps, add `@ng-orbit/wizard-kit`
+- if you need a faster first UI layer, install one of the ready renderer packages
+
+Use the local docs host for live guidance:
+- `/table`
+- `/wizard`
+- `/adapters`

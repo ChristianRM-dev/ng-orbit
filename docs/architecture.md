@@ -1,44 +1,85 @@
 # Architecture
 
-ng-orbit follows a strict separation of concerns:
+ng-orbit follows a strict separation of concerns so consumers can keep product logic outside the
+UI layer.
 
-## 1) Core (headless)
-Core packages contain:
-- State management (signals)
-- Derived state (computed)
-- Events and commands (next/prev/sort/select/etc.)
-- Small, stable contracts (interfaces) between core and UI
-- No CSS / SCSS
-- No hard dependency on UI frameworks
+## 1. Core or headless packages
 
-Core exposes an API usable from templates:
-- `exportAs` controller (e.g. `#t="orbitTable"`, `#w="orbitWizard"`)
-- Signals for state (`current`, `steps`, `sort`, `progress`, etc.)
-- Methods for commands (`next`, `prev`, `goTo`, etc.)
+Core packages own:
+- state management
+- derived state
+- events and command methods
+- small, stable UI contracts
 
-## 2) Kits (UI primitives, template-first)
-Kits provide optional building blocks that:
-- read the core API (DI or input)
-- compute UI-friendly data (e.g. progress percent)
-- expose template outlets for total customization
+Core packages do not own:
+- CSS or SCSS
+- design-system components
+- backend calls
+- business filtering, sorting, or submission rules
+
+Current headless packages:
+- `@ng-orbit/table`
+- `@ng-orbit/wizard`
+
+## 2. Kits
+
+Kits are optional composition helpers, not full renderers.
+
+Current public kit:
+- `@ng-orbit/wizard-kit` — Angular forms validity bridge for wizard steps
+
+Placeholder in the repo:
+- `@ng-orbit/table-kit` — not consumer-ready yet
 
 Kits should:
-- not ship CSS
-- allow consumers to decide layout and styling
-- keep logic out of application code (reduce repeated patterns)
+- stay thin
+- avoid CSS
+- help consumers reduce repeated wiring without taking over layout
 
-## 3) Renderers (optional, quick start)
-Renderers are complete UIs for specific stacks:
-- Angular Material: uses `mat-table`, `mat-stepper`, etc.
-- DaisyUI: uses class-based styling (no CSS shipped)
-- Plain: semantic HTML, minimal assumptions
+## 3. Renderers
 
-Renderers must be optional dependencies so core stays lightweight.
+Renderers are ready-to-install UI packages for specific visual stacks.
 
-## Non-goals
-- ng-orbit is not a design system.
-- ng-orbit does not enforce visual styling.
-- ng-orbit does not own consumer forms (wizard steps are consumer components).
+Ready renderer packages today:
+- `@ng-orbit/table-render-plain`
+- `@ng-orbit/table-render-material`
+- `@ng-orbit/table-render-daisy`
+- `@ng-orbit/wizard-render-material`
+- `@ng-orbit/wizard-render-daisy`
+
+Placeholder in the repo:
+- `@ng-orbit/wizard-render-plain` — not consumer-ready yet
+
+Renderers should:
+- map headless state into UI
+- call controller commands only
+- stay presentation-only
+
+Renderers must not:
+- fetch data directly
+- own form state
+- own submission side effects
+- own business rules that belong in the feature layer
+
+## 4. Adapters
+
+In ng-orbit, an adapter is the integration layer between a headless controller and a product UI.
+
+An adapter can be:
+- custom markup around `orbitTable` or `orbitWizard`
+- a kit-assisted composition layer
+- an installable renderer package
+
+There is no separate published `adapter-*` package family today. The fast install path is the
+renderer packages listed above.
+
+## 5. Non-goals
+
+- ng-orbit is not a design system
+- ng-orbit does not own consumer forms
+- ng-orbit does not hide backend integration
+- ng-orbit does not enforce one visual stack
 
 ## Angular target
-Development baseline is Angular 21.2.1, with first stable release aiming at Angular 22.
+
+Development baseline is Angular `21.2.1`, with the first stable release aimed at Angular `22`.

@@ -105,26 +105,22 @@ True when:
 
 ## Optional package: `@ng-orbit/wizard-kit`
 
-Kits are template-first primitives. They must not ship CSS.
+`@ng-orbit/wizard-kit` is the current public helper package.
 
-### Components (proposed)
-1) `<orbit-wizard-nav [wizard]="w">`
-- Exposes nav items: `{ step, index, isCurrent, isVisited, isValid, isDisabled, canGoTo }`
-- Template outlets for full markup control
+Available today:
+- `OrbitWizardStepFormSyncDirective`
+  - syncs Angular form validity into `orbitWizard`
+  - ships no CSS
+  - does not own layout or submission behavior
 
-2) `<orbit-wizard-progress [wizard]="w">`
-- Exposes `progress()` signal for percent + counts
-- Template outlet for custom progress UI
-
-3) `<orbit-wizard-footer [wizard]="w">`
-- Exposes `canPrev`, `canNext`, `isFirst`, `isLast`
-- Template outlet for custom buttons
+Possible future helpers may exist later, but they are not part of the current public package
+contract.
 
 ---
 
 ## Optional renderers
 Renderers are not required, but if present:
 
-- `wizard-render-plain`: semantic HTML (no CSS), reference implementation
-- `wizard-render-daisy`: DaisyUI classes only (no CSS), requires Tailwind+Daisy in host
-- `wizard-render-material`: maps wizard state to `mat-stepper`, Material as peer deps
+- `wizard-render-material`: ready today, maps wizard state to Angular Material UI
+- `wizard-render-daisy`: ready today, maps wizard state to DaisyUI/Tailwind UI
+- `wizard-render-plain`: planned placeholder in the repo, not consumer-ready today

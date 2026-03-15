@@ -1,0 +1,104 @@
+ng-orbit is a headless Angular UI library for tables and wizards.
+
+Primary audience:
+- Angular consumers who want reusable state and contracts without losing UI ownership
+- AI agents that need a short, stable map of the repo
+
+Ready packages today:
+- @ng-orbit/table
+- @ng-orbit/wizard
+- @ng-orbit/wizard-kit
+- @ng-orbit/table-render-plain
+- @ng-orbit/table-render-material
+- @ng-orbit/table-render-daisy
+- @ng-orbit/wizard-render-material
+- @ng-orbit/wizard-render-daisy
+
+Placeholders in the repo, not consumer-ready:
+- @ng-orbit/table-kit
+- @ng-orbit/wizard-render-plain
+
+Mental model:
+- core or headless packages own state, commands, events, and stable contracts
+- kits are thin helpers, not full renderers
+- renderers are ready-to-install UI packages for specific stacks
+- adapters are the integration layer between headless controllers and product UI
+- there is no published adapter-* package family today
+
+Ownership rules:
+- ng-orbit does not fetch data
+- ng-orbit does not own consumer forms
+- ng-orbit does not own submission side effects
+- ng-orbit does not own business sorting, filtering, or validation rules
+- consumers own backend mapping, persistence, analytics, and final layout
+
+Install by use case:
+- server-driven table with custom UI:
+  - pnpm add @ng-orbit/table
+- fastest semantic table UI:
+  - pnpm add @ng-orbit/table @ng-orbit/table-render-plain
+- Angular Material table:
+  - pnpm add @ng-orbit/table @ng-orbit/table-render-material
+- DaisyUI/Tailwind table:
+  - pnpm add @ng-orbit/table @ng-orbit/table-render-daisy
+- custom wizard with Angular forms:
+  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit
+- Angular Material wizard:
+  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit @ng-orbit/wizard-render-material
+- DaisyUI/Tailwind wizard:
+  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit @ng-orbit/wizard-render-daisy
+
+Smallest working table example:
+```html
+<section
+  orbitTable
+  #table="orbitTable"
+  [rows]="rows()"
+  [columns]="columns"
+  [total]="total()"
+  [loading]="loading()"
+  [error]="error()"
+  [query]="query()"
+  [getRowId]="getRowId"
+  (orbitTableQueryChange)="onQueryChange($event)"
+>
+  <orbit-table-render-plain [table]="table" />
+</section>
+```
+
+Smallest working wizard example:
+```html
+<section orbitWizard #wizard="orbitWizard" [steps]="steps" (completed)="submit()">
+  <form
+    [formGroup]="accountForm"
+    [orbitWizardStepFormSync]="wizard"
+    orbitWizardStepId="account"
+    [orbitWizardStepForm]="accountForm"
+  >
+    <input type="text" formControlName="fullName" />
+  </form>
+
+  <button type="button" [disabled]="!wizard.canNext()" (click)="wizard.next()">
+    Continue
+  </button>
+</section>
+```
+
+Important defaults:
+- table query defaults to page=1, pageSize=10, sort=null, search='', filters={}
+- table page is 1-based
+- wizard linear defaults to true
+- wizard step defaults: kind='step', optional=false, disabled=false, showInNav=true
+
+Useful entry points:
+- docs host: /table
+- docs host: /wizard
+- docs host: /adapters
+- root README: README.md
+- architecture notes: docs/architecture.md
+- renderers guidance: docs/renderers.md
+
+Source of truth:
+- public APIs should be read from the exported symbols in packages/table, packages/wizard,
+  packages/wizard-kit, and the ready renderer packages
+- internal placeholder packages should not be recommended as install paths
