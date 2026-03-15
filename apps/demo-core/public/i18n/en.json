@@ -1,7 +1,8 @@
 {
   "layout": {
-    "title": "ng-orbit core demo",
-    "subtitle": "Headless core + plain renderer with isolated remotes",
+    "title": "ng-orbit Docs",
+    "subtitle": "Editorial docs for headless Angular primitives, renderer packages, and custom product integrations.",
+    "brandCaption": "Editorial Orbit docs host",
     "demoCore": "Core host app",
     "navigation": "Main navigation",
     "language": "Language",
@@ -11,6 +12,7 @@
   "nav": {
     "table": "Table",
     "wizard": "Wizard",
+    "adapters": "Adapters",
     "tablePlain": "Table plain",
     "tableCore": "Table core",
     "tableMaterial": "Table material",
@@ -18,6 +20,20 @@
     "wizardCore": "Wizard core",
     "wizardMaterial": "Wizard material",
     "wizardDaisy": "Wizard daisy"
+  },
+  "docs": {
+    "shared": {
+      "tabs": {
+        "overview": "Overview",
+        "api": "API",
+        "renders": "Renders",
+        "examples": "Examples"
+      },
+      "tabNav": "Documentation tabs",
+      "livePreview": "Live preview",
+      "copy": "Copy",
+      "copied": "Copied"
+    }
   },
   "table": {
     "hub": {

@@ -1,5 +1,6 @@
 .ng-orbit-card {
-  border-radius: 0.8rem;
-  border: 1px solid #d9e1dc;
-  background: #fff;
+  border-radius: var(--ng-orbit-radius-lg);
+  border: 1px solid var(--ng-orbit-line);
+  background: rgb(255 255 255 / 0.9);
+  box-shadow: var(--ng-orbit-shadow-md);
 }

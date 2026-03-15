@@ -1,6 +1,6 @@
 .ng-orbit-shell {
   --ng-orbit-sidebar-width: 272px;
-  --ng-orbit-topbar-height: 76px;
+  --ng-orbit-topbar-height: 88px;
 
   box-sizing: border-box;
   display: grid;
@@ -9,7 +9,9 @@
   max-width: 100%;
   min-width: 0;
   min-height: 100dvh;
-  background: linear-gradient(165deg, #f7f9f6 0%, #eef3ee 55%, #e6ece4 100%);
+  background:
+    radial-gradient(circle at top left, rgb(111 199 255 / 0.16), transparent 22rem),
+    linear-gradient(180deg, var(--ng-orbit-mist), var(--ng-orbit-paper));
 
   &__backdrop {
     position: fixed;
@@ -27,8 +29,8 @@
     min-width: 0;
     width: 100%;
     max-width: 100%;
-    display: grid;
-    grid-template-rows: var(--ng-orbit-topbar-height) 1fr;
+    display: flex;
+    flex-direction: column;
   }
 
   &__content {
@@ -36,7 +38,7 @@
     width: 100%;
     max-width: 100%;
     min-width: 0;
-    padding: 1.25rem;
+    padding: 1.5rem;
   }
 
   &--sidebar-open &__backdrop {
@@ -48,100 +50,205 @@
 .ng-orbit-sidebar {
   box-sizing: border-box;
   min-width: 0;
-  background: linear-gradient(180deg, #1f3a33 0%, #193129 100%);
-  color: #f5fbf7;
-  border-right: 1px solid rgb(255 255 255 / 0.1);
+  background:
+    radial-gradient(circle at top, rgb(111 199 255 / 0.1), transparent 18rem),
+    linear-gradient(180deg, var(--ng-orbit-ink) 0%, #101d33 100%);
+  color: #f4f7fb;
+  border-right: 1px solid rgb(255 255 255 / 0.08);
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        transparent 0,
+        transparent calc(100% - 1px),
+        rgb(255 255 255 / 0.04) calc(100% - 1px)
+      ),
+      linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 24px,
+        rgb(255 255 255 / 0.03) 24px,
+        rgb(255 255 255 / 0.03) 25px
+      );
+    background-size: 100% 100%, 100% 25px;
+    pointer-events: none;
+  }
 
   &__brand {
-    padding: 1.4rem 1.2rem 1rem;
-    border-bottom: 1px solid rgb(255 255 255 / 0.12);
+    padding: 1.35rem 1.1rem 1rem;
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  &__brand-row,
+  &__brand-copy {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  &__brand-copy {
+    min-width: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
   }
 
   &__logo {
     display: block;
-    font-size: 1.15rem;
+    font-family: var(--ng-orbit-font-heading);
+    font-size: 1.1rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
   }
 
   &__caption {
     display: block;
-    margin-top: 0.4rem;
-    opacity: 0.78;
+    opacity: 0.76;
     font-size: 0.8rem;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
+    color: rgb(224 234 245 / 0.8);
   }
 
   &__nav {
-    display: grid;
-    gap: 0.35rem;
-    padding: 0.9rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1rem 0.8rem;
+    position: relative;
+    z-index: 1;
   }
 
   &__item {
     text-decoration: none;
     color: inherit;
-    border: 1px solid transparent;
-    border-radius: 0.55rem;
-    padding: 0.68rem 0.76rem;
-    font-weight: 550;
-    transition: background-color 120ms ease, border-color 120ms ease;
+    border: 1px solid rgb(255 255 255 / 0.06);
+    border-radius: 1rem;
+    padding: 0.9rem 0.92rem;
+    font-weight: 620;
+    backdrop-filter: blur(6px);
+    background: rgb(255 255 255 / 0.02);
+    transition:
+      background-color var(--ng-orbit-motion-fast),
+      border-color var(--ng-orbit-motion-fast),
+      transform var(--ng-orbit-motion-fast),
+      box-shadow var(--ng-orbit-motion-fast);
 
     &:hover {
-      background: rgb(255 255 255 / 0.08);
-      border-color: rgb(255 255 255 / 0.15);
+      transform: translateY(-1px);
+      background: rgb(255 255 255 / 0.05);
+      border-color: rgb(111 199 255 / 0.24);
+      box-shadow: 0 14px 24px rgb(0 0 0 / 0.16);
     }
 
     &--active {
-      background: rgb(255 255 255 / 0.16);
-      border-color: rgb(255 255 255 / 0.25);
+      background:
+        linear-gradient(135deg, rgb(111 199 255 / 0.16), rgb(255 255 255 / 0.06)),
+        rgb(255 255 255 / 0.05);
+      border-color: rgb(111 199 255 / 0.35);
+      box-shadow:
+        inset 0 0 0 1px rgb(111 199 255 / 0.12),
+        0 18px 30px rgb(0 0 0 / 0.2);
     }
   }
 }
 
 .ng-orbit-topbar {
   box-sizing: border-box;
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid #d8e1db;
-  background: rgb(255 255 255 / 0.74);
-  backdrop-filter: blur(4px);
+  min-height: var(--ng-orbit-topbar-height);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--ng-orbit-line);
+  background: rgb(251 252 253 / 0.88);
+  backdrop-filter: blur(14px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
   &__menu-toggle {
     display: none;
-    border: 1px solid #c2cdc4;
-    border-radius: 0.5rem;
-    background: #fff;
+    border: 1px solid var(--ng-orbit-line);
+    border-radius: 0.9rem;
+    background: rgb(255 255 255 / 0.88);
     font-size: 1.2rem;
-    width: 2.5rem;
-    height: 2.3rem;
+    width: 2.75rem;
+    height: 2.55rem;
     cursor: pointer;
   }
 
   &__title-wrap {
     min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  &__brand-line {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    min-width: 0;
   }
 
   &__title {
     margin: 0;
-    font-size: 1.02rem;
-    letter-spacing: 0.02em;
-    color: #20352d;
+    font-family: var(--ng-orbit-font-heading);
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ng-orbit-ink);
   }
 
   &__subtitle {
     margin: 0.16rem 0 0;
-    font-size: 0.82rem;
-    color: #4d6259;
+    font-size: 0.86rem;
+    color: var(--ng-orbit-muted);
+  }
+
+  &__languages {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--ng-orbit-line);
+    background: rgb(255 255 255 / 0.88);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.7);
+  }
+
+  &__lang-btn {
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--ng-orbit-muted);
+    cursor: pointer;
+    min-width: 2.8rem;
+    padding: 0.48rem 0.8rem;
+    font-family: var(--ng-orbit-font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    transition:
+      background-color var(--ng-orbit-motion-fast),
+      color var(--ng-orbit-motion-fast),
+      box-shadow var(--ng-orbit-motion-fast);
+
+    &--active {
+      background: linear-gradient(135deg, var(--ng-orbit-accent), var(--ng-orbit-signal));
+      color: #fff;
+      box-shadow: 0 12px 20px rgb(12 118 255 / 0.24);
+    }
   }
 }
 
@@ -150,7 +257,7 @@
     grid-template-columns: 1fr;
 
     &__content {
-      padding: 0.95rem;
+      padding: 1rem;
     }
   }
 
@@ -171,6 +278,29 @@
     &__menu-toggle {
       display: inline-grid;
       place-items: center;
+    }
+
+    &__brand-line {
+      gap: 0.7rem;
+    }
+
+    &__languages {
+      margin-left: auto;
+    }
+  }
+}
+
+@media (max-width: 720px) {
+  .ng-orbit-topbar {
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    &__title-wrap {
+      flex-basis: calc(100% - 3.5rem);
+    }
+
+    &__languages {
+      margin-left: 3.55rem;
     }
   }
 }

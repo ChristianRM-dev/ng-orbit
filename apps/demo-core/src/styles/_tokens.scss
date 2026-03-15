@@ -1,5 +1,22 @@
 :root {
-  --ng-orbit-font-family: 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
-  --ng-orbit-text: #1f382f;
-  --ng-orbit-bg: #ecf2ec;
+  --ng-orbit-font-family: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  --ng-orbit-font-heading: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  --ng-orbit-font-mono: 'IBM Plex Mono', 'SFMono-Regular', 'Menlo', monospace;
+  --ng-orbit-ink: #10213b;
+  --ng-orbit-paper: #f4f7fb;
+  --ng-orbit-mist: #e9eef5;
+  --ng-orbit-orbit: #7cc7ff;
+  --ng-orbit-signal: #0e7dff;
+  --ng-orbit-accent: #f06a44;
+  --ng-orbit-text: #203149;
+  --ng-orbit-muted: #597089;
+  --ng-orbit-bg: var(--ng-orbit-paper);
+  --ng-orbit-line: rgb(16 33 59 / 0.12);
+  --ng-orbit-line-strong: rgb(124 199 255 / 0.42);
+  --ng-orbit-radius-lg: 1.35rem;
+  --ng-orbit-radius-md: 1rem;
+  --ng-orbit-shadow-lg: 0 24px 48px rgb(16 33 59 / 0.08);
+  --ng-orbit-shadow-md: 0 16px 28px rgb(16 33 59 / 0.06);
+  --ng-orbit-motion-fast: 160ms ease;
+  --ng-orbit-motion-medium: 240ms ease;
 }

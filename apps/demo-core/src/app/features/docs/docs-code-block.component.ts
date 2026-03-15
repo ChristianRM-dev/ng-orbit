@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, input, signal } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import * as Prism from 'prismjs';
 import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-css';
@@ -11,6 +12,7 @@ import type { DocsCodeLanguage } from './docs.models';
 @Component({
   selector: 'ng-orbit-docs-code-block',
   standalone: true,
+  imports: [TranslatePipe],
   templateUrl: './docs-code-block.component.html',
   styleUrl: './docs-code-block.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

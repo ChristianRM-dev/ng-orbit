@@ -1,6 +1,11 @@
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map, startWith } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
+import { DemoI18nService } from '../../core/i18n/demo-i18n.service';
+import { DocsSeoService } from '../../core/seo/docs-seo.service';
+import { buildDocsCanonicalPath } from './docs.catalog';
 import { DocsCodeBlockComponent } from './docs-code-block.component';
 import {
   DOCS_TABS,
@@ -11,16 +16,17 @@ import {
 } from './docs.models';
 import { DocsPreviewHostComponent } from './docs-preview-host.component';
 
-interface CanonicalQueryParams {
-  readonly tab: DocsTabId;
+interface DocsRouteData {
+  readonly docsTab?: DocsTabId;
   readonly renderer?: string;
   readonly example?: string;
+  readonly legacy?: boolean;
 }
 
 @Component({
   selector: 'ng-orbit-feature-docs-page',
   standalone: true,
-  imports: [DocsCodeBlockComponent, DocsPreviewHostComponent],
+  imports: [DocsCodeBlockComponent, DocsPreviewHostComponent, TranslatePipe],
   templateUrl: './feature-docs-page.component.html',
   styleUrl: './feature-docs-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -28,6 +34,8 @@ interface CanonicalQueryParams {
 export class FeatureDocsPageComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly i18nService = inject(DemoI18nService);
+  private readonly docsSeoService = inject(DocsSeoService);
 
   readonly docs = input.required<DocsFeatureDefinition>();
 
@@ -37,6 +45,14 @@ export class FeatureDocsPageComponent {
   private readonly routeData = toSignal(this.route.data, {
     initialValue: this.route.snapshot.data
   });
+  private readonly routerUrl = toSignal(
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map(() => this.router.url),
+      startWith(this.router.url)
+    ),
+    { initialValue: this.router.url }
+  );
 
   protected readonly tabs = computed<readonly DocsTabDefinition[]>(() =>
     DOCS_TABS.map((tab) => ({
@@ -44,6 +60,7 @@ export class FeatureDocsPageComponent {
       label: this.docs().tabLabels?.[tab.id] ?? tab.label
     }))
   );
+  protected readonly activeLanguage = this.i18nService.language;
   protected readonly heroEyebrow = computed(
     () => this.docs().heroEyebrow ?? this.docs().packageName ?? this.docs().title
   );
@@ -77,9 +94,7 @@ export class FeatureDocsPageComponent {
   );
   protected readonly overviewCodeSectionTitle = computed(() => this.docs().overviewCodeSectionTitle);
   protected readonly overviewCodeSectionLead = computed(() => this.docs().overviewCodeSectionLead);
-  protected readonly overviewCodeBlocks = computed(
-    () => this.docs().overviewCodeBlocks ?? []
-  );
+  protected readonly overviewCodeBlocks = computed(() => this.docs().overviewCodeBlocks ?? []);
   protected readonly renderSelectorLabel = computed(
     () => this.docs().renderSelectorLabel ?? 'Render options'
   );
@@ -100,13 +115,17 @@ export class FeatureDocsPageComponent {
       'Try the interaction and compare it with the snippet on the right.'
   );
   protected readonly activeTab = computed<DocsTabId>(() =>
-    this.resolveTab(this.queryParamMap().get('tab'))
+    this.resolveTab((this.routeData() as DocsRouteData).docsTab, this.queryParamMap().get('tab'))
   );
   protected readonly activeRendererId = computed(() =>
-    this.resolveRenderer(this.queryParamMap().get('renderer'))
+    this.resolveRenderer(
+      (this.routeData() as DocsRouteData).renderer ?? this.queryParamMap().get('renderer')
+    )
   );
   protected readonly activeExampleId = computed(() =>
-    this.resolveExample(this.queryParamMap().get('example'))
+    this.resolveExample(
+      (this.routeData() as DocsRouteData).example ?? this.queryParamMap().get('example')
+    )
   );
   protected readonly activeRenderer = computed(
     () => this.docs().renders.find((renderer) => renderer.id === this.activeRendererId()) ?? null
@@ -125,33 +144,34 @@ export class FeatureDocsPageComponent {
     effect(() => {
       this.ensureCanonicalRoute();
     });
+
+    effect(() => {
+      this.updateSeoMetadata();
+    });
   }
 
   protected selectTab(tab: DocsTabId): void {
-    void this.router.navigate([`/${this.docs().routePath}`], {
-      queryParams: this.buildCanonicalQuery(tab, this.activeRendererId(), this.activeExampleId())
-    });
+    void this.router.navigateByUrl(this.buildCanonicalUrl(tab));
   }
 
   protected selectRenderer(rendererId: string): void {
-    void this.router.navigate([`/${this.docs().routePath}`], {
-      queryParams: this.buildCanonicalQuery('renders', rendererId, this.activeExampleId())
-    });
+    void this.router.navigateByUrl(this.buildCanonicalUrl('renders', rendererId));
   }
 
   protected selectExample(exampleId: string): void {
-    void this.router.navigate([`/${this.docs().routePath}`], {
-      queryParams: this.buildCanonicalQuery('examples', this.activeRendererId(), exampleId)
-    });
+    void this.router.navigateByUrl(this.buildCanonicalUrl('examples', undefined, exampleId));
   }
 
-  private resolveTab(rawTab: string | null): DocsTabId {
+  private resolveTab(routeTab: DocsTabId | undefined, rawTab: string | null): DocsTabId {
+    if (routeTab && DOCS_TABS.some((tab) => tab.id === routeTab)) {
+      return routeTab;
+    }
+
     if (rawTab && DOCS_TABS.some((tab) => tab.id === rawTab)) {
       return rawTab as DocsTabId;
     }
 
-    const currentPath = this.route.snapshot.routeConfig?.path ?? '';
-    return currentPath === this.docs().routePath ? 'overview' : 'renders';
+    return 'overview';
   }
 
   private resolveRenderer(rawRenderer: string | null): string {
@@ -161,16 +181,12 @@ export class FeatureDocsPageComponent {
       return rawRenderer;
     }
 
-    const legacyRenderer = this.mapLegacyRenderer(this.routeData()['renderer'] as string | undefined);
-    if (legacyRenderer && availableRendererIds.has(legacyRenderer)) {
-      return legacyRenderer;
-    }
-
     return this.docs().renders[0]?.id ?? '';
   }
 
   private resolveExample(rawExample: string | null): string {
     const availableExampleIds = new Set(this.docs().examples.map((example) => example.id));
+
     if (rawExample && availableExampleIds.has(rawExample)) {
       return rawExample;
     }
@@ -178,68 +194,92 @@ export class FeatureDocsPageComponent {
     return this.docs().examples[0]?.id ?? '';
   }
 
-  private mapLegacyRenderer(renderer: string | undefined): string {
-    if (!renderer) {
-      return '';
-    }
-
-    if (renderer === 'core') {
-      return 'custom';
-    }
-
-    return renderer;
-  }
-
-  private buildCanonicalQuery(
+  private buildCanonicalUrl(
     tab: DocsTabId,
-    renderer: string,
-    example: string
-  ): CanonicalQueryParams {
-    if (tab === 'renders') {
-      return {
-        tab,
-        renderer
-      };
+    renderer = this.activeRendererId(),
+    example = this.activeExampleId()
+  ): string {
+    const path = buildDocsCanonicalPath(this.docs(), tab, {
+      renderer: tab === 'renders' ? renderer : undefined,
+      example: tab === 'examples' ? example : undefined
+    });
+
+    const query = new URLSearchParams();
+    if (this.activeLanguage() === 'es') {
+      query.set('lang', 'es');
     }
 
-    if (tab === 'examples') {
-      return {
-        tab,
-        example
-      };
-    }
-
-    return { tab };
+    const queryString = query.toString();
+    return queryString ? `${path}?${queryString}` : path;
   }
 
   private ensureCanonicalRoute(): void {
-    const currentPath = this.route.snapshot.routeConfig?.path ?? '';
-    const currentParams = this.queryParamMap();
-    const canonicalParams = this.buildCanonicalQuery(
-      this.activeTab(),
-      this.activeRendererId(),
-      this.activeExampleId()
-    );
+    const currentPath = this.routerUrl().split('?')[0] || '/';
+    const routeData = this.routeData() as DocsRouteData;
+    const expectedUrl = this.buildCanonicalUrl(this.activeTab());
+    const expectedPath = expectedUrl.split('?')[0];
+    const currentQuery = this.queryParamMap();
+    const expectedLang = this.activeLanguage() === 'es' ? 'es' : null;
+    const currentLang = currentQuery.get('lang');
+    const hasLegacyDocQueryParams =
+      currentQuery.has('tab') || currentQuery.has('renderer') || currentQuery.has('example');
 
     if (
-      currentPath !== this.docs().routePath ||
-      !areCanonicalQueryParamsEqual(currentParams, canonicalParams)
+      currentPath !== expectedPath ||
+      hasLegacyDocQueryParams ||
+      !!routeData.legacy ||
+      currentLang !== expectedLang
     ) {
-      void this.router.navigate([`/${this.docs().routePath}`], {
-        queryParams: canonicalParams,
+      void this.router.navigateByUrl(expectedUrl, {
         replaceUrl: true
       });
     }
   }
-}
 
-function areCanonicalQueryParamsEqual(
-  currentParams: Pick<URLSearchParams, 'get'>,
-  expectedParams: CanonicalQueryParams
-): boolean {
-  return (
-    (currentParams.get('tab') ?? undefined) === expectedParams.tab &&
-    (currentParams.get('renderer') ?? undefined) === expectedParams.renderer &&
-    (currentParams.get('example') ?? undefined) === expectedParams.example
-  );
+  private updateSeoMetadata(): void {
+    const docs = this.docs();
+    const activeTab = this.activeTab();
+    const canonicalPath = buildDocsCanonicalPath(docs, activeTab, {
+      renderer: activeTab === 'renders' ? this.activeRendererId() : undefined,
+      example: activeTab === 'examples' ? this.activeExampleId() : undefined
+    });
+
+    this.docsSeoService.update({
+      title: this.buildSeoTitle(),
+      description: this.buildSeoDescription(),
+      path: canonicalPath,
+      language: this.activeLanguage()
+    });
+  }
+
+  private buildSeoTitle(): string {
+    const docs = this.docs();
+    const activeTab = this.activeTab();
+    const renderTabLabel = this.tabs().find((tab) => tab.id === 'renders')?.label ?? 'Renders';
+    const examplesTabLabel = this.tabs().find((tab) => tab.id === 'examples')?.label ?? 'Examples';
+
+    switch (activeTab) {
+      case 'overview':
+        return `${docs.title} Overview | ng-orbit`;
+      case 'api':
+        return `${docs.title} API | ng-orbit`;
+      case 'renders':
+        return `${this.activeRenderer()?.label ?? docs.title} ${renderTabLabel} | ${docs.title} | ng-orbit`;
+      case 'examples':
+        return `${this.activeExample()?.title ?? docs.title} | ${examplesTabLabel} | ng-orbit`;
+    }
+  }
+
+  private buildSeoDescription(): string {
+    switch (this.activeTab()) {
+      case 'overview':
+        return this.docs().summary;
+      case 'api':
+        return this.docs().apiSummary;
+      case 'renders':
+        return this.activeRenderer()?.summary ?? this.docs().summary;
+      case 'examples':
+        return this.activeExample()?.description ?? this.docs().summary;
+    }
+  }
 }

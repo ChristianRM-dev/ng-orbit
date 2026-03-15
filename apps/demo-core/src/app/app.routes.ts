@@ -1,4 +1,9 @@
 import { Routes } from '@angular/router';
+import { DOCS_FEATURES, getTabRouteSegment, type DocsFeatureId } from './features/docs/docs.catalog';
+
+const tableFeatureRoutes = buildFeatureRoutes('table');
+const wizardFeatureRoutes = buildFeatureRoutes('wizard');
+const adaptersFeatureRoutes = buildFeatureRoutes('adapters');
 
 export const appRoutes: Routes = [
   {
@@ -9,105 +14,109 @@ export const appRoutes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'table'
+        redirectTo: 'table/overview'
       },
-      {
-        path: 'table',
-        loadComponent: () =>
-          import('./features/hub/table-hub-page.component').then(
-            (module) => module.TableHubPageComponent
-          )
-      },
-      {
-        path: 'wizard',
-        loadComponent: () =>
-          import('./features/hub/wizard-hub-page.component').then(
-            (module) => module.WizardHubPageComponent
-          )
-      },
-      {
-        path: 'adapters',
-        loadComponent: () =>
-          import('./features/hub/adapters-hub-page.component').then(
-            (module) => module.AdaptersHubPageComponent
-          )
-      },
-      // Legacy aliases. These routes keep old URLs working while canonical routes
-      // are `/table?renderer=...` and `/wizard?renderer=...`.
-      {
-        path: 'table/core',
-        loadComponent: () =>
-          import('./features/hub/table-hub-page.component').then(
-            (module) => module.TableHubPageComponent
-          ),
-        data: {
-          renderer: 'custom'
-        }
-      },
-      {
-        path: 'table/plain',
-        loadComponent: () =>
-          import('./features/hub/table-hub-page.component').then(
-            (module) => module.TableHubPageComponent
-          ),
-        data: {
-          renderer: 'plain'
-        }
-      },
-      {
-        path: 'table/material',
-        loadComponent: () =>
-          import('./features/hub/table-hub-page.component').then(
-            (module) => module.TableHubPageComponent
-          ),
-        data: {
-          renderer: 'material'
-        }
-      },
-      {
-        path: 'table/daisy',
-        loadComponent: () =>
-          import('./features/hub/table-hub-page.component').then(
-            (module) => module.TableHubPageComponent
-          ),
-        data: {
-          renderer: 'daisy'
-        }
-      },
-      {
-        path: 'wizard/core',
-        loadComponent: () =>
-          import('./features/hub/wizard-hub-page.component').then(
-            (module) => module.WizardHubPageComponent
-          ),
-        data: {
-          renderer: 'custom'
-        }
-      },
-      {
-        path: 'wizard/material',
-        loadComponent: () =>
-          import('./features/hub/wizard-hub-page.component').then(
-            (module) => module.WizardHubPageComponent
-          ),
-        data: {
-          renderer: 'material'
-        }
-      },
-      {
-        path: 'wizard/daisy',
-        loadComponent: () =>
-          import('./features/hub/wizard-hub-page.component').then(
-            (module) => module.WizardHubPageComponent
-          ),
-        data: {
-          renderer: 'daisy'
-        }
-      },
+      ...tableFeatureRoutes,
+      ...wizardFeatureRoutes,
+      ...adaptersFeatureRoutes,
       {
         path: '**',
-        redirectTo: 'table'
+        redirectTo: 'table/overview'
       }
     ]
   }
 ];
+
+function buildFeatureRoutes(featureId: DocsFeatureId): Routes {
+  const { feature, renderIds, exampleIds, legacyRenderAliases } = DOCS_FEATURES[featureId];
+  const loadComponent = getFeatureLoader(featureId);
+  const renderSegment = getTabRouteSegment(feature, 'renders');
+  const exampleSegment = getTabRouteSegment(feature, 'examples');
+
+  const legacyRoutes = Object.entries(legacyRenderAliases ?? {}).map(([legacyPath, renderer]) => ({
+    path: `${feature.routePath}/${legacyPath}`,
+    loadComponent,
+    data: {
+      docsTab: 'renders',
+      renderer,
+      legacy: true
+    }
+  }));
+
+  return [
+    {
+      path: feature.routePath,
+      loadComponent,
+      data: {
+        legacy: true
+      }
+    },
+    {
+      path: `${feature.routePath}/overview`,
+      loadComponent,
+      data: {
+        docsTab: 'overview'
+      }
+    },
+    {
+      path: `${feature.routePath}/api`,
+      loadComponent,
+      data: {
+        docsTab: 'api'
+      }
+    },
+    {
+      path: `${feature.routePath}/${renderSegment}`,
+      loadComponent,
+      data: {
+        docsTab: 'renders',
+        legacy: true
+      }
+    },
+    ...renderIds.map((rendererId) => ({
+      path: `${feature.routePath}/${renderSegment}/${rendererId}`,
+      loadComponent,
+      data: {
+        docsTab: 'renders',
+        renderer: rendererId
+      }
+    })),
+    {
+      path: `${feature.routePath}/${exampleSegment}`,
+      loadComponent,
+      data: {
+        docsTab: 'examples',
+        legacy: true
+      }
+    },
+    ...exampleIds.map((exampleId) => ({
+      path: `${feature.routePath}/${exampleSegment}/${exampleId}`,
+      loadComponent,
+      data: {
+        docsTab: 'examples',
+        example: exampleId
+      }
+    })),
+    ...legacyRoutes
+  ];
+}
+
+function getFeatureLoader(featureId: DocsFeatureId) {
+  switch (featureId) {
+    case 'table':
+      return () =>
+        import('./features/hub/table-hub-page.component').then(
+          (module) => module.TableHubPageComponent
+        );
+    case 'wizard':
+      return () =>
+        import('./features/hub/wizard-hub-page.component').then(
+          (module) => module.WizardHubPageComponent
+        );
+    case 'adapters':
+      return () =>
+        import('./features/hub/adapters-hub-page.component').then(
+          (module) => module.AdaptersHubPageComponent
+        );
+  }
+}

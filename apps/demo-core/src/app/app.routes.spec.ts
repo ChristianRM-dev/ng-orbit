@@ -1,13 +1,25 @@
 import { appRoutes } from './app.routes';
 
 describe('app routes', () => {
-  it('includes canonical docs routes and legacy aliases', () => {
+  it('includes canonical docs paths and legacy aliases', () => {
     const rootRoute = appRoutes.find((route) => route.path === '');
     expect(rootRoute).toBeTruthy();
 
     const childRoutes = rootRoute?.children ?? [];
     const childPaths = childRoutes.map((route) => route.path);
 
+    expect(childPaths).toContain('table/overview');
+    expect(childPaths).toContain('table/api');
+    expect(childPaths).toContain('table/renders/plain');
+    expect(childPaths).toContain('table/examples/renderer-swap');
+    expect(childPaths).toContain('wizard/overview');
+    expect(childPaths).toContain('wizard/api');
+    expect(childPaths).toContain('wizard/renders/material');
+    expect(childPaths).toContain('wizard/examples/renderer-integration');
+    expect(childPaths).toContain('adapters/overview');
+    expect(childPaths).toContain('adapters/api');
+    expect(childPaths).toContain('adapters/patterns/full-renderer');
+    expect(childPaths).toContain('adapters/examples/wizard-form-sync');
     expect(childPaths).toContain('table');
     expect(childPaths).toContain('wizard');
     expect(childPaths).toContain('adapters');
@@ -27,5 +39,7 @@ describe('app routes', () => {
 
     expect(tableCoreRoute?.data?.['renderer']).toBe('custom');
     expect(wizardCoreRoute?.data?.['renderer']).toBe('custom');
+    expect(tableCoreRoute?.data?.['docsTab']).toBe('renders');
+    expect(wizardCoreRoute?.data?.['docsTab']).toBe('renders');
   });
 });

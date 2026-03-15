@@ -501,6 +501,9 @@ export class UsersTableAdapterComponent {}
   tabLabels: {
     renders: 'Patterns'
   },
+  tabRouteSegments: {
+    renders: 'patterns'
+  },
   renderSelectorLabel: 'Adapter patterns',
   renderPreviewDescription:
     'Each pattern keeps the same headless contract while changing how much UI the adapter packages.',

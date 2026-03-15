@@ -11,6 +11,20 @@ import { appRoutes } from '../../app.routes';
 class StaticTranslateLoader implements TranslateLoader {
   getTranslation(): Observable<Record<string, string>> {
     return of({
+      'layout.title': 'ng-orbit Docs',
+      'layout.subtitle': 'Editorial docs for headless Angular primitives.',
+      'layout.brandCaption': 'Editorial Orbit docs host',
+      'layout.navigation': 'Main navigation',
+      'layout.language': 'Language',
+      'layout.openMenu': 'Open menu',
+      'layout.closeMenu': 'Close menu',
+      'nav.table': 'Table',
+      'nav.wizard': 'Wizard',
+      'nav.adapters': 'Adapters',
+      'docs.shared.tabNav': 'Documentation tabs',
+      'docs.shared.livePreview': 'Live preview',
+      'docs.shared.copy': 'Copy',
+      'docs.shared.copied': 'Copied',
       'table.columns.id': 'ID',
       'table.columns.fullName': 'Full name',
       'table.columns.email': 'Email',
@@ -55,7 +69,7 @@ describe('docs host', () => {
   it('canonicalizes /table to the overview tab', async () => {
     const { router, fixture } = await renderUrl('/table');
 
-    expect(router.url).toBe('/table?tab=overview');
+    expect(router.url).toBe('/table/overview');
     expect(fixture.nativeElement.textContent).toContain('A headless table controller');
     expect(activeTabLabel(fixture.nativeElement)).toBe('Overview');
   });
@@ -63,14 +77,14 @@ describe('docs host', () => {
   it('redirects legacy table renderer routes into the renders tab', async () => {
     const { router, fixture } = await renderUrl('/table/plain');
 
-    expect(router.url).toBe('/table?tab=renders&renderer=plain');
+    expect(router.url).toBe('/table/renders/plain');
     expect(fixture.nativeElement.textContent).toContain('Reference semantic renderer');
   });
 
   it('selects example content from the canonical query params', async () => {
     const { router, fixture } = await renderUrl('/table?tab=examples&example=renderer-swap');
 
-    expect(router.url).toBe('/table?tab=examples&example=renderer-swap');
+    expect(router.url).toBe('/table/examples/renderer-swap');
     expect(fixture.nativeElement.textContent).toContain(
       'Swap renderers without rewriting the feature contract'
     );
@@ -93,7 +107,7 @@ describe('docs host', () => {
     );
     const iframe = fixture.nativeElement.querySelector('iframe') as HTMLIFrameElement | null;
 
-    expect(router.url).toBe('/wizard?tab=examples&example=renderer-integration');
+    expect(router.url).toBe('/wizard/examples/renderer-integration');
     expect(iframe).not.toBeNull();
     expect(iframe?.getAttribute('src')).toContain(
       'http://127.0.0.1:4201/wizard/material?lang=en&renderer=material'
@@ -103,7 +117,7 @@ describe('docs host', () => {
   it('canonicalizes /adapters and renders the concept hero blocks', async () => {
     const { router, fixture } = await renderUrl('/adapters');
 
-    expect(router.url).toBe('/adapters?tab=overview');
+    expect(router.url).toBe('/adapters/overview');
     expect(fixture.nativeElement.textContent).toContain('Adapters are the thin integration layer');
     expect(fixture.nativeElement.textContent).toContain('Principles');
     expect(fixture.nativeElement.textContent).toContain('Package map');
@@ -115,9 +129,9 @@ describe('docs host', () => {
   });
 
   it('renames the renders tab to patterns for the adapters guide', async () => {
-    const { router, fixture } = await renderUrl('/adapters?tab=renders&renderer=kit-composition');
+    const { router, fixture } = await renderUrl('/adapters/patterns/kit-composition');
 
-    expect(router.url).toBe('/adapters?tab=renders&renderer=kit-composition');
+    expect(router.url).toBe('/adapters/patterns/kit-composition');
     expect(activeTabLabel(fixture.nativeElement)).toBe('Patterns');
     expect(fixture.nativeElement.textContent).toContain('Kit-assisted composition');
     expect(fixture.nativeElement.textContent).toContain('Optional helper');

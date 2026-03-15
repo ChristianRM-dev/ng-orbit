@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DocsContentService } from '../docs/docs-content.service';
 import { FeatureDocsPageComponent } from '../docs/feature-docs-page.component';
-import { TABLE_DOCS } from '../docs/table-docs.data';
 
 @Component({
   selector: 'ng-orbit-table-hub-page',
@@ -10,5 +10,7 @@ import { TABLE_DOCS } from '../docs/table-docs.data';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableHubPageComponent {
-  protected readonly docs = TABLE_DOCS;
+  private readonly docsContentService = inject(DocsContentService);
+
+  protected readonly docs = this.docsContentService.tableDocs;
 }

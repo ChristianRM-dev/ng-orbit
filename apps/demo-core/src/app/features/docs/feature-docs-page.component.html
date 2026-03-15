@@ -21,7 +21,7 @@
     }
   </header>
 
-  <nav class="ng-orbit-docs__tabs" aria-label="Documentation tabs">
+  <nav class="ng-orbit-docs__tabs" [attr.aria-label]="'docs.shared.tabNav' | translate">
     @for (tab of tabs(); track tab.id) {
       <button
         class="ng-orbit-docs__tab"
@@ -176,7 +176,7 @@
         <div class="ng-orbit-docs__preview-grid">
           <section class="ng-orbit-docs__preview-card ng-orbit-card">
             <header class="ng-orbit-docs__preview-header">
-              <h3>Live preview</h3>
+              <h3>{{ 'docs.shared.livePreview' | translate }}</h3>
               <p>{{ renderPreviewDescription() }}</p>
             </header>
 
@@ -235,7 +235,7 @@
         <div class="ng-orbit-docs__preview-grid">
           <section class="ng-orbit-docs__preview-card ng-orbit-card">
             <header class="ng-orbit-docs__preview-header">
-              <h3>Live preview</h3>
+              <h3>{{ 'docs.shared.livePreview' | translate }}</h3>
               <p>{{ examplePreviewDescription() }}</p>
             </header>
 

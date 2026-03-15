@@ -2,25 +2,31 @@
   <button
     class="ng-orbit-shell__backdrop"
     type="button"
-    aria-label="Close navigation"
+    [attr.aria-label]="'layout.closeMenu' | translate"
     (click)="closeSidebar()"
   ></button>
 
   <aside class="ng-orbit-sidebar">
     <div class="ng-orbit-sidebar__brand">
-      <span class="ng-orbit-sidebar__logo">ng-orbit</span>
-      <span class="ng-orbit-sidebar__caption">Consumer documentation host</span>
+      <div class="ng-orbit-sidebar__brand-row">
+        <ng-orbit-brand-mark [size]="44" />
+        <div class="ng-orbit-sidebar__brand-copy">
+          <span class="ng-orbit-sidebar__logo">ng-orbit</span>
+          <span class="ng-orbit-sidebar__caption">{{ 'layout.brandCaption' | translate }}</span>
+        </div>
+      </div>
     </div>
 
-    <nav class="ng-orbit-sidebar__nav" aria-label="Main navigation">
+    <nav class="ng-orbit-sidebar__nav" [attr.aria-label]="'layout.navigation' | translate">
       @for (item of navItems; track item.path) {
         <a
           class="ng-orbit-sidebar__item"
           routerLinkActive="ng-orbit-sidebar__item--active"
           [routerLink]="item.path"
+          queryParamsHandling="preserve"
           (click)="closeSidebar()"
         >
-          {{ item.labelKey }}
+          {{ item.labelKey | translate }}
         </a>
       }
     </nav>
@@ -31,17 +37,43 @@
       <button
         class="ng-orbit-topbar__menu-toggle"
         type="button"
-        aria-label="Open navigation"
+        [attr.aria-label]="'layout.openMenu' | translate"
         (click)="toggleSidebar()"
       >
         ☰
       </button>
 
       <div class="ng-orbit-topbar__title-wrap">
-        <h1 class="ng-orbit-topbar__title">ng-orbit Docs</h1>
-        <p class="ng-orbit-topbar__subtitle">
-          Headless Angular primitives with consumer-owned UI, data, and workflows.
-        </p>
+        <div class="ng-orbit-topbar__brand-line">
+          <ng-orbit-brand-mark [size]="34" />
+          <div>
+            <h1 class="ng-orbit-topbar__title">{{ 'layout.title' | translate }}</h1>
+            <p class="ng-orbit-topbar__subtitle">{{ 'layout.subtitle' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="ng-orbit-topbar__languages"
+        role="group"
+        [attr.aria-label]="'layout.language' | translate"
+      >
+        <button
+          class="ng-orbit-topbar__lang-btn"
+          type="button"
+          [class.ng-orbit-topbar__lang-btn--active]="activeLanguage() === 'en'"
+          (click)="setLanguage('en')"
+        >
+          EN
+        </button>
+        <button
+          class="ng-orbit-topbar__lang-btn"
+          type="button"
+          [class.ng-orbit-topbar__lang-btn--active]="activeLanguage() === 'es'"
+          (click)="setLanguage('es')"
+        >
+          ES
+        </button>
       </div>
     </header>
 

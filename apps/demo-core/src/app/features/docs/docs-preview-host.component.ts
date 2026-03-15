@@ -1,5 +1,6 @@
 import { NgComponentOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { DemoI18nService } from '../../core/i18n/demo-i18n.service';
 import { RemoteIframePageComponent } from '../remote/remote-iframe-page.component';
 import type {
   DocsComponentPreview,
@@ -26,7 +27,7 @@ import type {
       <ng-orbit-remote-iframe-page
         [remoteName]="iframePreview()!.remoteName"
         [remotePath]="iframePreview()!.remotePath"
-        lang="en"
+        [lang]="activeLanguage()"
         [renderer]="iframePreview()!.renderer ?? ''"
         [frameHeight]="iframePreview()!.frameHeight ?? '640px'"
       />
@@ -35,7 +36,10 @@ import type {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DocsPreviewHostComponent {
+  private readonly i18nService = inject(DemoI18nService);
+
   readonly preview = input.required<DocsPreviewConfig>();
+  protected readonly activeLanguage = this.i18nService.language;
 
   protected readonly componentPreview = computed<DocsComponentPreview | null>(() => {
     const preview = this.preview();

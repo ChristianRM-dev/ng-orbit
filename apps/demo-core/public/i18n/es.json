@@ -1,16 +1,18 @@
 {
   "layout": {
-    "title": "demo core ng-orbit",
-    "subtitle": "Core headless + renderer plain con remotos aislados",
-    "demoCore": "Aplicación host core",
-    "navigation": "Navegación principal",
+    "title": "ng-orbit Docs",
+    "subtitle": "Documentacion editorial para primitivas headless de Angular, renderer packages e integraciones de producto custom.",
+    "brandCaption": "Host editorial de docs",
+    "demoCore": "Aplicacion host core",
+    "navigation": "Navegacion principal",
     "language": "Idioma",
-    "openMenu": "Abrir menú",
-    "closeMenu": "Cerrar menú"
+    "openMenu": "Abrir menu",
+    "closeMenu": "Cerrar menu"
   },
   "nav": {
     "table": "Tabla",
     "wizard": "Wizard",
+    "adapters": "Adaptadores",
     "tablePlain": "Tabla plain",
     "tableCore": "Tabla core",
     "tableMaterial": "Tabla material",
@@ -19,15 +21,617 @@
     "wizardMaterial": "Wizard material",
     "wizardDaisy": "Wizard daisy"
   },
+  "docs": {
+    "shared": {
+      "tabs": {
+        "overview": "Resumen",
+        "api": "API",
+        "renders": "Renders",
+        "examples": "Ejemplos"
+      },
+      "tabNav": "Tabs de documentacion",
+      "livePreview": "Vista previa",
+      "copy": "Copiar",
+      "copied": "Copiado"
+    },
+    "table": {
+      "title": "Tabla",
+      "summary": "Un controller headless de tablas para apps Angular que quieren mantener en el consumidor el fetch de datos, la seleccion, la intencion de sort y el markup.",
+      "tagline": "Usa la directiva como contrato estable y luego conecta un renderer o tus propios templates sin mover la logica de negocio a la capa visual.",
+      "quickstartTitle": "Inicio rapido",
+      "apiSummary": "La API publica es pequena a proposito: una directiva standalone, un modelo de query, estado de seleccion y una superficie de comandos que los renderers pueden consumir.",
+      "overviewSections": [
+        {
+          "title": "Modelo mental",
+          "body": "OrbitTable gestiona la intencion de query y el estado de seleccion. El componente padre sigue siendo responsable del data source, de las llamadas al servidor y de empujar las filas actualizadas.",
+          "points": [
+            "El paquete core no entrega markup HTML de tabla.",
+            "No impone reglas internas de sort, filtros o paginacion.",
+            "Los renderers se mantienen delgados porque solo llaman comandos del controller."
+          ]
+        },
+        {
+          "title": "Que controla el consumidor",
+          "body": "Tu capa de feature sigue a cargo del fetch de datos, la persistencia de query, analytics y los estados empty o error.",
+          "points": [
+            "Traducir OrbitTableQuery a parametros del backend.",
+            "Proveer rows, total, loading y error.",
+            "Elegir entre renderer packages o markup custom."
+          ]
+        },
+        {
+          "title": "Lo que el paquete no hace",
+          "body": "El core de table es deliberadamente conservador para que distintos equipos puedan enchufarlo a design systems muy diferentes.",
+          "points": [
+            "No trae capa de data adapter ni opinion de cliente HTTP.",
+            "No trae CSS, tokens ni dependencia a un design system.",
+            "No implementa filtros de negocio ni logica de acciones por fila."
+          ]
+        }
+      ],
+      "apiGroups": [
+        {
+          "title": "Imports",
+          "description": "Empieza por el controller. Agrega un renderer solo si quieres una capa visual preconstruida.",
+          "entries": [
+            {
+              "description": "Directiva standalone expuesta como exportAs=\"orbitTable\"."
+            },
+            {
+              "description": "Renderer de referencia que conecta el estado del controller con HTML semantico."
+            }
+          ]
+        },
+        {
+          "title": "Inputs",
+          "description": "Todos los inputs siguen siendo responsabilidad del componente padre.",
+          "entries": [
+            {
+              "description": "El slice actual de filas que quieres mostrar."
+            },
+            {
+              "description": "Metadata de columnas, accessors de celda y templates opcionales."
+            },
+            {
+              "description": "El estado del servidor sigue siendo externo y vuelve a entrar al controller por inputs."
+            },
+            {
+              "description": "La intencion actual de query, incluyendo pagina, pageSize, sort, search y filters."
+            },
+            {
+              "description": "Funcion obligatoria de identidad por fila usada para la seleccion."
+            }
+          ]
+        },
+        {
+          "title": "Outputs y eventos",
+          "description": "Usa los outputs del controller para reaccionar desde tu capa de feature.",
+          "entries": [
+            {
+              "description": "Emite despues de cambios de sort, search, pagina, page size o filters."
+            },
+            {
+              "description": "Emite cuando cambia el conjunto de row ids seleccionados."
+            }
+          ]
+        },
+        {
+          "title": "Signals",
+          "description": "Las signals reflejan siempre el ultimo estado normalizado del controller.",
+          "entries": [
+            {
+              "description": "Lee los valores actuales de query y selection dentro de markup custom."
+            },
+            {
+              "description": "Acceso de solo lectura conveniente para renderers custom y layouts controlados por el consumidor."
+            },
+            {
+              "description": "Helpers derivados de paginacion para footers y controles."
+            }
+          ]
+        },
+        {
+          "title": "Comandos",
+          "description": "Los comandos cambian la intencion del controller y emiten salidas normalizadas.",
+          "entries": [
+            {
+              "description": "Actualizan sort o search y resetean la pagina a 1."
+            },
+            {
+              "description": "Permiten moverte por resultados server-driven manteniendo la query normalizada."
+            },
+            {
+              "description": "Helpers de seleccion basados en getRowId."
+            }
+          ]
+        },
+        {
+          "title": "Tipos",
+          "description": "Estos son los modelos publicos que mas vas a tocar en una integracion real.",
+          "entries": [
+            {
+              "description": "Intencion canonica de query emitida por el controller."
+            },
+            {
+              "description": "Contrato de columna para renderers y markup custom."
+            },
+            {
+              "description": "Estado de seleccion emitido por el controller."
+            }
+          ]
+        }
+      ],
+      "renders": [
+        {
+          "label": "Plain",
+          "summary": "Renderer semantico de referencia sin dependencias de design system.",
+          "description": "Usalo cuando quieras una base lista para leer o cuando tu equipo planea forkar el markup sin traer Material o DaisyUI.",
+          "requirements": [
+            "Instala @ng-orbit/table-render-plain junto a @ng-orbit/table.",
+            "Manten el fetch de datos en el componente padre y actualiza inputs desde orbitTableQueryChange."
+          ],
+          "snippetTitle": "Integracion con renderer plain"
+        },
+        {
+          "label": "Material",
+          "summary": "Renderer listo para equipos que ya usan Angular Material.",
+          "description": "El renderer solo habla con OrbitTableDirective. Tu feature sigue siendo responsable del contrato con backend, los errores y las filas.",
+          "requirements": [
+            "Instala Angular Material en la app host.",
+            "Mantiene exactamente el mismo wiring del controller que usarias con cualquier otro renderer."
+          ],
+          "snippetTitle": "Integracion con renderer Material"
+        },
+        {
+          "label": "Daisy",
+          "summary": "Renderer para stacks con Tailwind + DaisyUI que quieren estilado basado en clases.",
+          "description": "Usalo cuando ya tengas DaisyUI en la app host y quieras adoptar ng-orbit sin inventar el markup de tabla desde el primer dia.",
+          "requirements": [
+            "Instala Tailwind + DaisyUI en la app consumidora.",
+            "El renderer sigue siendo solo presentacion y espera que el padre sea duenio de los query changes."
+          ],
+          "snippetTitle": "Integracion con renderer Daisy"
+        },
+        {
+          "label": "Construye el tuyo",
+          "summary": "Controla el markup mientras delegas el estado y la intencion de query al controller.",
+          "description": "Este es el camino recomendado a largo plazo cuando tu producto tiene un lenguaje visual propio o layouts de celda que un renderer package no deberia poseer.",
+          "requirements": [
+            "Renderiza tu propia tabla, grid o layout de cards.",
+            "Llama solo comandos del controller desde la capa de UI."
+          ],
+          "snippetTitle": "Markup custom usando orbitTable"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Quickstart",
+          "title": "Inicio rapido con el renderer plain",
+          "description": "Empieza desde la integracion mas pequena posible: deja el estado server-driven en tu componente y usa el renderer de referencia para pintar la tabla.",
+          "notes": [
+            "Puedes guardar la query en signals, component store, ngrx o cualquier otra abstraccion de app.",
+            "Las rows siempre vuelven a entrar a la directiva desde el padre."
+          ],
+          "snippetTitle": "Componente minimo de tabla"
+        },
+        {
+          "label": "Markup custom",
+          "title": "Integracion headless con markup controlado por el consumidor",
+          "description": "Cuando tu producto necesita headers, cards o layouts de fila propios, usa orbitTable directamente y renderiza la estructura que necesites.",
+          "snippetTitle": "Ejemplo de layout custom"
+        },
+        {
+          "label": "Flujo server-driven",
+          "title": "Reacciona a orbitTableQueryChange y hace fetch al backend",
+          "description": "Este ejemplo hace visible el payload emitido por la query para que se vea exactamente lo que el padre enviaria a una capa API.",
+          "notes": [
+            "El sort, la paginacion y la busqueda siguen siendo server-driven salvo que tu app decida lo contrario."
+          ],
+          "snippetTitle": "Fetch sobre query changes"
+        },
+        {
+          "label": "Cambio de renderer",
+          "title": "Cambia de renderer sin reescribir el contrato de la feature",
+          "description": "Las mismas rows, columns, query y outputs del controller pueden alimentar varios entornos visuales mientras la logica del padre permanece intacta.",
+          "notes": [
+            "Cambia solo la capa visual. El padre conserva exactamente el mismo contrato de query y datos."
+          ],
+          "snippetTitle": "Swap de renderer con el mismo contrato"
+        }
+      ]
+    },
+    "wizard": {
+      "title": "Wizard",
+      "summary": "Un controller headless para flujos multi-step donde el consumidor mantiene la propiedad de forms, layout, validacion y side effects de submit.",
+      "tagline": "Usa orbitWizard para estado de navegacion y reglas de completion, y luego conéctalo con tu propia UI de formularios o con un renderer package opcional.",
+      "quickstartTitle": "Inicio rapido",
+      "apiSummary": "La API de wizard se centra en una directiva, un modelo de step definition y una superficie de comandos para moverte entre pasos mientras el flujo sigue siendo lineal por defecto.",
+      "overviewSections": [
+        {
+          "title": "Modelo mental",
+          "body": "OrbitWizard controla el estado de navegacion, pasos visitados, reglas de completion y tracking de validez. El consumidor sigue siendo duenio de forms, fields y side effects reales.",
+          "points": [
+            "No hay CSS ni suposiciones de design system en el core.",
+            "No genera formularios ni controla tus fields.",
+            "Los renderers opcionales siguen enfocados en composicion visual."
+          ]
+        },
+        {
+          "title": "Que controla el consumidor",
+          "body": "Tu decides como se renderiza cada step, cuando se guarda la data y que validaciones deben bloquear el avance.",
+          "points": [
+            "Proveer las step definitions.",
+            "Sincronizar la validez del formulario con el controller.",
+            "Resolver submit, autosave, analytics y route guards al nivel de la app."
+          ]
+        },
+        {
+          "title": "Por que importa el kit",
+          "body": "Muchos ejemplos de wizard dependen de OrbitWizardStepFormSyncDirective porque mantiene alineada la validez de Angular forms con el controller headless.",
+          "points": [
+            "La directiva es opcional, pero muy util en steps respaldados por forms.",
+            "Tambien puedes llamar wizard.setValid(stepId, valid) manualmente si prefieres.",
+            "Los renderers nunca deben ser duenos de tus reglas de submit."
+          ]
+        }
+      ],
+      "apiGroups": [
+        {
+          "title": "Imports",
+          "description": "La directiva core alcanza para UI custom. Agrega wizard-kit o un renderer solo cuando necesites helpers.",
+          "entries": [
+            {
+              "description": "Directiva standalone expuesta como exportAs=\"orbitWizard\"."
+            },
+            {
+              "description": "Helper opcional para empujar la validez de Angular forms al controller."
+            }
+          ]
+        },
+        {
+          "title": "Inputs",
+          "description": "Los inputs del wizard definen restricciones de navegacion, no la UI de campos.",
+          "entries": [
+            {
+              "description": "Lista obligatoria de steps, incluyendo flags opcionales para summary y disabled."
+            },
+            {
+              "description": "Id inicial opcional. Si no se provee, usa el primer step habilitado."
+            },
+            {
+              "description": "Por defecto es true y evita saltar a pasos futuros no visitados."
+            }
+          ]
+        },
+        {
+          "title": "Outputs y eventos",
+          "description": "Usa los eventos para reaccionar a navegacion o completion desde la capa de feature.",
+          "entries": [
+            {
+              "description": "Emite cuando la navegacion cambia el step actual."
+            },
+            {
+              "description": "Emite cuando next() se dispara desde el ultimo paso habilitado."
+            }
+          ]
+        },
+        {
+          "title": "Signals",
+          "description": "Las signals exponen el modelo actual de steps y el estado derivado de navegacion.",
+          "entries": [
+            {
+              "description": "Lee la coleccion normalizada de steps y el puntero actual."
+            },
+            {
+              "description": "Rastrea que pasos fueron visitados y cuales son validos en este momento."
+            },
+            {
+              "description": "Helpers derivados para botones de navegacion y step chips."
+            }
+          ]
+        },
+        {
+          "title": "Comandos",
+          "description": "Los comandos son deliberadamente pequenos y orientados al flujo.",
+          "entries": [
+            {
+              "description": "Se mueven entre steps habilitados y emiten completed en el ultimo paso."
+            },
+            {
+              "description": "Permiten navegar explicitamente o resetear el controller a su paso inicial."
+            },
+            {
+              "description": "Empujan validez desde forms o desde logica de validacion custom."
+            }
+          ]
+        },
+        {
+          "title": "Tipos",
+          "description": "Estos tipos aparecen en casi cualquier integracion de consumo.",
+          "entries": [
+            {
+              "description": "Contrato de step input usado por la directiva."
+            },
+            {
+              "description": "Estado de progreso derivado disponible a traves de progress()."
+            },
+            {
+              "description": "Payload del evento emitido por stepChange."
+            }
+          ]
+        }
+      ],
+      "renders": [
+        {
+          "label": "Material",
+          "summary": "Renderer package para equipos con Angular Material que quieren una adopcion rapida.",
+          "description": "El renderer conecta el estado de orbitWizard con componentes de navegacion Material, mientras el consumidor sigue siendo duenio de forms, step markup y side effects de completion.",
+          "requirements": [
+            "Instala Angular Material en la app consumidora.",
+            "Provee tus propios formularios por paso y sincroniza la validez con wizard-kit o con llamadas manuales a setValid."
+          ],
+          "snippetTitle": "Integracion con renderer Material"
+        },
+        {
+          "label": "Daisy",
+          "summary": "Renderer package para superficies basadas en DaisyUI y Tailwind.",
+          "description": "Usa el renderer Daisy cuando el producto consumidor ya tenga tokens DaisyUI y quiera una primera integracion rapida sin disenar la navegacion de steps desde cero.",
+          "requirements": [
+            "Instala Tailwind + DaisyUI en la app consumidora.",
+            "Mantiene los forms y los handlers de submit dentro de tu propio feature component."
+          ],
+          "snippetTitle": "Integracion con renderer Daisy"
+        },
+        {
+          "label": "Construye el tuyo",
+          "summary": "Renderiza tu propia UI de steps mientras orbitWizard mantiene honesta la navegacion.",
+          "description": "Este es el camino recomendado cuando tu producto tiene un flujo branded, una UI de progreso propia o reglas de layout que un renderer generico no deberia imponer.",
+          "requirements": [
+            "Usa OrbitWizardDirective directamente en tu componente.",
+            "Sincroniza validez con wizard-kit o llamando wizard.setValid(stepId, valid)."
+          ],
+          "snippetTitle": "Layout de wizard controlado por el consumidor"
+        }
+      ],
+      "examples": [
+        {
+          "label": "Multi-step",
+          "title": "Formulario multi-step con markup custom",
+          "description": "Un layout controlado por el consumidor puede seguir usando orbitWizard para progreso, guards de navegacion y eventos de completion.",
+          "snippetTitle": "Wizard multi-step"
+        },
+        {
+          "label": "Step condicional",
+          "title": "Inserta el paso company de forma condicional",
+          "description": "La lista de steps puede cambiar mientras el usuario edita el formulario. El controller conserva seleccionado el step valido mas cercano y limpia el estado obsoleto.",
+          "notes": [
+            "El controller preserva estabilidad de navegacion incluso cuando cambia el arreglo de steps."
+          ],
+          "snippetTitle": "Definicion condicional de steps"
+        },
+        {
+          "label": "Single-step",
+          "title": "Modo de un solo paso usando el mismo controller",
+          "description": "Un flujo de un solo paso tambien puede reutilizar orbitWizard si quieres conservar el mismo evento de completion, modelo de validez y extensibilidad futura.",
+          "snippetTitle": "Configuracion single-step"
+        },
+        {
+          "label": "Integracion de renderer",
+          "title": "Integra un renderer con OrbitWizardStepFormSyncDirective",
+          "description": "Esto deja la validez dentro de tu capa de forms mientras el renderer solo consume el controller y proyecta tu contenido por paso.",
+          "notes": [
+            "Usa wizard-kit solo como puente. El renderer sigue sin deber ser duenio de tu logica de negocio."
+          ],
+          "snippetTitle": "Integracion renderer + wizard-kit"
+        }
+      ]
+    },
+    "adapters": {
+      "title": "Adaptadores",
+      "heroEyebrow": "Guia de adapters",
+      "heroBlocks": [
+        {
+          "title": "Principios",
+          "code": "Manten el adapter delgado.\\nLee el estado desde el controller headless.\\nLlama solo comandos del controller desde eventos de UI.\\nDeja el data fetching, los forms y los side effects en manos del consumidor.",
+          "copyable": false
+        },
+        {
+          "title": "Mapa de paquetes",
+          "code": "@ng-orbit/table -> controller headless de tabla\\n@ng-orbit/wizard -> controller headless de wizard\\n@ng-orbit/wizard-kit -> puente opcional para forms\\n@ng-orbit/table-render-plain -> renderer semantico listo para usar\\n@ng-orbit/table-render-material y table-render-daisy -> renderers de tabla listos\\n@ng-orbit/wizard-render-material y wizard-render-daisy -> renderers de wizard listos",
+          "copyable": false
+        }
+      ],
+      "summary": "Los adapters son la capa delgada de integracion entre los controllers headless de ng-orbit y la UI de tu producto, y ng-orbit ya entrega opciones Material y Daisy listas para instalar para equipos que quieren una adopcion rapida.",
+      "tagline": "El contrato sigue siendo el mismo: los controllers son duenos del estado y de los comandos, los adapters traducen ese estado a UI, y el consumidor conserva la logica de negocio, los datos y los forms tanto si la UI es custom como si viene de un renderer package.",
+      "quickstartTitle": "Esqueleto de adapter",
+      "overviewCodeSectionTitle": "Listos para instalar",
+      "overviewCodeSectionLead": "Estos renderer packages ya existen hoy, asi que los consumidores pueden empezar rapido y seguir dejando el contrato del controller swappable despues.",
+      "apiSummary": "Esta pagina documenta el contrato de integracion detras de los adapters: que se lee desde los controllers, que se envia de vuelta via comandos y que responsabilidades deben quedarse fuera de la capa adapter.",
+      "overviewSections": [
+        {
+          "title": "Que significa adapter en ng-orbit",
+          "body": "Un adapter es la capa orientada a UI que lee el estado del controller, lo traduce a tu design system y reenvia la intencion del usuario usando comandos del controller.",
+          "points": [
+            "Un adapter puede ser tan pequeno como un template custom alrededor de un exportAs controller.",
+            "Los renderer packages listos de Material y Daisy ya son una forma de adapter disponible hoy.",
+            "El controller headless sigue siendo la unica fuente de verdad para el estado de UI."
+          ]
+        },
+        {
+          "title": "Cuando construir uno",
+          "body": "Construye un adapter custom cuando tu producto ya tenga primitives de UI, reglas de layout, hooks de analytics o patrones de accesibilidad que un renderer generico no deberia controlar.",
+          "points": [
+            "Usa un wrapper delgado sobre tus propias tablas, cards, step navs o footers de acciones.",
+            "Mantiene el adapter reusable dentro de tu superficie de producto, no dentro del core package.",
+            "Prefiere Material o Daisy listos para instalar cuando la velocidad importe mas que el control bespoke de UI."
+          ]
+        },
+        {
+          "title": "Donde encajan kits y renderers",
+          "body": "Los kits ayudan a componer UI controlada por el producto sin renunciar al contrato. Los renderers empaquetan mas UI de entrada, pero igual deberian seguir siendo solo presentacion.",
+          "points": [
+            "wizard-kit es hoy el puente publico para steps de wizard respaldados por forms.",
+            "Table y wizard ya tienen renderer packages Material y Daisy instalables.",
+            "table-kit y wizard-render-plain siguen existiendo solo como placeholders del repo.",
+            "Los renderers siguen siendo opcionales y no deben hacer fetch de datos ni controlar reglas de submit.",
+            "Las mismas reglas de ownership aplican si el adapter es custom, asistido por kit o un full renderer."
+          ]
+        }
+      ],
+      "apiGroups": [
+        {
+          "title": "Puntos de entrada core",
+          "description": "Los adapters siempre arrancan desde la superficie publica headless.",
+          "entries": [
+            {
+              "description": "Expone el controller de tabla como exportAs=\"orbitTable\" y permite leer rows, query, selection y comandos."
+            },
+            {
+              "description": "Expone el controller de wizard como exportAs=\"orbitWizard\" y te deja construir tu propia step nav, progress UI y footer actions."
+            },
+            {
+              "description": "Helper opcional para adapters de wizard respaldados por Angular forms cuando la validez del form debe controlar el estado del controller."
+            }
+          ]
+        },
+        {
+          "title": "Modelo de lectura",
+          "description": "Los adapters leen estado normalizado del controller y lo traducen a props de UI del producto.",
+          "entries": [
+            {
+              "description": "Usa estas signals para manejar grids, cards, filtros, paginacion y visuales de seleccion."
+            },
+            {
+              "description": "Usa estas signals para renderizar chips de pasos, summaries, progress bars y estados disabled de botones."
+            }
+          ]
+        },
+        {
+          "title": "Comandos y eventos",
+          "description": "Los adapters envian la intencion del usuario al controller y dejan que el consumidor reaccione a los eventos emitidos.",
+          "entries": [
+            {
+              "description": "Usa comandos para la interaccion y deja que la capa feature reaccione a los outputs normalizados de query o seleccion."
+            },
+            {
+              "description": "Los adapters disparan navegacion y cambios de validez, pero el consumidor decide que significa completion en realidad."
+            }
+          ]
+        },
+        {
+          "title": "Fronteras de ownership",
+          "description": "Un adapter sano esta enfocado en presentacion y es facil de intercambiar.",
+          "entries": [
+            {
+              "description": "Mapear estado del controller a componentes del producto, traducir eventos de UI a comandos del controller y empaquetar composicion visual reusable para la app host.",
+              "details": [
+                "Layout, spacing, clases y primitives de UI propias del producto pertenecen aqui.",
+                "El adapter puede normalizar formas de eventos del producto antes de llamar comandos."
+              ]
+            },
+            {
+              "description": "El data fetching, el mapeo a backend, la propiedad de forms, side effects de submit, analytics y reglas de validacion de negocio se quedan en la capa feature consumidora.",
+              "details": [
+                "No escondas llamadas API dentro del adapter.",
+                "No muevas la logica de submit del wizard ni reglas de negocio de filtros de tabla a la capa UI."
+              ]
+            }
+          ]
+        }
+      ],
+      "renders": [
+        {
+          "label": "Markup headless custom",
+          "metaLabel": "Sin paquete extra",
+          "badgeText": "Patron",
+          "summary": "Lee el estado del controller directamente y renderiza HTML o UI primitives controladas por el producto.",
+          "description": "Este es el estilo de adapter mas flexible. Funciona muy bien cuando tu app ya tiene un design system y quieres que ng-orbit permanezca detras de escena como contrato de estado.",
+          "requirements": [
+            "Usa la directiva headless directamente en el feature o en el componente adapter.",
+            "Mapea clicks, search, paging y step navigation solo a comandos del controller."
+          ],
+          "snippetTitle": "Adapter custom de tabla usando orbitTable"
+        },
+        {
+          "label": "Composicion asistida por kit",
+          "metaLabel": "Helper package opcional",
+          "badgeText": "Helper opcional",
+          "summary": "Agrega helpers cuando reducen wiring repetido, pero manteniendo el layout y el estilado controlados por el producto.",
+          "description": "wizard-kit es hoy el ejemplo publico de este patron. Conecta la validez de Angular forms con orbitWizard mientras tu adapter sigue controlando markup, orden e interaccion.",
+          "requirements": [
+            "Manten el layout final dentro de tu app o componente adapter.",
+            "Usa directivas del kit solo como helpers de composicion, no como nueva fuente de logica de negocio."
+          ],
+          "snippetTitle": "Composicion de wizard asistida por kit"
+        },
+        {
+          "label": "Renderer adapters listos para instalar",
+          "metaLabel": "@ng-orbit/table-render-* y @ng-orbit/wizard-render-*",
+          "badgeText": "Listo para instalar",
+          "summary": "Usa los renderer packages Material y Daisy cuando quieras una ruta de adopcion rapida sin construir el primer adapter tu mismo.",
+          "description": "Estos paquetes ya existen para table y wizard. Siguen dependiendo del mismo contrato de controller, pero empaquetan la primera capa de UI para equipos que quieren instalar e integrar rapido.",
+          "requirements": [
+            "Table: @ng-orbit/table-render-material y @ng-orbit/table-render-daisy.",
+            "Wizard: @ng-orbit/wizard-render-material y @ng-orbit/wizard-render-daisy, mas @ng-orbit/wizard-kit para sincronizar forms.",
+            "Trata cada renderer solo como una capa de presentacion y conserva el mismo wiring del controller para que siga siendo intercambiable."
+          ],
+          "snippetTitle": "Renderer packages instalables"
+        }
+      ],
+      "examples": [
+        {
+          "label": "UI custom de tabla",
+          "title": "Markup custom de tabla sobre orbitTable",
+          "description": "Usa el controller headless como fuente de verdad mientras tu adapter renderiza cards, rows o cualquier superficie de tabla controlada por el producto.",
+          "notes": [
+            "Este patron funciona igual de bien con tablas semanticas, cards o componentes virtualizados del producto."
+          ],
+          "snippetTitle": "Ejemplo de adapter custom de tabla"
+        },
+        {
+          "label": "Estilo renderer de tabla",
+          "title": "Envuelve el contrato de tabla con un adapter estilo renderer",
+          "description": "Un adapter estilo renderer empaqueta una capa visual lista pero conserva exactamente el mismo contrato de rows, columns, query y outputs que el padre ya controla.",
+          "notes": [
+            "Puedes empezar hoy con un renderer package y reemplazarlo despues por un adapter custom porque el contrato del controller no cambia."
+          ],
+          "snippetTitle": "Adapter de tabla estilo renderer"
+        },
+        {
+          "label": "UI custom de wizard",
+          "title": "Construye un layout custom de steps sobre orbitWizard",
+          "description": "El adapter controla el chrome de steps, los visuales de progreso y la ubicacion de acciones, mientras orbitWizard mantiene consistentes las reglas de navegacion y el comportamiento de completion.",
+          "snippetTitle": "Ejemplo de adapter custom de wizard"
+        },
+        {
+          "label": "Sincronizacion de form",
+          "title": "Conecta la validez del form con OrbitWizardStepFormSyncDirective",
+          "description": "Cuando tu adapter renderiza formularios de wizard, wizard-kit puede empujar la validez de Angular forms al controller sin mover la logica de submit a la capa UI.",
+          "notes": [
+            "Usa wizard-kit solo como puente. Submit, autosave y analytics siguen perteneciendo a la feature consumidora."
+          ],
+          "snippetTitle": "Integracion de wizard form sync"
+        }
+      ],
+      "tabLabels": {
+        "renders": "Patrones"
+      },
+      "renderSelectorLabel": "Patrones de adapter",
+      "renderPreviewDescription": "Cada patron conserva el mismo contrato headless mientras cambia cuanto UI empaqueta el adapter.",
+      "exampleSelectorLabel": "Escenarios de integracion",
+      "exampleEyebrow": "Ejemplo de integracion",
+      "examplePreviewDescription": "Interactua con el ejemplo y compáralo con el snippet orientado a adapters de abajo."
+    }
+  },
   "table": {
     "hub": {
       "title": "Tabla",
       "subtitle": "Elige un renderer y compara comportamiento en el mismo shell."
     },
     "pages": {
-      "plainTitle": "Página de tabla: renderer plain",
-      "plainSubtitle": "Renderer semántico de referencia sin estilos de design system.",
-      "coreTitle": "Página de tabla: markup del consumidor",
+      "plainTitle": "Pagina de tabla: renderer plain",
+      "plainSubtitle": "Renderer semantico de referencia sin estilos de design system.",
+      "coreTitle": "Pagina de tabla: markup del consumidor",
       "coreSubtitle": "Markup controlado por el consumidor usando el controller headless.",
       "materialTitle": "Renderer de tabla: Angular Material",
       "materialSubtitle": "Look real de Material con estilos aislados por app.",
@@ -41,7 +645,7 @@
     "scenarios": {
       "label": "Escenarios de datos",
       "normal": "Normal",
-      "empty": "Vacío",
+      "empty": "Vacio",
       "error": "Error"
     },
     "controls": {
@@ -55,15 +659,15 @@
     "pagination": {
       "prev": "Anterior",
       "next": "Siguiente",
-      "page": "Página",
-      "pageSize": "Tamaño de página"
+      "page": "Pagina",
+      "pageSize": "Tamano de pagina"
     },
     "columns": {
       "id": "ID",
-      "fullName": "Nombre",
+      "fullName": "Nombre completo",
       "email": "Correo",
       "role": "Rol",
-      "country": "País"
+      "country": "Pais"
     },
     "messages": {
       "simulatedError": "Error de red simulado para el demo."
@@ -72,26 +676,26 @@
   "wizard": {
     "hub": {
       "title": "Wizard",
-      "subtitle": "Elige un renderer manteniendo un único layout host."
+      "subtitle": "Elige un renderer manteniendo un unico layout host."
     },
     "pages": {
       "coreTitle": "Wizard core placeholder",
-      "coreSubtitle": "El renderer core de wizard se implementará en una siguiente iteración.",
+      "coreSubtitle": "El renderer core de wizard se implementara en una siguiente iteracion.",
       "materialTitle": "Wizard material placeholder",
-      "materialSubtitle": "El renderer Material de wizard se implementará en una siguiente iteración.",
+      "materialSubtitle": "El renderer Material de wizard se implementara en una siguiente iteracion.",
       "daisyTitle": "Wizard daisy placeholder",
-      "daisySubtitle": "El renderer Daisy de wizard se implementará en una siguiente iteración."
+      "daisySubtitle": "El renderer Daisy de wizard se implementara en una siguiente iteracion."
     },
     "placeholder": {
       "title": "Wizard placeholder",
-      "subtitle": "Las rutas de wizard están disponibles; la implementación está pendiente."
+      "subtitle": "Las rutas de wizard estan disponibles; la implementacion esta pendiente."
     }
   },
   "remote": {
     "title": "Demo remoto",
-    "subtitle": "Aplicación remota embebida en iframe aislado.",
-    "missingManifest": "El manifest de remotos no está disponible. Inicia las apps remotas y recarga.",
-    "unavailable": "La app remota no responde. Verifica que el remoto esté corriendo en su puerto configurado."
+    "subtitle": "Aplicacion remota embebida en iframe aislado.",
+    "missingManifest": "El manifest de remotos no esta disponible. Inicia las apps remotas y recarga.",
+    "unavailable": "La app remota no responde. Verifica que el remoto este corriendo en su puerto configurado."
   },
   "renderers": {
     "label": "Opciones de renderer",

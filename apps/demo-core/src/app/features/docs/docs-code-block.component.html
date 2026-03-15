@@ -8,7 +8,7 @@
 
     @if (copyable()) {
       <button class="ng-orbit-code__copy" type="button" (click)="copyCode()">
-        {{ copied() ? 'Copied' : 'Copy' }}
+        {{ copied() ? ('docs.shared.copied' | translate) : ('docs.shared.copy' | translate) }}
       </button>
     }
   </header>

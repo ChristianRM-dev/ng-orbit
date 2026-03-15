@@ -98,6 +98,7 @@ export interface DocsFeatureDefinition {
   readonly renders: readonly DocsRendererDefinition[];
   readonly examples: readonly DocsExampleDefinition[];
   readonly tabLabels?: Partial<Record<DocsTabId, string>>;
+  readonly tabRouteSegments?: Partial<Record<DocsTabId, string>>;
   readonly renderSelectorLabel?: string;
   readonly renderPreviewDescription?: string;
   readonly exampleSelectorLabel?: string;

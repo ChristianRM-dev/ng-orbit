@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ADAPTERS_DOCS } from '../docs/adapters-docs.data';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DocsContentService } from '../docs/docs-content.service';
 import { FeatureDocsPageComponent } from '../docs/feature-docs-page.component';
 
 @Component({
@@ -10,5 +10,7 @@ import { FeatureDocsPageComponent } from '../docs/feature-docs-page.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdaptersHubPageComponent {
-  protected readonly docs = ADAPTERS_DOCS;
+  private readonly docsContentService = inject(DocsContentService);
+
+  protected readonly docs = this.docsContentService.adaptersDocs;
 }
