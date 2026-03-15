@@ -5,8 +5,20 @@ import type {
   OrbitWizardValidityMap
 } from './wizard.types';
 
+/**
+ * Canonical empty validity map used by the controller.
+ *
+ * @remarks
+ * This low-level constant is exported for advanced integrations.
+ */
 export const EMPTY_ORBIT_WIZARD_VALIDITY: OrbitWizardValidityMap = Object.freeze({});
 
+/**
+ * Fallback step returned when the controller cannot resolve a current enabled step.
+ *
+ * @remarks
+ * This constant mainly exists for defensive internal use and advanced integrations.
+ */
 export const EMPTY_ORBIT_WIZARD_STEP: OrbitWizardStep = Object.freeze({
   id: '',
   kind: 'step',
@@ -15,6 +27,12 @@ export const EMPTY_ORBIT_WIZARD_STEP: OrbitWizardStep = Object.freeze({
   showInNav: false
 });
 
+/**
+ * Normalizes a single consumer-provided step definition.
+ *
+ * @remarks
+ * Blank ids are rejected and returned as `null`.
+ */
 export function normalizeOrbitWizardStep(step: OrbitWizardStepDef): OrbitWizardStep | null {
   const normalizedId = typeof step.id === 'string' ? step.id.trim() : '';
   if (!normalizedId) {
@@ -34,6 +52,12 @@ export function normalizeOrbitWizardStep(step: OrbitWizardStepDef): OrbitWizardS
   };
 }
 
+/**
+ * Normalizes a step array into a unique, controller-ready collection.
+ *
+ * @remarks
+ * Invalid steps and duplicate ids are dropped. The first valid occurrence wins.
+ */
 export function normalizeOrbitWizardSteps(
   steps: readonly OrbitWizardStepDef[] | null | undefined
 ): OrbitWizardStep[] {
@@ -57,6 +81,9 @@ export function normalizeOrbitWizardSteps(
   return normalizedSteps;
 }
 
+/**
+ * Finds the index of a step by id.
+ */
 export function findOrbitWizardStepIndexById(
   steps: readonly OrbitWizardStep[],
   stepId: string
@@ -64,6 +91,9 @@ export function findOrbitWizardStepIndexById(
   return steps.findIndex((step) => step.id === stepId);
 }
 
+/**
+ * Finds the next enabled step after `currentIndex`.
+ */
 export function findNextEnabledOrbitWizardIndex(
   steps: readonly OrbitWizardStep[],
   currentIndex: number
@@ -77,6 +107,9 @@ export function findNextEnabledOrbitWizardIndex(
   return -1;
 }
 
+/**
+ * Finds the previous enabled step before `currentIndex`.
+ */
 export function findPrevEnabledOrbitWizardIndex(
   steps: readonly OrbitWizardStep[],
   currentIndex: number
@@ -90,6 +123,13 @@ export function findPrevEnabledOrbitWizardIndex(
   return -1;
 }
 
+/**
+ * Resolves the initial enabled index for a wizard instance.
+ *
+ * @remarks
+ * Prefers `initialStepId` when it points to an enabled step, otherwise falls back to the
+ * first enabled step.
+ */
 export function resolveOrbitWizardInitialIndex(
   steps: readonly OrbitWizardStep[],
   initialStepId?: string
@@ -111,6 +151,9 @@ export function resolveOrbitWizardInitialIndex(
   return steps.findIndex((step) => !step.disabled);
 }
 
+/**
+ * Resolves the closest enabled step around a preferred index.
+ */
 export function resolveNearestEnabledOrbitWizardIndex(
   steps: readonly OrbitWizardStep[],
   preferredIndex: number
@@ -139,6 +182,9 @@ export function resolveNearestEnabledOrbitWizardIndex(
   return findNextEnabledOrbitWizardIndex(steps, normalizedPreferredIndex);
 }
 
+/**
+ * Normalizes an index so it is safe to use against a step array.
+ */
 export function normalizeOrbitWizardIndex(index: number, size: number): number {
   if (!Number.isFinite(index) || size <= 0) {
     return -1;
@@ -152,6 +198,9 @@ export function normalizeOrbitWizardIndex(index: number, size: number): number {
   return normalized;
 }
 
+/**
+ * Removes visited ids that no longer exist in the current step set.
+ */
 export function pruneOrbitWizardVisited(
   visited: ReadonlySet<string>,
   validIds: ReadonlySet<string>
@@ -167,6 +216,9 @@ export function pruneOrbitWizardVisited(
   return nextVisited;
 }
 
+/**
+ * Removes validity entries for step ids that are no longer present.
+ */
 export function pruneOrbitWizardValidity(
   validity: OrbitWizardValidityMap,
   validIds: ReadonlySet<string>
@@ -182,6 +234,9 @@ export function pruneOrbitWizardValidity(
   return nextValidity;
 }
 
+/**
+ * Returns whether a step may proceed according to the wizard contract.
+ */
 export function canOrbitWizardStepProceed(
   step: OrbitWizardStep,
   validity: OrbitWizardValidityMap
@@ -189,6 +244,9 @@ export function canOrbitWizardStepProceed(
   return step.optional || validity[step.id] === true || step.kind === 'summary';
 }
 
+/**
+ * Calculates derived wizard progress for the current enabled step set.
+ */
 export function calculateOrbitWizardProgress(
   steps: readonly OrbitWizardStep[],
   visited: ReadonlySet<string>,
@@ -223,6 +281,9 @@ export function calculateOrbitWizardProgress(
   };
 }
 
+/**
+ * Compares two validity maps for semantic equality.
+ */
 export function areOrbitWizardValidityMapsEqual(
   left: OrbitWizardValidityMap,
   right: OrbitWizardValidityMap
@@ -247,6 +308,9 @@ export function areOrbitWizardValidityMapsEqual(
   return true;
 }
 
+/**
+ * Compares two visited-step sets.
+ */
 export function areOrbitWizardVisitedSetsEqual(
   left: ReadonlySet<string>,
   right: ReadonlySet<string>
@@ -268,6 +332,9 @@ export function areOrbitWizardVisitedSetsEqual(
   return true;
 }
 
+/**
+ * Compares two normalized step collections.
+ */
 export function areOrbitWizardStepsEqual(
   left: readonly OrbitWizardStep[],
   right: readonly OrbitWizardStep[]

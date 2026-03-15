@@ -15,6 +15,14 @@ import type {
   OrbitTableHeaderContext
 } from '@ng-orbit/table';
 
+/**
+ * Angular Material renderer for {@link OrbitTableDirective}.
+ *
+ * @remarks
+ * This component packages a fast Material-based visual layer while keeping the controller
+ * contract unchanged. It does not fetch data, own backend sorting rules, or replace the
+ * consumer's feature-layer responsibilities.
+ */
 @Component({
   selector: 'orbit-table-render-material',
   standalone: true,
@@ -33,6 +41,9 @@ import type {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrbitTableRenderMaterialComponent<T> {
+  /**
+   * Headless table controller instance bound by the parent template.
+   */
   readonly table = input.required<OrbitTableDirective<T>>();
   protected readonly pageSizeOptions: readonly number[] = [10, 25, 50];
   protected readonly displayedColumns = computed(() => [

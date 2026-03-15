@@ -34,19 +34,44 @@ import type {
   OrbitWizardValidityMap
 } from './wizard.types';
 
+/**
+ * Headless wizard controller for multi-step flows.
+ *
+ * @remarks
+ * `OrbitWizardDirective` owns step navigation, visited state, derived progress, and the
+ * validity map that consumers push into it. Consumers still own forms, field markup,
+ * persistence, analytics, and submission side effects.
+ */
 @Directive({
   selector: '[orbitWizard]',
   exportAs: 'orbitWizard',
   standalone: true
 })
 export class OrbitWizardDirective {
+  /**
+   * Required list of consumer-defined steps.
+   */
   readonly stepsInput = input.required<readonly OrbitWizardStepDef[]>({ alias: 'steps' });
+  /**
+   * Optional initial step id. Falls back to the first enabled step.
+   */
   readonly initialStepIdInput = input<string | undefined>(undefined, {
     alias: 'initialStepId'
   });
+  /**
+   * Whether future-step jumps are blocked until a step has been visited.
+   *
+   * @defaultValue `true`
+   */
   readonly linearInput = input(true, { alias: 'linear' });
 
+  /**
+   * Emits after navigation changes the current step.
+   */
   readonly stepChange = output<OrbitWizardStepChangeEvent>();
+  /**
+   * Emits when `next()` is called on the last enabled step.
+   */
   readonly completed = output<void>();
 
   private readonly stepsState = signal<readonly OrbitWizardStep[]>([]);
@@ -57,6 +82,9 @@ export class OrbitWizardDirective {
 
   readonly steps = computed(() => this.stepsState());
   readonly index = computed(() => this.indexState());
+  /**
+   * Current normalized step, or a defensive empty step when no enabled step can be resolved.
+   */
   readonly current = computed<OrbitWizardStep>(() => {
     const currentStep = this.stepsState()[this.indexState()];
     if (currentStep) {
@@ -68,6 +96,9 @@ export class OrbitWizardDirective {
   readonly visited = computed(() => this.visitedState());
   readonly validity = computed(() => this.validityState());
 
+  /**
+   * Derived progress snapshot for enabled steps only.
+   */
   readonly progress = computed<OrbitWizardProgress>(() =>
     calculateOrbitWizardProgress(
       this.stepsState(),
@@ -115,6 +146,7 @@ export class OrbitWizardDirective {
 
   constructor() {
     effect(() => {
+      // Normalize definitions up front so navigation, validity, and progress all share one shape.
       const normalizedSteps = normalizeOrbitWizardSteps(this.stepsInput());
       const hasEnabledSteps = normalizedSteps.some((step) => !step.disabled);
 
@@ -173,6 +205,13 @@ export class OrbitWizardDirective {
     });
   }
 
+  /**
+   * Returns whether a step can become current under the active navigation rules.
+   *
+   * @remarks
+   * Disabled or unknown step ids return `false`. In linear mode, only the current step and
+   * previously visited steps are reachable.
+   */
   canGoTo(stepId: string): boolean {
     const targetIndex = findOrbitWizardStepIndexById(this.stepsState(), stepId);
     if (targetIndex < 0) {
@@ -196,6 +235,13 @@ export class OrbitWizardDirective {
     return this.visitedState().has(stepId);
   }
 
+  /**
+   * Moves to the next enabled step.
+   *
+   * @remarks
+   * If the current step cannot proceed, this is a no-op. Calling `next()` on the last enabled
+   * step emits `completed` and leaves the index unchanged.
+   */
   next(): void {
     if (!this.canNext()) {
       return;
@@ -215,6 +261,9 @@ export class OrbitWizardDirective {
     this.commitIndex(nextEnabledIndex, true);
   }
 
+  /**
+   * Moves to the previous enabled step when one exists.
+   */
   prev(): void {
     const currentStepIndex = findOrbitWizardStepIndexById(this.stepsState(), this.current().id);
     if (currentStepIndex < 0) {
@@ -229,6 +278,12 @@ export class OrbitWizardDirective {
     this.commitIndex(previousEnabledIndex, true);
   }
 
+  /**
+   * Attempts to navigate directly to a step id.
+   *
+   * @remarks
+   * Unknown, disabled, or disallowed future steps are ignored.
+   */
   goTo(stepId: string): void {
     if (!this.canGoTo(stepId)) {
       return;
@@ -242,6 +297,12 @@ export class OrbitWizardDirective {
     this.commitIndex(nextIndex, true);
   }
 
+  /**
+   * Attempts to navigate directly to a step index.
+   *
+   * @remarks
+   * Invalid indices are ignored.
+   */
   goToIndex(index: number): void {
     const normalizedIndex = normalizeOrbitWizardIndex(index, this.stepsState().length);
     if (normalizedIndex < 0) {
@@ -251,6 +312,9 @@ export class OrbitWizardDirective {
     this.goTo(this.stepsState()[normalizedIndex].id);
   }
 
+  /**
+   * Resets the wizard to its initial enabled step and clears validity state.
+   */
   reset(): void {
     const resetIndex = resolveOrbitWizardInitialIndex(
       this.stepsState(),
@@ -270,6 +334,13 @@ export class OrbitWizardDirective {
     this.commitIndex(resetIndex, false);
   }
 
+  /**
+   * Updates the validity snapshot for a step.
+   *
+   * @remarks
+   * This does not run validation for you. It simply stores consumer-owned validity state.
+   * Unknown step ids are ignored.
+   */
   setValid(stepId: string, valid: boolean): void {
     if (findOrbitWizardStepIndexById(this.stepsState(), stepId) < 0) {
       return;
@@ -286,10 +357,16 @@ export class OrbitWizardDirective {
     });
   }
 
+  /**
+   * Returns whether a step id has been visited.
+   */
   isVisited(stepId: string): boolean {
     return this.visitedState().has(stepId);
   }
 
+  /**
+   * Returns whether a step id is currently marked valid.
+   */
   isStepValid(stepId: string): boolean {
     return this.validityState()[stepId] === true;
   }

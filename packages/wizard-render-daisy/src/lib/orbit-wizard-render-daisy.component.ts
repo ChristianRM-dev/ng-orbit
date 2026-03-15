@@ -2,6 +2,13 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import type { OrbitWizardStep } from '@ng-orbit/wizard';
 import { OrbitWizardDirective } from '@ng-orbit/wizard';
 
+/**
+ * DaisyUI/Tailwind-flavored renderer for {@link OrbitWizardDirective}.
+ *
+ * @remarks
+ * The renderer stays presentation-only. Consumers continue to own forms, validation,
+ * persistence, and any business-specific navigation rules outside the headless contract.
+ */
 @Component({
   selector: 'orbit-wizard-render-daisy',
   standalone: true,
@@ -10,6 +17,9 @@ import { OrbitWizardDirective } from '@ng-orbit/wizard';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrbitWizardRenderDaisyComponent {
+  /**
+   * Headless wizard controller instance bound by the parent template.
+   */
   readonly wizard = input.required<OrbitWizardDirective>();
 
   protected readonly enabledSteps = computed(() =>

@@ -7,6 +7,13 @@ import type {
 
 const EMPTY_FILTERS = Object.freeze({}) as Record<string, unknown>;
 
+/**
+ * Creates the canonical default query used by {@link OrbitTableDirective}.
+ *
+ * @remarks
+ * This is an advanced helper for consumers who want to initialize or reset query state
+ * outside the directive.
+ */
 export function createDefaultOrbitTableQuery(): OrbitTableQuery {
   return {
     page: 1,
@@ -17,6 +24,12 @@ export function createDefaultOrbitTableQuery(): OrbitTableQuery {
   };
 }
 
+/**
+ * Creates an empty multi-select state.
+ *
+ * @remarks
+ * This is a low-level helper used by the controller and custom integrations.
+ */
 export function createEmptyOrbitTableSelection(): OrbitTableSelectionState {
   return {
     mode: 'multi',
@@ -24,6 +37,12 @@ export function createEmptyOrbitTableSelection(): OrbitTableSelectionState {
   };
 }
 
+/**
+ * Normalizes raw sort input into the controller's canonical sort shape.
+ *
+ * @remarks
+ * Invalid ids and unsupported directions collapse to `null`.
+ */
 export function normalizeOrbitTableSort(
   sort: OrbitTableSort | null | undefined
 ): OrbitTableSort | null {
@@ -41,6 +60,13 @@ export function normalizeOrbitTableSort(
   };
 }
 
+/**
+ * Normalizes partial query input into a complete {@link OrbitTableQuery}.
+ *
+ * @remarks
+ * Missing or invalid values fall back to {@link createDefaultOrbitTableQuery}. This helper
+ * is exported for advanced integrations that keep query state outside the directive.
+ */
 export function normalizeOrbitTableQuery(
   query: Partial<OrbitTableQuery> | OrbitTableQuery | null | undefined
 ): OrbitTableQuery {
@@ -56,6 +82,9 @@ export function normalizeOrbitTableQuery(
   };
 }
 
+/**
+ * Compares two normalized sort payloads.
+ */
 export function areOrbitTableSortsEqual(
   left: OrbitTableSort | null,
   right: OrbitTableSort | null
@@ -71,6 +100,13 @@ export function areOrbitTableSortsEqual(
   return left.activeId === right.activeId && left.direction === right.direction;
 }
 
+/**
+ * Compares two queries for semantic equality.
+ *
+ * @remarks
+ * `filters` are compared by reference, not by deep equality. Consumers who replace filter
+ * objects should create stable references when they want to avoid extra emissions.
+ */
 export function areOrbitTableQueriesEqual(
   left: OrbitTableQuery,
   right: OrbitTableQuery
@@ -84,6 +120,9 @@ export function areOrbitTableQueriesEqual(
   );
 }
 
+/**
+ * Compares two selection snapshots.
+ */
 export function areOrbitTableSelectionsEqual(
   left: OrbitTableSelectionState,
   right: OrbitTableSelectionState
@@ -105,6 +144,9 @@ export function areOrbitTableSelectionsEqual(
   return true;
 }
 
+/**
+ * Toggles a row id inside a multi-select state and returns a fresh snapshot.
+ */
 export function toggleOrbitTableSelectionById(
   selection: OrbitTableSelectionState,
   rowId: OrbitTableRowId

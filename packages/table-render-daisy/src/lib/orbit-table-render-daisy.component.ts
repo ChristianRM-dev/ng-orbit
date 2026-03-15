@@ -8,6 +8,13 @@ import type {
   OrbitTableHeaderContext
 } from '@ng-orbit/table';
 
+/**
+ * DaisyUI/Tailwind-flavored renderer for {@link OrbitTableDirective}.
+ *
+ * @remarks
+ * The host application still owns Tailwind and DaisyUI setup, data fetching, and all
+ * business logic. This renderer only maps controller state into presentation.
+ */
 @Component({
   selector: 'orbit-table-render-daisy',
   standalone: true,
@@ -17,6 +24,9 @@ import type {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrbitTableRenderDaisyComponent<T> {
+  /**
+   * Headless table controller instance bound by the parent template.
+   */
   readonly table = input.required<OrbitTableDirective<T>>();
   protected readonly pageSizeOptions: readonly number[] = [10, 25, 50];
 

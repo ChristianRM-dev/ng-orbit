@@ -8,6 +8,13 @@ import type {
   OrbitTableHeaderContext
 } from '@ng-orbit/table';
 
+/**
+ * Reference semantic renderer for {@link OrbitTableDirective}.
+ *
+ * @remarks
+ * This renderer is intentionally thin. It reads controller state, calls controller commands,
+ * and leaves data fetching, query mapping, and business logic to the consumer.
+ */
 @Component({
   selector: 'orbit-table-render-plain',
   standalone: true,
@@ -16,6 +23,9 @@ import type {
   styleUrl: './orbit-table-render-plain.component.scss'
 })
 export class OrbitTableRenderPlainComponent<T> {
+  /**
+   * Headless table controller instance bound by the parent template.
+   */
   readonly table = input.required<OrbitTableDirective<T>>();
   protected readonly pageSizeOptions: readonly number[] = [10, 25, 50];
 

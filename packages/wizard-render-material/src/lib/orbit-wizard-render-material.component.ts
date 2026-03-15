@@ -4,6 +4,13 @@ import { OrbitWizardDirective } from '@ng-orbit/wizard';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 
+/**
+ * Angular Material renderer for {@link OrbitWizardDirective}.
+ *
+ * @remarks
+ * This renderer packages a ready-made Material navigation shell, but the consumer still owns
+ * step content, forms, validity rules, and submission side effects.
+ */
 @Component({
   selector: 'orbit-wizard-render-material',
   standalone: true,
@@ -13,6 +20,9 @@ import { MatStepperModule } from '@angular/material/stepper';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OrbitWizardRenderMaterialComponent {
+  /**
+   * Headless wizard controller instance bound by the parent template.
+   */
   readonly wizard = input.required<OrbitWizardDirective>();
 
   protected readonly enabledSteps = computed(() =>
