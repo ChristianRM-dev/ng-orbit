@@ -2,7 +2,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DocsCodeBlockComponent } from './docs-code-block.component';
-import { DOCS_TABS, type DocsFeatureDefinition, type DocsTabId } from './docs.models';
+import {
+  DOCS_TABS,
+  type DocsFeatureDefinition,
+  type DocsHeroBlock,
+  type DocsTabDefinition,
+  type DocsTabId
+} from './docs.models';
 import { DocsPreviewHostComponent } from './docs-preview-host.component';
 
 interface CanonicalQueryParams {
@@ -32,8 +38,67 @@ export class FeatureDocsPageComponent {
     initialValue: this.route.snapshot.data
   });
 
-  protected readonly tabs = DOCS_TABS;
-  protected readonly installTitle = computed(() => `Install ${this.docs().packageName}`);
+  protected readonly tabs = computed<readonly DocsTabDefinition[]>(() =>
+    DOCS_TABS.map((tab) => ({
+      ...tab,
+      label: this.docs().tabLabels?.[tab.id] ?? tab.label
+    }))
+  );
+  protected readonly heroEyebrow = computed(
+    () => this.docs().heroEyebrow ?? this.docs().packageName ?? this.docs().title
+  );
+  protected readonly heroBlocks = computed<readonly DocsHeroBlock[]>(() => {
+    const docs = this.docs();
+
+    if (docs.heroBlocks?.length) {
+      return docs.heroBlocks;
+    }
+
+    if (!docs.packageName || !docs.installSnippet || !docs.importSnippet) {
+      return [];
+    }
+
+    return [
+      {
+        title: `Install ${docs.packageName}`,
+        code: docs.installSnippet,
+        language: docs.installSnippetLanguage ?? 'bash'
+      },
+      {
+        title: 'Import',
+        code: docs.importSnippet,
+        language: docs.importSnippetLanguage ?? 'typescript'
+      }
+    ];
+  });
+  protected readonly quickstartTitle = computed(() => this.docs().quickstartTitle ?? 'Quickstart');
+  protected readonly quickstartLanguage = computed(
+    () => this.docs().quickstartLanguage ?? 'typescript'
+  );
+  protected readonly overviewCodeSectionTitle = computed(() => this.docs().overviewCodeSectionTitle);
+  protected readonly overviewCodeSectionLead = computed(() => this.docs().overviewCodeSectionLead);
+  protected readonly overviewCodeBlocks = computed(
+    () => this.docs().overviewCodeBlocks ?? []
+  );
+  protected readonly renderSelectorLabel = computed(
+    () => this.docs().renderSelectorLabel ?? 'Render options'
+  );
+  protected readonly renderPreviewDescription = computed(
+    () =>
+      this.docs().renderPreviewDescription ??
+      'Rendered inside the docs host using the real controller contract.'
+  );
+  protected readonly exampleSelectorLabel = computed(
+    () => this.docs().exampleSelectorLabel ?? 'Example scenarios'
+  );
+  protected readonly exampleEyebrow = computed(
+    () => this.docs().exampleEyebrow ?? 'Consumer example'
+  );
+  protected readonly examplePreviewDescription = computed(
+    () =>
+      this.docs().examplePreviewDescription ??
+      'Try the interaction and compare it with the snippet on the right.'
+  );
   protected readonly activeTab = computed<DocsTabId>(() =>
     this.resolveTab(this.queryParamMap().get('tab'))
   );
@@ -45,6 +110,12 @@ export class FeatureDocsPageComponent {
   );
   protected readonly activeRenderer = computed(
     () => this.docs().renders.find((renderer) => renderer.id === this.activeRendererId()) ?? null
+  );
+  protected readonly activeRendererBadge = computed(
+    () =>
+      this.activeRenderer()?.badgeText ??
+      this.activeRenderer()?.packageName ??
+      this.heroEyebrow()
   );
   protected readonly activeExample = computed(
     () => this.docs().examples.find((example) => example.id === this.activeExampleId()) ?? null

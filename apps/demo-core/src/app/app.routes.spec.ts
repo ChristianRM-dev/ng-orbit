@@ -10,6 +10,7 @@ describe('app routes', () => {
 
     expect(childPaths).toContain('table');
     expect(childPaths).toContain('wizard');
+    expect(childPaths).toContain('adapters');
     expect(childPaths).toContain('table/core');
     expect(childPaths).toContain('table/plain');
     expect(childPaths).toContain('table/material');

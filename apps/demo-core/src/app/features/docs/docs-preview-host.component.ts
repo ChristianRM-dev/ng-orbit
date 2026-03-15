@@ -11,6 +11,7 @@ import type {
   selector: 'ng-orbit-docs-preview-host',
   standalone: true,
   imports: [NgComponentOutlet, RemoteIframePageComponent],
+  styleUrl: './docs-preview-host.component.scss',
   template: `
     @if (componentPreview()) {
       <ng-container

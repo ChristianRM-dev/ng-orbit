@@ -1,5 +1,9 @@
 .ng-orbit-table-surface {
+  box-sizing: border-box;
   min-height: calc(100dvh - 180px);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid #d8e1db;
   border-radius: 0.65rem;
   overflow: hidden;

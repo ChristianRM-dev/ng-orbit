@@ -1,3 +1,4 @@
+import { ADAPTERS_DOCS } from './adapters-docs.data';
 import { DOCS_TABS } from './docs.models';
 import { TABLE_DOCS } from './table-docs.data';
 import { WIZARD_DOCS } from './wizard-docs.data';
@@ -13,7 +14,7 @@ describe('docs content', () => {
   });
 
   it('ships unique render and example ids for each feature', () => {
-    for (const docsDefinition of [TABLE_DOCS, WIZARD_DOCS]) {
+    for (const docsDefinition of [TABLE_DOCS, WIZARD_DOCS, ADAPTERS_DOCS]) {
       expect(new Set(docsDefinition.renders.map((renderer) => renderer.id)).size).toBe(
         docsDefinition.renders.length
       );
@@ -23,5 +24,11 @@ describe('docs content', () => {
       expect(docsDefinition.renders.length).toBeGreaterThan(0);
       expect(docsDefinition.examples.length).toBeGreaterThan(0);
     }
+  });
+
+  it('supports feature-specific tab label overrides', () => {
+    expect(ADAPTERS_DOCS.tabLabels?.renders).toBe('Patterns');
+    expect(TABLE_DOCS.tabLabels?.renders).toBeUndefined();
+    expect(WIZARD_DOCS.tabLabels?.renders).toBeUndefined();
   });
 });

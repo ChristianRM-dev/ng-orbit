@@ -1,7 +1,22 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
 .ng-orbit-remote-page {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: var(--ng-orbit-remote-frame-height, 640px);
 
   &__frame-wrap {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     min-height: var(--ng-orbit-remote-frame-height, 640px);
     border: 1px solid #d8e1db;
     border-radius: 0.65rem;
@@ -10,7 +25,9 @@
   }
 
   &__frame {
+    box-sizing: border-box;
     width: 100%;
+    max-width: 100%;
     min-height: var(--ng-orbit-remote-frame-height, 640px);
     border: 0;
     display: block;

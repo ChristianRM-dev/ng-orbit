@@ -20,6 +20,7 @@
             "browser": "apps/demo-core/src/main.ts",
             "tsConfig": "apps/demo-core/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": ["prismjs"],
             "assets": [
               { "glob": "**/*", "input": "apps/demo-core/public", "output": "/" }
             ],

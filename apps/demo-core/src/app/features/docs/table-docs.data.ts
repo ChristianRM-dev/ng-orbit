@@ -10,13 +10,16 @@ export const TABLE_DOCS: DocsFeatureDefinition = {
     'A headless table controller for Angular apps that want consumer-owned data fetching, selection, sorting intent, and markup.',
   tagline:
     'Use the directive as the stable contract, then plug in a renderer or your own templates without moving business logic into the visual layer.',
+  installSnippetLanguage: 'bash',
   installSnippet: snippet(`
 pnpm add @ng-orbit/table @ng-orbit/table-render-plain
 `),
+  importSnippetLanguage: 'typescript',
   importSnippet: snippet(`
 import { OrbitTableDirective, type OrbitTableQuery } from '@ng-orbit/table';
 import { OrbitTableRenderPlainComponent } from '@ng-orbit/table-render-plain';
 `),
+  quickstartLanguage: 'typescript',
   quickstartSnippet: snippet(`
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
@@ -264,6 +267,7 @@ export class UsersTableComponent {
         inputs: { variant: 'plain' }
       },
       snippetTitle: 'Plain renderer integration',
+      snippetLanguage: 'markup',
       snippet: snippet(`
 <section
   orbitTable
@@ -300,6 +304,7 @@ export class UsersTableComponent {
         frameHeight: '620px'
       },
       snippetTitle: 'Material renderer integration',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 import { OrbitTableDirective } from '@ng-orbit/table';
 import { OrbitTableRenderMaterialComponent } from '@ng-orbit/table-render-material';
@@ -346,6 +351,7 @@ export class UsersMaterialTableComponent {}
         frameHeight: '620px'
       },
       snippetTitle: 'Daisy renderer integration',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 import { OrbitTableDirective } from '@ng-orbit/table';
 import { OrbitTableRenderDaisyComponent } from '@ng-orbit/table-render-daisy';
@@ -390,6 +396,7 @@ export class UsersDaisyTableComponent {}
         inputs: { variant: 'custom' }
       },
       snippetTitle: 'Custom markup using orbitTable',
+      snippetLanguage: 'markup',
       snippet: snippet(`
 <section
   orbitTable
@@ -443,6 +450,7 @@ export class UsersDaisyTableComponent {}
         inputs: { variant: 'plain' }
       },
       snippetTitle: 'Minimal table component',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 readonly query = signal(createDefaultOrbitTableQuery());
 readonly rows = signal<readonly UserRow[]>([]);
@@ -472,6 +480,7 @@ onQueryChange(query: OrbitTableQuery): void {
         inputs: { variant: 'custom' }
       },
       snippetTitle: 'Custom layout example',
+      snippetLanguage: 'markup',
       snippet: snippet(`
 <div class="table-toolbar">
   <input
@@ -504,6 +513,7 @@ onQueryChange(query: OrbitTableQuery): void {
         inputs: { variant: 'server-driven' }
       },
       snippetTitle: 'Fetch on query changes',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 onQueryChange(query: OrbitTableQuery): void {
   this.query.set(query);
@@ -544,6 +554,7 @@ onQueryChange(query: OrbitTableQuery): void {
         inputs: { variant: 'renderer-swap' }
       },
       snippetTitle: 'Renderer swap with the same contract',
+      snippetLanguage: 'markup',
       snippet: snippet(`
 @if (useMaterial()) {
   <orbit-table-render-material [table]="table" />

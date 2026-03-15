@@ -6,10 +6,14 @@
       }
     </div>
 
-    <button class="ng-orbit-code__copy" type="button" (click)="copyCode()">
-      {{ copied() ? 'Copied' : 'Copy' }}
-    </button>
+    @if (copyable()) {
+      <button class="ng-orbit-code__copy" type="button" (click)="copyCode()">
+        {{ copied() ? 'Copied' : 'Copy' }}
+      </button>
+    }
   </header>
 
-  <pre class="ng-orbit-code__body"><code>{{ code() }}</code></pre>
+  <pre class="ng-orbit-code__body">
+    <code [class]="languageClass()" [innerHTML]="highlightedCode()"></code>
+  </pre>
 </section>

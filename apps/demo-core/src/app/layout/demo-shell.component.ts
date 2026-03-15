@@ -17,7 +17,8 @@ interface NavItem {
 export class DemoShellComponent {
   protected readonly navItems: readonly NavItem[] = [
     { path: '/table', labelKey: 'Table' },
-    { path: '/wizard', labelKey: 'Wizard' }
+    { path: '/wizard', labelKey: 'Wizard' },
+    { path: '/adapters', labelKey: 'Adapters' }
   ];
 
   private readonly sidebarOpen = signal(false);

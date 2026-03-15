@@ -99,6 +99,38 @@ describe('docs host', () => {
       'http://127.0.0.1:4201/wizard/material?lang=en&renderer=material'
     );
   });
+
+  it('canonicalizes /adapters and renders the concept hero blocks', async () => {
+    const { router, fixture } = await renderUrl('/adapters');
+
+    expect(router.url).toBe('/adapters?tab=overview');
+    expect(fixture.nativeElement.textContent).toContain('Adapters are the thin integration layer');
+    expect(fixture.nativeElement.textContent).toContain('Principles');
+    expect(fixture.nativeElement.textContent).toContain('Package map');
+    expect(fixture.nativeElement.textContent).toContain('Table + Material');
+    expect(fixture.nativeElement.textContent).toContain('Table + Daisy');
+    expect(fixture.nativeElement.textContent).toContain('Wizard + Material');
+    expect(fixture.nativeElement.textContent).toContain('Wizard + Daisy');
+    expect(activeTabLabel(fixture.nativeElement)).toBe('Overview');
+  });
+
+  it('renames the renders tab to patterns for the adapters guide', async () => {
+    const { router, fixture } = await renderUrl('/adapters?tab=renders&renderer=kit-composition');
+
+    expect(router.url).toBe('/adapters?tab=renders&renderer=kit-composition');
+    expect(activeTabLabel(fixture.nativeElement)).toBe('Patterns');
+    expect(fixture.nativeElement.textContent).toContain('Kit-assisted composition');
+    expect(fixture.nativeElement.textContent).toContain('Optional helper');
+  });
+
+  it('renders highlighted code tokens for shared docs snippets', async () => {
+    const { fixture } = await renderUrl('/table');
+    const highlightedToken = fixture.nativeElement.querySelector(
+      '.ng-orbit-code__body .token.keyword'
+    ) as HTMLElement | null;
+
+    expect(highlightedToken).not.toBeNull();
+  });
 });
 
 async function renderUrl(url: string): Promise<{

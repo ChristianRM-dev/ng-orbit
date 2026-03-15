@@ -10,13 +10,16 @@ export const WIZARD_DOCS: DocsFeatureDefinition = {
     'A headless wizard controller for multi-step flows where the consumer keeps ownership of forms, layout, validation, and submission side effects.',
   tagline:
     'Use orbitWizard for navigation state and completion rules, then pair it with your own form UI or an optional renderer package.',
+  installSnippetLanguage: 'bash',
   installSnippet: snippet(`
 pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit
 `),
+  importSnippetLanguage: 'typescript',
   importSnippet: snippet(`
 import { OrbitWizardDirective, type OrbitWizardStepDef } from '@ng-orbit/wizard';
 import { OrbitWizardStepFormSyncDirective } from '@ng-orbit/wizard-kit';
 `),
+  quickstartLanguage: 'typescript',
   quickstartSnippet: snippet(`
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -239,6 +242,7 @@ export class SignupWizardComponent {
         frameHeight: '700px'
       },
       snippetTitle: 'Material renderer integration',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrbitWizardDirective } from '@ng-orbit/wizard';
@@ -278,6 +282,7 @@ import { OrbitWizardRenderMaterialComponent } from '@ng-orbit/wizard-render-mate
         frameHeight: '700px'
       },
       snippetTitle: 'Daisy renderer integration',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrbitWizardDirective } from '@ng-orbit/wizard';
@@ -315,6 +320,7 @@ import { OrbitWizardRenderDaisyComponent } from '@ng-orbit/wizard-render-daisy';
         inputs: { variant: 'custom-render' }
       },
       snippetTitle: 'Consumer-owned wizard layout',
+      snippetLanguage: 'markup',
       snippet: snippet(`
 <section orbitWizard #wizard="orbitWizard" [steps]="steps" (completed)="submit()">
   <nav>
@@ -350,6 +356,7 @@ import { OrbitWizardRenderDaisyComponent } from '@ng-orbit/wizard-render-daisy';
         inputs: { variant: 'multi-step' }
       },
       snippetTitle: 'Multi-step wizard',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 readonly steps: readonly OrbitWizardStepDef[] = [
   { id: 'account', title: 'Account' },
@@ -376,6 +383,7 @@ readonly steps: readonly OrbitWizardStepDef[] = [
         inputs: { variant: 'conditional' }
       },
       snippetTitle: 'Conditional step definition',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 readonly steps = computed<readonly OrbitWizardStepDef[]>(() => {
   const steps: OrbitWizardStepDef[] = [{ id: 'account', title: 'Account type' }];
@@ -406,6 +414,7 @@ readonly steps = computed<readonly OrbitWizardStepDef[]>(() => {
         inputs: { variant: 'single-step' }
       },
       snippetTitle: 'Single-step setup',
+      snippetLanguage: 'typescript',
       snippet: snippet(`
 readonly steps: readonly OrbitWizardStepDef[] = [
   { id: 'single', title: 'Profile' }
@@ -437,6 +446,7 @@ readonly steps: readonly OrbitWizardStepDef[] = [
         frameHeight: '700px'
       },
       snippetTitle: 'Renderer + wizard-kit integration',
+      snippetLanguage: 'markup',
       snippet: snippet(`
 <section orbitWizard #wizard="orbitWizard" [steps]="steps" (completed)="submit()">
   <orbit-wizard-render-material [wizard]="wizard">

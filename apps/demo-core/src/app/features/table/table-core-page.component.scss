@@ -1,6 +1,13 @@
 @use "./table-page.shared";
 @use "./table-core.shared";
 
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
 .ng-orbit-table-surface {
   padding: 0.85rem;
 }

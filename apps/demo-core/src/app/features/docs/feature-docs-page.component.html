@@ -1,20 +1,28 @@
 <section class="ng-orbit-docs">
   <header class="ng-orbit-docs__hero">
     <div class="ng-orbit-docs__hero-copy">
-      <span class="ng-orbit-docs__eyebrow">{{ docs().packageName }}</span>
+      <span class="ng-orbit-docs__eyebrow">{{ heroEyebrow() }}</span>
       <h2 class="ng-orbit-docs__title">{{ docs().title }}</h2>
       <p class="ng-orbit-docs__summary">{{ docs().summary }}</p>
       <p class="ng-orbit-docs__tagline">{{ docs().tagline }}</p>
     </div>
 
-    <div class="ng-orbit-docs__hero-codes">
-      <ng-orbit-docs-code-block [title]="installTitle()" [code]="docs().installSnippet" />
-      <ng-orbit-docs-code-block title="Import" [code]="docs().importSnippet" />
-    </div>
+    @if (heroBlocks().length) {
+      <div class="ng-orbit-docs__hero-codes">
+        @for (block of heroBlocks(); track block.title) {
+          <ng-orbit-docs-code-block
+            [title]="block.title"
+            [code]="block.code"
+            [language]="block.language"
+            [copyable]="block.copyable ?? true"
+          />
+        }
+      </div>
+    }
   </header>
 
   <nav class="ng-orbit-docs__tabs" aria-label="Documentation tabs">
-    @for (tab of tabs; track tab.id) {
+    @for (tab of tabs(); track tab.id) {
       <button
         class="ng-orbit-docs__tab"
         type="button"
@@ -28,6 +36,30 @@
 
   @if (activeTab() === 'overview') {
     <section class="ng-orbit-docs__overview">
+      @if (overviewCodeBlocks().length) {
+        <section class="ng-orbit-docs__overview-install">
+          @if (overviewCodeSectionTitle()) {
+            <header class="ng-orbit-docs__overview-install-header">
+              <h3>{{ overviewCodeSectionTitle() }}</h3>
+              @if (overviewCodeSectionLead()) {
+                <p>{{ overviewCodeSectionLead() }}</p>
+              }
+            </header>
+          }
+
+          <div class="ng-orbit-docs__overview-install-grid">
+            @for (block of overviewCodeBlocks(); track block.title) {
+              <ng-orbit-docs-code-block
+                [title]="block.title"
+                [code]="block.code"
+                [language]="block.language"
+                [copyable]="block.copyable ?? true"
+              />
+            }
+          </div>
+        </section>
+      }
+
       <div class="ng-orbit-docs__overview-grid">
         @for (section of docs().overviewSections; track section.title) {
           <article class="ng-orbit-docs__section-card ng-orbit-card">
@@ -45,7 +77,11 @@
         }
       </div>
 
-      <ng-orbit-docs-code-block title="Quickstart" [code]="docs().quickstartSnippet" />
+      <ng-orbit-docs-code-block
+        [title]="quickstartTitle()"
+        [code]="docs().quickstartSnippet"
+        [language]="quickstartLanguage()"
+      />
     </section>
   }
 
@@ -95,7 +131,7 @@
   @if (activeTab() === 'renders' && activeRenderer()) {
     <section class="ng-orbit-docs__renders">
       <aside class="ng-orbit-docs__selector ng-orbit-card">
-        <p class="ng-orbit-docs__selector-label">Render options</p>
+        <p class="ng-orbit-docs__selector-label">{{ renderSelectorLabel() }}</p>
 
         <div class="ng-orbit-docs__selector-list">
           @for (renderer of docs().renders; track renderer.id) {
@@ -106,7 +142,9 @@
               (click)="selectRenderer(renderer.id)"
             >
               <span>{{ renderer.label }}</span>
-              <small>{{ renderer.packageName }}</small>
+              @if (renderer.metaLabel ?? renderer.packageName; as rendererMeta) {
+                <small>{{ rendererMeta }}</small>
+              }
             </button>
           }
         </div>
@@ -116,7 +154,9 @@
         <article class="ng-orbit-docs__detail-card ng-orbit-card">
           <header class="ng-orbit-docs__detail-header">
             <div>
-              <span class="ng-orbit-docs__eyebrow">{{ activeRenderer()!.packageName }}</span>
+              @if (activeRendererBadge()) {
+                <span class="ng-orbit-docs__eyebrow">{{ activeRendererBadge() }}</span>
+              }
               <h3>{{ activeRenderer()!.label }}</h3>
             </div>
             <p>{{ activeRenderer()!.summary }}</p>
@@ -137,7 +177,7 @@
           <section class="ng-orbit-docs__preview-card ng-orbit-card">
             <header class="ng-orbit-docs__preview-header">
               <h3>Live preview</h3>
-              <p>Rendered inside the docs host using the real controller contract.</p>
+              <p>{{ renderPreviewDescription() }}</p>
             </header>
 
             <ng-orbit-docs-preview-host [preview]="activeRenderer()!.preview" />
@@ -146,6 +186,7 @@
           <ng-orbit-docs-code-block
             [title]="activeRenderer()!.snippetTitle"
             [code]="activeRenderer()!.snippet"
+            [language]="activeRenderer()!.snippetLanguage"
           />
         </div>
       </div>
@@ -155,7 +196,7 @@
   @if (activeTab() === 'examples' && activeExample()) {
     <section class="ng-orbit-docs__examples">
       <aside class="ng-orbit-docs__selector ng-orbit-card">
-        <p class="ng-orbit-docs__selector-label">Example scenarios</p>
+        <p class="ng-orbit-docs__selector-label">{{ exampleSelectorLabel() }}</p>
 
         <div class="ng-orbit-docs__selector-list">
           @for (example of docs().examples; track example.id) {
@@ -176,7 +217,7 @@
         <article class="ng-orbit-docs__detail-card ng-orbit-card">
           <header class="ng-orbit-docs__detail-header">
             <div>
-              <span class="ng-orbit-docs__eyebrow">Consumer example</span>
+              <span class="ng-orbit-docs__eyebrow">{{ exampleEyebrow() }}</span>
               <h3>{{ activeExample()!.title }}</h3>
             </div>
             <p>{{ activeExample()!.description }}</p>
@@ -195,7 +236,7 @@
           <section class="ng-orbit-docs__preview-card ng-orbit-card">
             <header class="ng-orbit-docs__preview-header">
               <h3>Live preview</h3>
-              <p>Try the interaction and compare it with the snippet on the right.</p>
+              <p>{{ examplePreviewDescription() }}</p>
             </header>
 
             <ng-orbit-docs-preview-host [preview]="activeExample()!.preview" />
@@ -204,6 +245,7 @@
           <ng-orbit-docs-code-block
             [title]="activeExample()!.snippetTitle"
             [code]="activeExample()!.snippet"
+            [language]="activeExample()!.snippetLanguage"
           />
         </div>
       </div>

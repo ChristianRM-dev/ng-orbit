@@ -25,6 +25,13 @@ export const appRoutes: Routes = [
             (module) => module.WizardHubPageComponent
           )
       },
+      {
+        path: 'adapters',
+        loadComponent: () =>
+          import('./features/hub/adapters-hub-page.component').then(
+            (module) => module.AdaptersHubPageComponent
+          )
+      },
       // Legacy aliases. These routes keep old URLs working while canonical routes
       // are `/table?renderer=...` and `/wizard?renderer=...`.
       {

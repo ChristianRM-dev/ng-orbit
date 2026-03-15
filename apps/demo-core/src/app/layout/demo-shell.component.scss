@@ -2,8 +2,12 @@
   --ng-orbit-sidebar-width: 272px;
   --ng-orbit-topbar-height: 76px;
 
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: var(--ng-orbit-sidebar-width) 1fr;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   min-height: 100dvh;
   background: linear-gradient(165deg, #f7f9f6 0%, #eef3ee 55%, #e6ece4 100%);
 
@@ -21,11 +25,17 @@
 
   &__main {
     min-width: 0;
+    width: 100%;
+    max-width: 100%;
     display: grid;
     grid-template-rows: var(--ng-orbit-topbar-height) 1fr;
   }
 
   &__content {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 1.25rem;
   }
 
@@ -36,6 +46,8 @@
 }
 
 .ng-orbit-sidebar {
+  box-sizing: border-box;
+  min-width: 0;
   background: linear-gradient(180deg, #1f3a33 0%, #193129 100%);
   color: #f5fbf7;
   border-right: 1px solid rgb(255 255 255 / 0.1);
@@ -91,10 +103,14 @@
 }
 
 .ng-orbit-topbar {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 0.85rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid #d8e1db;
   background: rgb(255 255 255 / 0.74);

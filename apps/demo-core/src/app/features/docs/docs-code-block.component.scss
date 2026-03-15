@@ -1,4 +1,12 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
 .ng-orbit-code {
+  box-sizing: border-box;
   border: 1px solid #d5dde3;
   border-radius: 1rem;
   background:
@@ -8,6 +16,7 @@
   max-width: 100%;
 
   &__header {
+    box-sizing: border-box;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -30,6 +39,8 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #4a6270;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   &__copy {
@@ -45,6 +56,7 @@
   }
 
   &__body {
+    box-sizing: border-box;
     margin: 0;
     padding: 1rem;
     max-width: 100%;
@@ -61,4 +73,53 @@
     min-width: max-content;
     white-space: pre;
   }
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.comment,
+:host ::ng-deep .ng-orbit-code__body .token.prolog,
+:host ::ng-deep .ng-orbit-code__body .token.doctype,
+:host ::ng-deep .ng-orbit-code__body .token.cdata {
+  color: #6c8594;
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.punctuation,
+:host ::ng-deep .ng-orbit-code__body .token.operator {
+  color: #7d4e1f;
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.keyword,
+:host ::ng-deep .ng-orbit-code__body .token.rule,
+:host ::ng-deep .ng-orbit-code__body .token.atrule {
+  color: #7a2fb3;
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.string,
+:host ::ng-deep .ng-orbit-code__body .token.attr-value,
+:host ::ng-deep .ng-orbit-code__body .token.selector {
+  color: #0a7a53;
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.function,
+:host ::ng-deep .ng-orbit-code__body .token.class-name,
+:host ::ng-deep .ng-orbit-code__body .token.method {
+  color: #0d5ea8;
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.number,
+:host ::ng-deep .ng-orbit-code__body .token.boolean,
+:host ::ng-deep .ng-orbit-code__body .token.constant,
+:host ::ng-deep .ng-orbit-code__body .token.symbol {
+  color: #b6540a;
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.tag,
+:host ::ng-deep .ng-orbit-code__body .token.attr-name,
+:host ::ng-deep .ng-orbit-code__body .token.namespace {
+  color: #aa2f5e;
+}
+
+:host ::ng-deep .ng-orbit-code__body .token.property,
+:host ::ng-deep .ng-orbit-code__body .token.parameter,
+:host ::ng-deep .ng-orbit-code__body .token.interpolation {
+  color: #16576d;
 }
