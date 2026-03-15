@@ -18,17 +18,17 @@ export const appConfig = {
     provideHttpClient(),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
-        prefix: "/i18n/",
-        suffix: ".json",
+        prefix: "./i18n/",
+        suffix: ".json"
       }),
       fallbackLang: "en",
-      lang: "en",
+      lang: "en"
     }),
     {
       provide: APP_INITIALIZER,
       multi: true,
       deps: [DemoI18nService],
       useFactory: (service: DemoI18nService) => () => service.initialize(),
-    },
-  ],
+    }
+  ]
 };

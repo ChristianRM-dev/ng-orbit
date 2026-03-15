@@ -1,4 +1,4 @@
 {
-  "demo-material": "http://127.0.0.1:4201",
-  "demo-daisy": "http://127.0.0.1:4202"
+  "demo-material": "material/",
+  "demo-daisy": "daisy/"
 }

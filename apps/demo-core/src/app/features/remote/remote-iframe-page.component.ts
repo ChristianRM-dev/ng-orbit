@@ -67,15 +67,35 @@ function resolveRemoteUrl(
   queryParams: Record<string, string>
 ): string | null {
   const normalizedPath = remotePath?.trim() ?? '';
+  const normalizedBaseUrl = baseUrl.trim();
+
+  if (!normalizedBaseUrl) {
+    return null;
+  }
+
+  if (!isAbsoluteUrl(normalizedBaseUrl)) {
+    try {
+      const relativeUrl = new URL(
+        normalizeRelativeRemotePath(normalizedBaseUrl, normalizedPath),
+        'https://ng-orbit.local/'
+      );
+
+      for (const [key, value] of Object.entries(queryParams)) {
+        if (value) {
+          relativeUrl.searchParams.set(key, value);
+        }
+      }
+
+      return `${relativeUrl.pathname.replace(/^\/+/, '')}${relativeUrl.search}`;
+    } catch {
+      return null;
+    }
+  }
 
   try {
     const resolved = normalizedPath
-      ? new URL(normalizedPath, withTrailingSlash(baseUrl))
-      : new URL(baseUrl);
-
-    if (resolved.protocol !== 'http:' && resolved.protocol !== 'https:') {
-      return null;
-    }
+      ? new URL(normalizedPath, withTrailingSlash(normalizedBaseUrl))
+      : new URL(normalizedBaseUrl);
 
     for (const [key, value] of Object.entries(queryParams)) {
       if (value) {
@@ -91,4 +111,14 @@ function resolveRemoteUrl(
 
 function withTrailingSlash(url: string): string {
   return url.endsWith('/') ? url : `${url}/`;
+}
+
+function normalizeRelativeRemotePath(baseUrl: string, remotePath: string): string {
+  const sanitizedBase = withTrailingSlash(baseUrl.replace(/^\/+/, ''));
+  const sanitizedPath = remotePath.replace(/^\/+/, '');
+  return sanitizedPath ? `${sanitizedBase}${sanitizedPath}` : sanitizedBase;
+}
+
+function isAbsoluteUrl(value: string): boolean {
+  return /^https?:\/\//.test(value);
 }

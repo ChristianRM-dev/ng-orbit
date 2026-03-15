@@ -237,7 +237,7 @@ export class SignupWizardComponent {
       preview: {
         kind: 'iframe',
         remoteName: 'demo-material',
-        remotePath: '/wizard/material',
+        remotePath: 'wizard/material',
         renderer: 'material',
         frameHeight: '700px'
       },
@@ -277,7 +277,7 @@ import { OrbitWizardRenderMaterialComponent } from '@ng-orbit/wizard-render-mate
       preview: {
         kind: 'iframe',
         remoteName: 'demo-daisy',
-        remotePath: '/wizard/daisy',
+        remotePath: 'wizard/daisy',
         renderer: 'daisy',
         frameHeight: '700px'
       },
@@ -441,7 +441,7 @@ readonly steps: readonly OrbitWizardStepDef[] = [
       preview: {
         kind: 'iframe',
         remoteName: 'demo-material',
-        remotePath: '/wizard/material',
+        remotePath: 'wizard/material',
         renderer: 'material',
         frameHeight: '700px'
       },

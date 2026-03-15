@@ -14,11 +14,11 @@ export const appConfig = {
     provideHttpClient(),
     provideTranslateService({
       loader: provideTranslateHttpLoader({
-        prefix: "/i18n/",
-        suffix: ".json",
+        prefix: "./i18n/",
+        suffix: ".json"
       }),
       fallbackLang: "en",
-      lang: "en",
+      lang: "en"
     }),
     {
       provide: APP_INITIALIZER,
@@ -30,8 +30,7 @@ export const appConfig = {
       provide: APP_INITIALIZER,
       multi: true,
       deps: [RemoteManifestService],
-      useFactory: (service: RemoteManifestService) => () =>
-        service.loadManifest(),
-    },
-  ],
+      useFactory: (service: RemoteManifestService) => () => service.loadManifest()
+    }
+  ]
 };

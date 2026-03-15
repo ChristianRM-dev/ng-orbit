@@ -299,7 +299,7 @@ export class UsersTableComponent {
       preview: {
         kind: 'iframe',
         remoteName: 'demo-material',
-        remotePath: '/table/material',
+        remotePath: 'table/material',
         renderer: 'material',
         frameHeight: '620px'
       },
@@ -346,7 +346,7 @@ export class UsersMaterialTableComponent {}
       preview: {
         kind: 'iframe',
         remoteName: 'demo-daisy',
-        remotePath: '/table/daisy',
+        remotePath: 'table/daisy',
         renderer: 'daisy',
         frameHeight: '620px'
       },

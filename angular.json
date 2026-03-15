@@ -18,6 +18,8 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "apps/demo-core/src/main.ts",
+            "server": "apps/demo-core/src/main.server.ts",
+            "outputMode": "static",
             "tsConfig": "apps/demo-core/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "allowedCommonJsDependencies": ["prismjs"],
@@ -35,7 +37,12 @@
               "optimization": { "fonts": false },
               "outputHashing": "all"
             },
-            "development": { "optimization": false, "sourceMap": true }
+            "development": { "optimization": false, "sourceMap": true },
+            "github-pages": {
+              "baseHref": "/ng-orbit/",
+              "optimization": { "fonts": false },
+              "outputHashing": "all"
+            }
           },
           "defaultConfiguration": "production"
         },
@@ -66,6 +73,8 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "apps/demo-material/src/main.ts",
+            "server": "apps/demo-material/src/main.server.ts",
+            "outputMode": "static",
             "tsConfig": "apps/demo-material/tsconfig.app.json",
             "assets": [
               { "glob": "**/*", "input": "apps/demo-material/public", "output": "/" }
@@ -74,7 +83,12 @@
           },
           "configurations": {
             "production": { "optimization": { "fonts": false }, "outputHashing": "all" },
-            "development": { "optimization": false, "sourceMap": true }
+            "development": { "optimization": false, "sourceMap": true },
+            "github-pages": {
+              "baseHref": "/ng-orbit/material/",
+              "optimization": { "fonts": false },
+              "outputHashing": "all"
+            }
           },
           "defaultConfiguration": "production"
         },
@@ -105,6 +119,8 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "apps/demo-daisy/src/main.ts",
+            "server": "apps/demo-daisy/src/main.server.ts",
+            "outputMode": "static",
             "tsConfig": "apps/demo-daisy/tsconfig.app.json",
             "assets": [
               { "glob": "**/*", "input": "apps/demo-daisy/public", "output": "/" }
@@ -113,7 +129,12 @@
           },
           "configurations": {
             "production": { "optimization": { "fonts": false }, "outputHashing": "all" },
-            "development": { "optimization": false, "sourceMap": true }
+            "development": { "optimization": false, "sourceMap": true },
+            "github-pages": {
+              "baseHref": "/ng-orbit/daisy/",
+              "optimization": { "fonts": false },
+              "outputHashing": "all"
+            }
           },
           "defaultConfiguration": "production"
         },
