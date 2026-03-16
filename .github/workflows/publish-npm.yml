@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -15,7 +16,7 @@ concurrency:
 
 jobs:
   publish:
-    if: "${{ startsWith(github.event.head_commit.message, 'chore(release): ') }}"
+    if: "${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.head_commit.message, 'chore(release): ') }}"
     runs-on: ubuntu-latest
     environment: npm-release
 
@@ -62,6 +63,14 @@ jobs:
           else
             echo "tag_exists=false" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Build public packages
+        if: steps.release.outputs.tag_exists != 'true'
+        run: |
+          pnpm nx run-many \
+            -t build \
+            --projects table,wizard,wizard-kit,table-render-plain,table-render-material,table-render-daisy,wizard-render-material,wizard-render-daisy \
+            --output-style=static
 
       - name: Publish public packages
         if: steps.release.outputs.tag_exists != 'true'
