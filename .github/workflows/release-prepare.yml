@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   prepare:
-    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore(release): ')
+    if: "${{ github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore(release): ') }}"
     runs-on: ubuntu-latest
 
     steps:
@@ -105,8 +105,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: chore/release
           delete-branch: true
-          commit-message: chore(release): v${{ steps.version.outputs.version }}
-          title: chore(release): v${{ steps.version.outputs.version }}
+          commit-message: "chore(release): v${{ steps.version.outputs.version }}"
+          title: "chore(release): v${{ steps.version.outputs.version }}"
           body: |
             This release PR was generated automatically by GitHub Actions.
 
