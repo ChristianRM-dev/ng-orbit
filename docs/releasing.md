@@ -12,6 +12,14 @@
 - require `Squash and merge`
 - disable direct merge strategies that would bypass Conventional Commit PR titles
 - require the `CI` workflow to pass before merge
+- enable GitHub Pages for the repository:
+  - open `Settings > Pages`
+  - set `Source` to `GitHub Actions`
+  - save once before the first deploy
+
+The Pages deploy workflow assumes that the repository already has Pages enabled. The current
+workflow uses `GITHUB_TOKEN`, which can deploy to an existing Pages site but cannot auto-enable
+Pages for a repository that has never been configured.
 
 ### npm trusted publishing
 
