@@ -1,8 +1,8 @@
 {
   "layout": {
-    "title": "demo daisy ng-orbit",
-    "subtitle": "Design pattern Tailwind + Daisy",
-    "demoDaisy": "Aplicación remota Daisy",
+    "title": "ng-orbit Daisy preview",
+    "subtitle": "Un preview real de DaisyUI conectado al mismo contrato de ng-orbit.",
+    "demoDaisy": "Preview remoto Daisy",
     "navigation": "Navegación principal",
     "language": "Idioma",
     "openMenu": "Abrir menú",
@@ -15,37 +15,37 @@
   "table": {
     "pages": {
       "daisyTitle": "Renderer de tabla: DaisyUI",
-      "daisySubtitle": "Clases Daisy reales con estilos aislados por app."
+      "daisySubtitle": "Mira el mismo estado de tabla con clases DaisyUI y estilos aislados por app."
     },
     "meta": {
       "total": "Total",
       "selected": "Seleccionadas"
     },
     "scenarios": {
-      "label": "Escenarios de datos",
+      "label": "Escenario de datos",
       "normal": "Normal",
       "empty": "Vacío",
       "error": "Error"
     },
     "columns": {
       "id": "ID",
-      "fullName": "Nombre",
+      "fullName": "Nombre completo",
       "email": "Correo",
       "role": "Rol",
       "country": "País"
     },
     "messages": {
-      "simulatedError": "Error de red simulado para el demo."
+      "simulatedError": "Forzamos este fallo para que puedas inspeccionar el estado de error."
     }
   },
   "wizard": {
     "pages": {
       "daisyTitle": "Renderer de wizard: DaisyUI",
-      "daisySubtitle": "Clases Daisy reales controladas por un wizard headless."
+      "daisySubtitle": "Recorre el mismo estado del wizard con estilos DaisyUI y forms controlados por tu app."
     },
     "modes": {
-      "multi": "Multi-step",
-      "single": "Una sola página"
+      "multi": "Flujo multi-step",
+      "single": "Flujo de una sola pantalla"
     },
     "steps": {
       "account": {
@@ -75,11 +75,11 @@
       }
     },
     "summary": {
-      "title": "Revisión antes de finalizar",
-      "note": "El paso resumen es opcional y puede finalizar el flujo."
+      "title": "Revisa todo antes de terminar",
+      "note": "Si todo se ve bien, este paso de resumen puede cerrar el flujo."
     },
     "messages": {
-      "completed": "Wizard completado correctamente."
+      "completed": "El wizard terminó correctamente."
     }
   }
 }

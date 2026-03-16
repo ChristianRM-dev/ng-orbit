@@ -1,8 +1,8 @@
 {
   "layout": {
-    "title": "ng-orbit material demo",
-    "subtitle": "Angular Material design pattern",
-    "demoMaterial": "Material remote app",
+    "title": "ng-orbit Material preview",
+    "subtitle": "A live Angular Material preview wired to the same ng-orbit contract.",
+    "demoMaterial": "Material remote preview",
     "navigation": "Main navigation",
     "language": "Language",
     "openMenu": "Open menu",
@@ -15,14 +15,14 @@
   "table": {
     "pages": {
       "materialTitle": "Table renderer: Angular Material",
-      "materialSubtitle": "Real Material look with isolated app styles."
+      "materialSubtitle": "See the same table state rendered through real Material components and isolated app styles."
     },
     "meta": {
       "total": "Total",
       "selected": "Selected"
     },
     "scenarios": {
-      "label": "Data scenarios",
+      "label": "Data scenario",
       "normal": "Normal",
       "empty": "Empty",
       "error": "Error"
@@ -35,17 +35,17 @@
       "country": "Country"
     },
     "messages": {
-      "simulatedError": "Simulated network error for demo."
+      "simulatedError": "We forced this request to fail so you can inspect the error state."
     }
   },
   "wizard": {
     "pages": {
       "materialTitle": "Wizard renderer: Angular Material",
-      "materialSubtitle": "Real Material components driven by a headless wizard controller."
+      "materialSubtitle": "Move through the same wizard state with real Material components and product-owned forms."
     },
     "modes": {
-      "multi": "Multi-step",
-      "single": "Single-step"
+      "multi": "Multi-step flow",
+      "single": "Single-screen flow"
     },
     "steps": {
       "account": {
@@ -75,11 +75,11 @@
       }
     },
     "summary": {
-      "title": "Review before finishing",
-      "note": "Summary step is optional and can finish the flow."
+      "title": "Check everything before you finish",
+      "note": "If everything looks right, this summary step can finish the flow."
     },
     "messages": {
-      "completed": "Wizard completed successfully."
+      "completed": "Wizard finished successfully."
     }
   }
 }

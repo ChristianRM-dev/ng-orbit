@@ -1,8 +1,8 @@
 {
   "layout": {
-    "title": "demo material ng-orbit",
-    "subtitle": "Design pattern Angular Material",
-    "demoMaterial": "Aplicación remota Material",
+    "title": "ng-orbit Material preview",
+    "subtitle": "Un preview real de Angular Material conectado al mismo contrato de ng-orbit.",
+    "demoMaterial": "Preview remoto Material",
     "navigation": "Navegación principal",
     "language": "Idioma",
     "openMenu": "Abrir menú",
@@ -15,37 +15,37 @@
   "table": {
     "pages": {
       "materialTitle": "Renderer de tabla: Angular Material",
-      "materialSubtitle": "Look real de Material con estilos aislados por app."
+      "materialSubtitle": "Mira el mismo estado de tabla a través de componentes Material reales y estilos aislados por app."
     },
     "meta": {
       "total": "Total",
       "selected": "Seleccionadas"
     },
     "scenarios": {
-      "label": "Escenarios de datos",
+      "label": "Escenario de datos",
       "normal": "Normal",
       "empty": "Vacío",
       "error": "Error"
     },
     "columns": {
       "id": "ID",
-      "fullName": "Nombre",
+      "fullName": "Nombre completo",
       "email": "Correo",
       "role": "Rol",
       "country": "País"
     },
     "messages": {
-      "simulatedError": "Error de red simulado para el demo."
+      "simulatedError": "Forzamos este fallo para que puedas inspeccionar el estado de error."
     }
   },
   "wizard": {
     "pages": {
       "materialTitle": "Renderer de wizard: Angular Material",
-      "materialSubtitle": "Componentes Material reales controlados por un wizard headless."
+      "materialSubtitle": "Recorre el mismo estado del wizard con componentes Material reales y forms controlados por tu app."
     },
     "modes": {
-      "multi": "Multi-step",
-      "single": "Una sola página"
+      "multi": "Flujo multi-step",
+      "single": "Flujo de una sola pantalla"
     },
     "steps": {
       "account": {
@@ -75,11 +75,11 @@
       }
     },
     "summary": {
-      "title": "Revisión antes de finalizar",
-      "note": "El paso resumen es opcional y puede finalizar el flujo."
+      "title": "Revisa todo antes de terminar",
+      "note": "Si todo se ve bien, este paso de resumen puede cerrar el flujo."
     },
     "messages": {
-      "completed": "Wizard completado correctamente."
+      "completed": "El wizard terminó correctamente."
     }
   }
 }
