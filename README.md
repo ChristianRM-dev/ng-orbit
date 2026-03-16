@@ -55,9 +55,9 @@ pnpm demo
 ```
 
 Open:
-- `http://127.0.0.1:4200/table`
-- `http://127.0.0.1:4200/wizard`
-- `http://127.0.0.1:4200/adapters`
+- `http://127.0.0.1:4200/table/overview`
+- `http://127.0.0.1:4200/wizard/overview`
+- `http://127.0.0.1:4200/adapters/overview`
 
 Each docs page includes:
 - `Overview` for the mental model and ownership boundaries
@@ -109,6 +109,7 @@ pnpm build
 - `docs/components/wizard.md`
 - `docs/repo-structure.md`
 - `docs/demo.md`
+- `docs/releasing.md`
 
 ## License
 

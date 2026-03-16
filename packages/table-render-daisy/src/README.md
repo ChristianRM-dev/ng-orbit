@@ -65,4 +65,4 @@ This package expects Tailwind and DaisyUI to already exist in the consuming app.
 
 ## Docs host
 
-Run `pnpm demo` and open `http://127.0.0.1:4200/table?tab=renders&renderer=daisy`.
+Run `pnpm demo` and open `http://127.0.0.1:4200/table/renders/daisy`.
