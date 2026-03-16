@@ -1,14 +1,21 @@
 {
-  "name": "@ng-orbit/wizard-kit",
+  "name": "wizard-kit",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "root": "packages/wizard-kit",
   "sourceRoot": "packages/wizard-kit/src",
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
+      "executor": "@angular/build:ng-packagr",
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{workspaceRoot}/dist/packages/wizard-kit"
+      ],
       "options": {
-        "command": "tsc -p packages/wizard-kit/tsconfig.lib.json"
+        "project": "packages/wizard-kit/ng-package.json",
+        "tsConfig": "packages/wizard-kit/tsconfig.package.json"
       }
     },
     "test": {

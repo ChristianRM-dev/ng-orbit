@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "paths": {
+      "@ng-orbit/wizard": [
+        "dist/packages/wizard/types/ng-orbit-wizard.d.ts"
+      ]
+    }
+  }
+}

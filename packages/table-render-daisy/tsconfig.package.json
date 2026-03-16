@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "paths": {
+      "@ng-orbit/table": [
+        "dist/packages/table/types/ng-orbit-table.d.ts"
+      ]
+    }
+  }
+}

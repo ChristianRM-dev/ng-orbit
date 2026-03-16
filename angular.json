@@ -154,6 +154,118 @@
           }
         }
       }
+    },
+    "table": {
+      "projectType": "library",
+      "root": "packages/table",
+      "sourceRoot": "packages/table/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/table/ng-package.json",
+            "tsConfig": "packages/table/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "wizard": {
+      "projectType": "library",
+      "root": "packages/wizard",
+      "sourceRoot": "packages/wizard/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/wizard/ng-package.json",
+            "tsConfig": "packages/wizard/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "wizard-kit": {
+      "projectType": "library",
+      "root": "packages/wizard-kit",
+      "sourceRoot": "packages/wizard-kit/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/wizard-kit/ng-package.json",
+            "tsConfig": "packages/wizard-kit/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "table-render-plain": {
+      "projectType": "library",
+      "root": "packages/table-render-plain",
+      "sourceRoot": "packages/table-render-plain/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/table-render-plain/ng-package.json",
+            "tsConfig": "packages/table-render-plain/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "table-render-material": {
+      "projectType": "library",
+      "root": "packages/table-render-material",
+      "sourceRoot": "packages/table-render-material/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/table-render-material/ng-package.json",
+            "tsConfig": "packages/table-render-material/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "table-render-daisy": {
+      "projectType": "library",
+      "root": "packages/table-render-daisy",
+      "sourceRoot": "packages/table-render-daisy/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/table-render-daisy/ng-package.json",
+            "tsConfig": "packages/table-render-daisy/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "wizard-render-material": {
+      "projectType": "library",
+      "root": "packages/wizard-render-material",
+      "sourceRoot": "packages/wizard-render-material/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/wizard-render-material/ng-package.json",
+            "tsConfig": "packages/wizard-render-material/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "wizard-render-daisy": {
+      "projectType": "library",
+      "root": "packages/wizard-render-daisy",
+      "sourceRoot": "packages/wizard-render-daisy/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/wizard-render-daisy/ng-package.json",
+            "tsConfig": "packages/wizard-render-daisy/tsconfig.lib.json"
+          }
+        }
+      }
     }
   }
 }

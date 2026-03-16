@@ -1,14 +1,21 @@
 {
-  "name": "@ng-orbit/table-render-material",
+  "name": "table-render-material",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "root": "packages/table-render-material",
   "sourceRoot": "packages/table-render-material/src",
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
+      "executor": "@angular/build:ng-packagr",
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{workspaceRoot}/dist/packages/table-render-material"
+      ],
       "options": {
-        "command": "tsc -p packages/table-render-material/tsconfig.lib.json"
+        "project": "packages/table-render-material/ng-package.json",
+        "tsConfig": "packages/table-render-material/tsconfig.package.json"
       }
     },
     "test": {
