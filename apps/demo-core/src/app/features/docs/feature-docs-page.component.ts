@@ -1,5 +1,14 @@
+import { isPlatformBrowser } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  PLATFORM_ID,
+  computed,
+  effect,
+  inject,
+  input
+} from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -36,6 +45,7 @@ export class FeatureDocsPageComponent {
   private readonly router = inject(Router);
   private readonly i18nService = inject(DemoI18nService);
   private readonly docsSeoService = inject(DocsSeoService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   readonly docs = input.required<DocsFeatureDefinition>();
 
@@ -214,6 +224,10 @@ export class FeatureDocsPageComponent {
   }
 
   private ensureCanonicalRoute(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const currentPath = this.routerUrl().split('?')[0] || '/';
     const routeData = this.routeData() as DocsRouteData;
     const expectedUrl = this.buildCanonicalUrl(this.activeTab());
