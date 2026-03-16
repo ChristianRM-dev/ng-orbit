@@ -13,15 +13,22 @@ export const appRoutes: Routes = [
     children: [
       {
         path: '',
-        pathMatch: 'full',
-        redirectTo: 'table/overview'
+        loadComponent: getFeatureLoader('table'),
+        data: {
+          docsTab: 'overview',
+          legacy: true
+        }
       },
       ...tableFeatureRoutes,
       ...wizardFeatureRoutes,
       ...adaptersFeatureRoutes,
       {
         path: '**',
-        redirectTo: 'table/overview'
+        loadComponent: getFeatureLoader('table'),
+        data: {
+          docsTab: 'overview',
+          legacy: true
+        }
       }
     ]
   }
