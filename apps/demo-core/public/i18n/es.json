@@ -1,7 +1,7 @@
 {
   "layout": {
     "title": "ng-orbit Docs",
-    "subtitle": "Primitivas headless para Angular, renderer packages listos y docs pensadas para equipos que construyen UI de producto.",
+    "subtitle": "Primitivas headless para Angular, pensadas para equipos que construyen UI de producto a su manera.",
     "brandCaption": "Docs para equipos que construyen UI real",
     "demoCore": "Host principal de docs",
     "navigation": "Navegación principal",
