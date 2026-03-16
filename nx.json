@@ -19,5 +19,99 @@
       "{workspaceRoot}/tsconfig.base.json"
     ]
   },
+  "targetDefaults": {
+    "nx-release-publish": {
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  },
+  "release": {
+    "groups": {
+      "public-packages": {
+        "projectsRelationship": "fixed",
+        "projects": [
+          "table",
+          "wizard",
+          "wizard-kit",
+          "table-render-plain",
+          "table-render-material",
+          "table-render-daisy",
+          "wizard-render-material",
+          "wizard-render-daisy"
+        ]
+      }
+    },
+    "releaseTagPattern": "v{version}",
+    "git": {
+      "commit": false,
+      "tag": false,
+      "push": false
+    },
+    "changelog": {
+      "workspaceChangelog": {
+        "file": "{workspaceRoot}/CHANGELOG.md",
+        "createRelease": false
+      },
+      "projectChangelogs": false,
+      "automaticFromRef": true
+    },
+    "version": {
+      "useLegacyVersioning": false,
+      "specifierSource": "conventional-commits",
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "versionPrefix": "auto",
+      "preserveLocalDependencyProtocols": false
+    },
+    "conventionalCommits": {
+      "types": {
+        "feat": {
+          "semverBump": "minor",
+          "changelog": {
+            "title": "Features"
+          }
+        },
+        "fix": {
+          "semverBump": "patch",
+          "changelog": {
+            "title": "Bug Fixes"
+          }
+        },
+        "perf": {
+          "semverBump": "patch",
+          "changelog": {
+            "title": "Performance"
+          }
+        },
+        "refactor": {
+          "semverBump": "patch",
+          "changelog": {
+            "title": "Refactors"
+          }
+        },
+        "build": {
+          "semverBump": "patch",
+          "changelog": {
+            "title": "Build"
+          }
+        },
+        "revert": {
+          "semverBump": "patch",
+          "changelog": {
+            "title": "Reverts"
+          }
+        },
+        "docs": false,
+        "style": false,
+        "test": false,
+        "ci": false,
+        "chore": false
+      }
+    }
+  },
   "plugins": []
 }

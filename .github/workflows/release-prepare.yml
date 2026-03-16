@@ -1,0 +1,115 @@
+name: Prepare Release PR
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      first_release:
+        description: Bootstrap the first public release.
+        required: true
+        type: boolean
+        default: false
+      version:
+        description: Fixed version to use when bootstrapping the first release.
+        required: true
+        type: string
+        default: 0.1.0
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-prepare
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    if: github.event_name == 'workflow_dispatch' || !startsWith(github.event.head_commit.message, 'chore(release): ')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate release changes
+        id: prepare
+        env:
+          FIRST_RELEASE: ${{ github.event_name == 'workflow_dispatch' && inputs.first_release || false }}
+          FIRST_RELEASE_VERSION: ${{ github.event_name == 'workflow_dispatch' && inputs.version || '0.1.0' }}
+        run: |
+          set -euo pipefail
+
+          if git tag --list 'v*' | grep -q .; then
+            HAS_RELEASE_TAGS=true
+          else
+            HAS_RELEASE_TAGS=false
+          fi
+
+          if [[ "${HAS_RELEASE_TAGS}" == "false" && "${FIRST_RELEASE}" != "true" ]]; then
+            echo "No release tags exist yet. Waiting for the first workflow_dispatch bootstrap."
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [[ "${FIRST_RELEASE}" == "true" ]]; then
+            pnpm nx release "${FIRST_RELEASE_VERSION}" \
+              --groups public-packages \
+              --skip-publish \
+              --first-release \
+              --git-commit=false \
+              --git-tag=false
+          else
+            pnpm nx release \
+              --groups public-packages \
+              --skip-publish \
+              --git-commit=false \
+              --git-tag=false
+          fi
+
+          if git diff --quiet --exit-code; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+
+      - name: Read release version
+        if: steps.prepare.outputs.has_changes == 'true'
+        id: version
+        run: |
+          echo "version=$(node scripts/read-release-version.mjs)" >> "$GITHUB_OUTPUT"
+
+      - name: Create release pull request
+        if: steps.prepare.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: chore/release
+          delete-branch: true
+          commit-message: chore(release): v${{ steps.version.outputs.version }}
+          title: chore(release): v${{ steps.version.outputs.version }}
+          body: |
+            This release PR was generated automatically by GitHub Actions.
+
+            After merge, `.github/workflows/publish-npm.yml` will publish the public `@ng-orbit/*` packages to npm, create the `v${{ steps.version.outputs.version }}` tag, and create the GitHub Release.
+          labels: |
+            release

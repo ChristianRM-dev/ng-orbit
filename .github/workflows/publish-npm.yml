@@ -1,0 +1,110 @@
+name: Publish npm Packages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: publish-npm
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: startsWith(github.event.head_commit.message, 'chore(release): ')
+    runs-on: ubuntu-latest
+    environment: npm-release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.30.3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Upgrade npm CLI for trusted publishing
+        run: npm install --global npm@^11.5.1
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Resolve release version
+        id: release
+        run: |
+          set -euo pipefail
+
+          VERSION="$(node scripts/read-release-version.mjs)"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+          if git tag --list 'v*' | grep -q .; then
+            echo "first_release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "first_release=true" >> "$GITHUB_OUTPUT"
+          fi
+
+          if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
+            echo "tag_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish public packages
+        if: steps.release.outputs.tag_exists != 'true'
+        env:
+          NPM_CONFIG_PROVENANCE: "true"
+        run: |
+          set -euo pipefail
+
+          FIRST_RELEASE_FLAG=""
+          if [[ "${{ steps.release.outputs.first_release }}" == "true" ]]; then
+            FIRST_RELEASE_FLAG="--first-release"
+          fi
+
+          pnpm nx release publish \
+            --groups public-packages \
+            --yes \
+            --output-style=static \
+            --access public \
+            --registry https://registry.npmjs.org \
+            ${FIRST_RELEASE_FLAG}
+
+      - name: Create git tag
+        if: steps.release.outputs.tag_exists != 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${{ steps.release.outputs.version }}" -m "v${{ steps.release.outputs.version }}"
+          git push origin "v${{ steps.release.outputs.version }}"
+
+      - name: Prepare release notes
+        run: |
+          node scripts/extract-changelog-entry.mjs "${{ steps.release.outputs.version }}" > release-notes.md
+
+      - name: Create or update GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "v${{ steps.release.outputs.version }}" >/dev/null 2>&1; then
+            gh release edit "v${{ steps.release.outputs.version }}" \
+              --title "v${{ steps.release.outputs.version }}" \
+              --notes-file release-notes.md
+          else
+            gh release create "v${{ steps.release.outputs.version }}" \
+              --title "v${{ steps.release.outputs.version }}" \
+              --notes-file release-notes.md
+          fi
