@@ -1,7 +1,7 @@
 {
   "layout": {
     "title": "ng-orbit Docs",
-    "subtitle": "Headless Angular building blocks, ready renderer packages, and docs for teams shipping real product UI.",
+    "subtitle": "Headless Angular primitives for teams building product UI their own way.",
     "brandCaption": "Docs for teams building real Angular UI",
     "demoCore": "Core docs host",
     "navigation": "Main navigation",

@@ -10,9 +10,9 @@
   <circle cx="1018" cy="252" r="16" fill="#F06A44" />
   <circle cx="809" cy="394" r="12" fill="#7CC7FF" />
   <text x="150" y="212" fill="#7CC7FF" font-family="'IBM Plex Mono', monospace" font-size="28" letter-spacing="0.22em">NG-ORBIT</text>
-  <text x="150" y="302" fill="#F7FAFF" font-family="'Space Grotesk', 'IBM Plex Sans', sans-serif" font-size="82" font-weight="700">Editorial docs for</text>
-  <text x="150" y="392" fill="#F7FAFF" font-family="'Space Grotesk', 'IBM Plex Sans', sans-serif" font-size="82" font-weight="700">headless Angular UI.</text>
-  <text x="150" y="458" fill="#B6C6DB" font-family="'IBM Plex Sans', sans-serif" font-size="30">Consumer-owned state. Swappable renderers. Product-first adapters.</text>
+  <text x="150" y="302" fill="#F7FAFF" font-family="'Space Grotesk', 'IBM Plex Sans', sans-serif" font-size="82" font-weight="700">Build your UI on</text>
+  <text x="150" y="392" fill="#F7FAFF" font-family="'Space Grotesk', 'IBM Plex Sans', sans-serif" font-size="82" font-weight="700">headless Angular.</text>
+  <text x="150" y="458" fill="#B6C6DB" font-family="'IBM Plex Sans', sans-serif" font-size="30">Bring your data, forms, and design system. ng-orbit keeps the state in sync.</text>
   <defs>
     <radialGradient id="orbGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(956 136) rotate(90) scale(240)">
       <stop stop-color="#0E7DFF" />
