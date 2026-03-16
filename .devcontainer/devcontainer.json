@@ -1,0 +1,29 @@
+{
+  "name": "ng-orbit",
+  "dockerComposeFile": [
+    "../compose.yaml"
+  ],
+  "service": "workspace",
+  "workspaceFolder": "/workspace",
+  "containerUser": "root",
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+  "overrideCommand": true,
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [
+    4200,
+    4201,
+    4202
+  ],
+  "postCreateCommand": "pnpm install",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "typescript.tsdk": "node_modules/typescript/lib"
+      },
+      "extensions": [
+        "angular.ng-template"
+      ]
+    }
+  }
+}
