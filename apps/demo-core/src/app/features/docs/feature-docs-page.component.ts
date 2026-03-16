@@ -269,14 +269,16 @@ export class FeatureDocsPageComponent {
   private buildSeoTitle(): string {
     const docs = this.docs();
     const activeTab = this.activeTab();
+    const overviewTabLabel = this.tabs().find((tab) => tab.id === 'overview')?.label ?? 'Overview';
+    const apiTabLabel = this.tabs().find((tab) => tab.id === 'api')?.label ?? 'API';
     const renderTabLabel = this.tabs().find((tab) => tab.id === 'renders')?.label ?? 'Renders';
     const examplesTabLabel = this.tabs().find((tab) => tab.id === 'examples')?.label ?? 'Examples';
 
     switch (activeTab) {
       case 'overview':
-        return `${docs.title} Overview | ng-orbit`;
+        return `${docs.title} | ${overviewTabLabel} | ng-orbit`;
       case 'api':
-        return `${docs.title} API | ng-orbit`;
+        return `${docs.title} | ${apiTabLabel} | ng-orbit`;
       case 'renders':
         return `${this.activeRenderer()?.label ?? docs.title} ${renderTabLabel} | ${docs.title} | ng-orbit`;
       case 'examples':
