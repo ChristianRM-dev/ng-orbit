@@ -74,15 +74,11 @@ jobs:
             pnpm nx release "${FIRST_RELEASE_VERSION}" \
               --groups public-packages \
               --skip-publish \
-              --first-release \
-              --git-commit=false \
-              --git-tag=false
+              --first-release
           else
             pnpm nx release \
               --groups public-packages \
-              --skip-publish \
-              --git-commit=false \
-              --git-tag=false
+              --skip-publish
           fi
 
           if git diff --quiet --exit-code; then
