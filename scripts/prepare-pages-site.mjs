@@ -7,7 +7,7 @@ const coreBrowser = join(distRoot, 'demo-core', 'browser');
 const materialBrowser = join(distRoot, 'demo-material', 'browser');
 const daisyBrowser = join(distRoot, 'demo-daisy', 'browser');
 const pagesRoot = join(distRoot, 'pages');
-const siteRoot = join(pagesRoot, 'ng-orbit');
+const siteRoot = pagesRoot;
 
 rmSync(pagesRoot, { force: true, recursive: true });
 mkdirSync(siteRoot, { recursive: true });
@@ -28,7 +28,7 @@ const manifest = JSON.stringify(
 writeFileSync(join(siteRoot, 'federation.manifest.json'), `${manifest}\n`);
 mkdirSync(join(siteRoot, 'assets'), { recursive: true });
 writeFileSync(join(siteRoot, 'assets', 'federation.manifest.json'), `${manifest}\n`);
-writeFileSync(join(pagesRoot, '.nojekyll'), '');
+writeFileSync(join(siteRoot, '.nojekyll'), '');
 
 function copyBuild(source, target) {
   if (!existsSync(source)) {
