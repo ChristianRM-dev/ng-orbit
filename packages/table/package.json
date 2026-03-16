@@ -1,6 +1,6 @@
 {
   "name": "@ng-orbit/table",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless Angular table controller for consumer-owned data fetching, selection, and rendering.",
   "license": "MIT",
   "repository": {
