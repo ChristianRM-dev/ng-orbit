@@ -1,6 +1,6 @@
 {
   "name": "@ng-orbit/wizard",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Headless Angular wizard controller for consumer-owned forms, navigation, and completion flows.",
   "license": "MIT",
   "repository": {
