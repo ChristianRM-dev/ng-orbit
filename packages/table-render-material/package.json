@@ -1,7 +1,7 @@
 {
   "name": "@ng-orbit/table-render-material",
   "version": "0.0.0",
-  "description": "Angular Material renderer for @ng-orbit/table.",
+  "description": "Angular Material renderer for the @ng-orbit/table headless controller.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   "homepage": "https://christianrm-dev.github.io/ng-orbit/table/renders/material",
   "keywords": [
     "angular",
+    "ng-orbit",
     "table",
     "renderer",
     "material",

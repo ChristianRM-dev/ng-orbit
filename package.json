@@ -4,6 +4,8 @@
   "packageManager": "pnpm@10.30.3",
   "scripts": {
     "nx": "NX_DAEMON=false NX_ISOLATE_PLUGINS=false nx",
+    "docs:sync": "node scripts/docs-sync.mjs",
+    "docs:check": "node scripts/docs-check.mjs",
     "demo": "concurrently -c auto -n core,material,daisy \"pnpm demo:core\" \"pnpm demo:material\" \"pnpm demo:daisy\"",
     "demo:docker": "concurrently -c auto -n core,material,daisy \"pnpm demo:core:docker\" \"pnpm demo:material:docker\" \"pnpm demo:daisy:docker\"",
     "demo:stop": "node scripts/demo-stop-ports.mjs",

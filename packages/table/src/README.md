@@ -3,6 +3,15 @@
 Headless table controller for Angular applications that want consumer-owned data fetching,
 query mapping, selection, and markup.
 
+## AI Quick Map
+
+- Role: headless table controller that owns query intent and selection, not rendering or fetching
+- Install: `pnpm add @ng-orbit/table`
+- Pair with: `@ng-orbit/table-render-plain`, `@ng-orbit/table-render-material`, or `@ng-orbit/table-render-daisy`
+- Package owns: query normalization, selection state, controller commands, and template-friendly signals
+- Consumer owns: backend mapping, data fetching, loading and error state, final UI, analytics, and row actions
+- Recommended path: start with core only for custom product UI, or add a renderer for the fastest first integration
+
 ## What it is
 
 `@ng-orbit/table` exposes a standalone directive, query types, selection state, and a small
@@ -47,6 +56,12 @@ pnpm add @ng-orbit/table @ng-orbit/table-render-plain
 - data fetching and caching
 - `rows`, `total`, `loading`, and `error`
 - final markup, styling, analytics, and row actions
+
+## Primary exports
+
+- `OrbitTableDirective` for the standalone controller exposed as `#table="orbitTable"`
+- `createDefaultOrbitTableQuery()` and `normalizeOrbitTableQuery()` for consumer-owned query setup and resets
+- `OrbitTableQuery`, `OrbitTableColumn<T>`, and `OrbitTableSelectionState` for the stable data contract shared with renderers
 
 ## Smallest working example
 
@@ -110,12 +125,13 @@ export class UsersTableComponent {
 
 ## Related packages
 
-- `@ng-orbit/table-render-plain` for semantic HTML
+- `@ng-orbit/table-render-plain` for semantic HTML and the quickest first integration
 - `@ng-orbit/table-render-material` for Angular Material apps
-- `@ng-orbit/table-render-daisy` for DaisyUI/Tailwind apps
+- `@ng-orbit/table-render-daisy` for DaisyUI and Tailwind apps
 
-## Docs host
+## Docs links
 
-Run `pnpm demo` and open:
-- `http://127.0.0.1:4200/table`
-- `http://127.0.0.1:4200/adapters`
+- Local overview: `http://127.0.0.1:4200/table/overview`
+- Local adapters guide: `http://127.0.0.1:4200/adapters/overview`
+- Online overview: `https://christianrm-dev.github.io/ng-orbit/table/overview`
+- Online adapters guide: `https://christianrm-dev.github.io/ng-orbit/adapters/overview`

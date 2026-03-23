@@ -1,27 +1,39 @@
-ng-orbit is a headless Angular UI library for tables and wizards.
+ng-orbit is a headless Angular UI library for tables, wizards, and ready-to-install renderer packages.
 
 Primary audience:
 - Angular consumers who want reusable state and contracts without losing UI ownership
-- AI agents that need a short, stable map of the repo
+- AI agents that need a short, stable chooser for install paths, ownership boundaries, and public APIs
 
-Ready packages today:
-- @ng-orbit/table
-- @ng-orbit/wizard
-- @ng-orbit/wizard-kit
-- @ng-orbit/table-render-plain
-- @ng-orbit/table-render-material
-- @ng-orbit/table-render-daisy
-- @ng-orbit/wizard-render-material
-- @ng-orbit/wizard-render-daisy
+Consumer-ready packages:
+- @ng-orbit/table -> headless table controller for query intent, selection, and rendering contracts
+- @ng-orbit/wizard -> headless wizard controller for navigation, validity, and completion flows
+- @ng-orbit/wizard-kit -> Angular forms validity bridge for @ng-orbit/wizard
+- @ng-orbit/table-render-plain -> semantic reference renderer for @ng-orbit/table
+- @ng-orbit/table-render-material -> Angular Material renderer for @ng-orbit/table
+- @ng-orbit/table-render-daisy -> DaisyUI and Tailwind renderer for @ng-orbit/table
+- @ng-orbit/wizard-render-material -> Angular Material renderer for @ng-orbit/wizard
+- @ng-orbit/wizard-render-daisy -> DaisyUI and Tailwind renderer for @ng-orbit/wizard
 
-Placeholders in the repo, not consumer-ready:
-- @ng-orbit/table-kit
-- @ng-orbit/wizard-render-plain
+Package chooser:
+- Product-owned server-driven table UI:
+  - pnpm add @ng-orbit/table
+- Fastest semantic table UI:
+  - pnpm add @ng-orbit/table @ng-orbit/table-render-plain
+- Angular Material table:
+  - pnpm add @ng-orbit/table @ng-orbit/table-render-material @angular/material @angular/cdk @angular/animations
+- DaisyUI/Tailwind table:
+  - pnpm add @ng-orbit/table @ng-orbit/table-render-daisy
+- Product-owned wizard with Angular forms:
+  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit
+- Angular Material wizard:
+  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit @ng-orbit/wizard-render-material @angular/material @angular/cdk @angular/animations
+- DaisyUI/Tailwind wizard:
+  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit @ng-orbit/wizard-render-daisy
 
 Mental model:
 - core or headless packages own state, commands, events, and stable contracts
 - kits are thin helpers, not full renderers
-- renderers are ready-to-install UI packages for specific stacks
+- renderers are ready-to-install UI packages for specific visual stacks
 - adapters are the integration layer between headless controllers and product UI
 - there is no published adapter-* package family today
 
@@ -30,23 +42,12 @@ Ownership rules:
 - ng-orbit does not own consumer forms
 - ng-orbit does not own submission side effects
 - ng-orbit does not own business sorting, filtering, or validation rules
-- consumers own backend mapping, persistence, analytics, and final layout
+- consumers own backend mapping, persistence, analytics, routing, and final layout
 
-Install by use case:
-- server-driven table with custom UI:
-  - pnpm add @ng-orbit/table
-- fastest semantic table UI:
-  - pnpm add @ng-orbit/table @ng-orbit/table-render-plain
-- Angular Material table:
-  - pnpm add @ng-orbit/table @ng-orbit/table-render-material
-- DaisyUI/Tailwind table:
-  - pnpm add @ng-orbit/table @ng-orbit/table-render-daisy
-- custom wizard with Angular forms:
-  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit
-- Angular Material wizard:
-  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit @ng-orbit/wizard-render-material
-- DaisyUI/Tailwind wizard:
-  - pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit @ng-orbit/wizard-render-daisy
+AI consumption rules:
+- start with the package chooser above, then read the matching package README and exported types
+- prefer consumer-ready packages only
+- when a renderer is recommended, keep data flow, forms, validation rules, and side effects in the consuming app
 
 Smallest working table example:
 ```html
@@ -91,14 +92,21 @@ Important defaults:
 - wizard step defaults: kind='step', optional=false, disabled=false, showInNav=true
 
 Useful entry points:
-- docs host: /table
-- docs host: /wizard
-- docs host: /adapters
+- docs host overview: /table/overview
+- docs host overview: /wizard/overview
+- docs host guide: /adapters/overview
+- public llms.txt: /llms.txt
 - root README: README.md
-- architecture notes: docs/architecture.md
 - renderers guidance: docs/renderers.md
 
 Source of truth:
-- public APIs should be read from the exported symbols in packages/table, packages/wizard,
-  packages/wizard-kit, and the ready renderer packages
-- internal placeholder packages should not be recommended as install paths
+- npm README for each consumer-ready package
+- exported public API and generated .d.ts files from the consumer-ready packages
+- docs site pages for /table, /wizard, and /adapters
+- repo root README.md and llms.txt
+
+Placeholders in the repo, not consumer-ready:
+- @ng-orbit/table-kit
+- @ng-orbit/wizard-render-plain
+
+Do not recommend @ng-orbit/table-kit or @ng-orbit/wizard-render-plain as install paths.

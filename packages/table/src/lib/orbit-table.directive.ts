@@ -78,10 +78,25 @@ export class OrbitTableDirective<T> {
     createEmptyOrbitTableSelection()
   );
 
+  /**
+   * Latest consumer-owned row slice.
+   */
   readonly rows = computed(() => this.rowsInput());
+  /**
+   * Latest column definitions supplied by the parent feature.
+   */
   readonly columns = computed(() => this.columnsInput());
+  /**
+   * Latest normalized total row count.
+   */
   readonly total = computed(() => normalizeTotal(this.totalInput()));
+  /**
+   * Latest consumer-owned loading state.
+   */
   readonly loading = computed(() => this.loadingInput());
+  /**
+   * Latest consumer-owned error state.
+   */
   readonly error = computed(() => this.errorInput());
   /**
    * Latest normalized query state.

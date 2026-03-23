@@ -1,7 +1,7 @@
 {
   "name": "@ng-orbit/wizard",
   "version": "0.0.0",
-  "description": "Headless Angular wizard controller for consumer-owned forms, navigation, and completion flows.",
+  "description": "Headless Angular wizard controller for consumer-owned forms, navigation, validity, and completion flows.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   "homepage": "https://christianrm-dev.github.io/ng-orbit/wizard/overview",
   "keywords": [
     "angular",
+    "ng-orbit",
     "wizard",
     "headless",
     "forms",

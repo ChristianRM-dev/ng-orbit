@@ -44,6 +44,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify AI-friendly package docs
+        run: pnpm docs:check
+
+      - name: Sync package READMEs for packaging
+        run: pnpm docs:sync
+
       - name: Resolve release version
         id: release
         run: |
@@ -75,7 +81,6 @@ jobs:
       - name: Publish public packages
         if: steps.release.outputs.tag_exists != 'true'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
         run: |
           set -euo pipefail

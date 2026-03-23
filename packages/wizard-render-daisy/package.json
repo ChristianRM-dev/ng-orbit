@@ -1,7 +1,7 @@
 {
   "name": "@ng-orbit/wizard-render-daisy",
   "version": "0.0.0",
-  "description": "DaisyUI-flavored renderer for @ng-orbit/wizard.",
+  "description": "DaisyUI and Tailwind renderer for the @ng-orbit/wizard headless controller.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   "homepage": "https://christianrm-dev.github.io/ng-orbit/wizard/renders/daisy",
   "keywords": [
     "angular",
+    "ng-orbit",
     "wizard",
     "renderer",
     "daisyui",

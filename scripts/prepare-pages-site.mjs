@@ -23,6 +23,7 @@ mkdirSync(siteRoot, { recursive: true });
 
 copyBuild(coreBrowser, siteRoot);
 postProcessHtml(siteRoot, '/ng-orbit/');
+copyFileToSiteRoot('llms.txt');
 
 copyBuild(materialBrowser, join(siteRoot, 'material'));
 postProcessHtml(join(siteRoot, 'material'), '/ng-orbit/material/');
@@ -51,6 +52,12 @@ function copyBuild(source, target) {
 
   mkdirSync(target, { recursive: true });
   cpSync(source, target, { recursive: true });
+}
+
+function copyFileToSiteRoot(relativePath) {
+  const sourcePath = join(workspaceRoot, relativePath);
+  const targetPath = join(siteRoot, relativePath);
+  writeFileSync(targetPath, readFileSync(sourcePath, 'utf8'));
 }
 
 function postProcessHtml(root, basePath) {
