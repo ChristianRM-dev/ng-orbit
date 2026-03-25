@@ -23,9 +23,11 @@ export class DemoShellComponent {
   private readonly route = inject(ActivatedRoute);
 
   protected readonly navItems: readonly NavItem[] = [
-    { path: '/table/overview', labelKey: 'nav.table' },
-    { path: '/wizard/overview', labelKey: 'nav.wizard' },
-    { path: '/adapters/overview', labelKey: 'nav.adapters' }
+    { path: '/home', labelKey: 'nav.home' },
+    { path: '/table', labelKey: 'nav.table' },
+    { path: '/wizard', labelKey: 'nav.wizard' },
+    { path: '/notify', labelKey: 'nav.notify' },
+    { path: '/adapters', labelKey: 'nav.adapters' }
   ];
 
   private readonly sidebarOpen = signal(false);

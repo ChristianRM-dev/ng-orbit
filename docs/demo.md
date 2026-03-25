@@ -5,6 +5,7 @@ Demos are split by visual environment to prevent style bleed between design syst
 
 Apps:
 - `apps/demo-core` — host app with:
+  - local routes: `/notify/*`
   - local routes: `/table/core`, `/table/plain`
   - isolated remote routes via iframe: `/table/material`, `/table/daisy`
   - wizard placeholders (`/wizard/*`)

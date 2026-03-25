@@ -12,6 +12,7 @@ ng-orbit targets modern Angular:
 ## What is ready today
 
 ### Consumer-ready headless packages
+- `@ng-orbit/notify` — headless notification service for toasts, confirms, and blocking action flows
 - `@ng-orbit/table` — headless table controller for query intent, selection, and rendering contracts
 - `@ng-orbit/wizard` — headless wizard controller for navigation, validity, and completion flows
 
@@ -19,6 +20,7 @@ ng-orbit targets modern Angular:
 - `@ng-orbit/wizard-kit` — Angular forms validity bridge for wizard steps
 
 ### Consumer-ready renderer packages
+- `@ng-orbit/notify-render-plain` — semantic reference renderer for `@ng-orbit/notify`
 - `@ng-orbit/table-render-plain` — semantic reference renderer for `@ng-orbit/table`
 - `@ng-orbit/table-render-material` — Angular Material renderer for `@ng-orbit/table`
 - `@ng-orbit/table-render-daisy` — DaisyUI and Tailwind renderer for `@ng-orbit/table`
@@ -27,6 +29,7 @@ ng-orbit targets modern Angular:
 
 ## Package chooser
 
+- App-wide notifications and confirms: `pnpm add @ng-orbit/notify @ng-orbit/notify-render-plain`
 - Product-owned server-driven table UI: `pnpm add @ng-orbit/table`
 - Fastest semantic table UI: `pnpm add @ng-orbit/table @ng-orbit/table-render-plain`
 - Angular Material table: `pnpm add @ng-orbit/table @ng-orbit/table-render-material @angular/material @angular/cdk @angular/animations`
@@ -75,6 +78,7 @@ pnpm demo
 ```
 
 Open:
+- `http://127.0.0.1:4200/notify/overview`
 - `http://127.0.0.1:4200/table/overview`
 - `http://127.0.0.1:4200/wizard/overview`
 - `http://127.0.0.1:4200/adapters/overview`
@@ -134,6 +138,7 @@ pnpm docs:check
 - `docs/renderers.md`
 - `docs/components/table.md`
 - `docs/components/wizard.md`
+- `docs/components/notify.md`
 - `docs/repo-structure.md`
 - `docs/demo.md`
 - `docs/releasing.md`

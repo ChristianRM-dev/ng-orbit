@@ -1,5 +1,17 @@
 export const CONSUMER_READY_PACKAGES = [
   {
+    name: '@ng-orbit/notify',
+    directory: 'packages/notify',
+    sourceReadme: 'packages/notify/src/README.md',
+    publishedReadme: 'packages/notify/README.md'
+  },
+  {
+    name: '@ng-orbit/notify-render-plain',
+    directory: 'packages/notify-render-plain',
+    sourceReadme: 'packages/notify-render-plain/src/README.md',
+    publishedReadme: 'packages/notify-render-plain/README.md'
+  },
+  {
     name: '@ng-orbit/table',
     directory: 'packages/table',
     sourceReadme: 'packages/table/src/README.md',

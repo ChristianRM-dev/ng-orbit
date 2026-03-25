@@ -1,0 +1,126 @@
+<section class="ng-orbit-home">
+  <article class="ng-orbit-home__hero">
+    <div class="ng-orbit-home__hero-copy">
+      <span class="ng-orbit-home__eyebrow">{{ 'home.hero.eyebrow' | translate }}</span>
+
+      <div class="ng-orbit-home__hero-title">
+        <ng-orbit-brand-mark [size]="68" />
+
+        <div class="ng-orbit-home__hero-text">
+          <h2 class="ng-orbit-home__title">{{ 'home.hero.title' | translate }}</h2>
+          <p class="ng-orbit-home__summary">{{ 'home.hero.summary' | translate }}</p>
+        </div>
+      </div>
+
+      <p class="ng-orbit-home__tagline">{{ 'home.hero.tagline' | translate }}</p>
+
+      <div class="ng-orbit-home__actions">
+        <a
+          class="ng-orbit-home__button ng-orbit-home__button--primary"
+          routerLink="/table"
+          queryParamsHandling="preserve"
+        >
+          {{ 'home.hero.primaryCta' | translate }}
+        </a>
+
+        <a
+          class="ng-orbit-home__button ng-orbit-home__button--secondary"
+          routerLink="/adapters"
+          queryParamsHandling="preserve"
+        >
+          {{ 'home.hero.secondaryCta' | translate }}
+        </a>
+      </div>
+    </div>
+
+    <div class="ng-orbit-home__hero-aside">
+      <div class="ng-orbit-home__stats">
+        @for (stat of stats; track stat.id) {
+          <div class="ng-orbit-home__stat ng-orbit-card">
+            <strong>{{ ('home.stats.' + stat.id + '.value') | translate }}</strong>
+            <span>{{ ('home.stats.' + stat.id + '.label') | translate }}</span>
+          </div>
+        }
+      </div>
+
+      <section class="ng-orbit-home__package-card ng-orbit-card">
+        <p class="ng-orbit-home__card-eyebrow">{{ 'home.packageMap.eyebrow' | translate }}</p>
+        <h3>{{ 'home.packageMap.title' | translate }}</h3>
+        <p>{{ 'home.packageMap.summary' | translate }}</p>
+
+        <div class="ng-orbit-home__package-groups">
+          @for (group of packageGroups; track group.id) {
+            <div class="ng-orbit-home__package-group">
+              <h4>{{ group.titleKey | translate }}</h4>
+
+              <div class="ng-orbit-home__chip-row">
+                @for (packageName of group.packages; track packageName) {
+                  <code class="ng-orbit-home__chip">{{ packageName }}</code>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </section>
+    </div>
+  </article>
+
+  <section class="ng-orbit-home__pillars">
+    @for (pillar of pillars; track pillar) {
+      <article class="ng-orbit-home__pillar ng-orbit-card">
+        <p class="ng-orbit-home__card-eyebrow">
+          {{ ('home.pillars.' + pillar + '.eyebrow') | translate }}
+        </p>
+        <h3>{{ ('home.pillars.' + pillar + '.title') | translate }}</h3>
+        <p>{{ ('home.pillars.' + pillar + '.body') | translate }}</p>
+      </article>
+    }
+  </section>
+
+  <section class="ng-orbit-home__ownership">
+    <div class="ng-orbit-home__section-heading">
+      <span class="ng-orbit-home__eyebrow">{{ 'home.ownership.eyebrow' | translate }}</span>
+      <h2>{{ 'home.ownership.title' | translate }}</h2>
+      <p>{{ 'home.ownership.summary' | translate }}</p>
+    </div>
+
+    <div class="ng-orbit-home__ownership-grid">
+      @for (side of ownershipSides; track side) {
+        <article class="ng-orbit-home__ownership-card ng-orbit-card">
+          <h3>{{ ('home.ownership.' + side + '.title') | translate }}</h3>
+
+          <ul>
+            @for (point of ownershipPointKeys[side]; track point) {
+              <li>{{ ('home.ownership.' + side + '.points.' + point) | translate }}</li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section class="ng-orbit-home__quick-links">
+    <div class="ng-orbit-home__section-heading">
+      <span class="ng-orbit-home__eyebrow">{{ 'home.quickLinks.eyebrow' | translate }}</span>
+      <h2>{{ 'home.quickLinks.title' | translate }}</h2>
+      <p>{{ 'home.quickLinks.summary' | translate }}</p>
+    </div>
+
+    <div class="ng-orbit-home__quick-links-grid">
+      @for (link of quickLinks; track link.id) {
+        <a
+          class="ng-orbit-home__quick-link ng-orbit-card"
+          [routerLink]="link.path"
+          queryParamsHandling="preserve"
+        >
+          <p class="ng-orbit-home__card-eyebrow">
+            {{ ('home.quickLinks.cards.' + link.id + '.eyebrow') | translate }}
+          </p>
+          <h3>{{ ('home.quickLinks.cards.' + link.id + '.title') | translate }}</h3>
+          <p>{{ ('home.quickLinks.cards.' + link.id + '.body') | translate }}</p>
+          <span class="ng-orbit-home__link-cta">{{ 'home.quickLinks.cta' | translate }}</span>
+        </a>
+      }
+    </div>
+  </section>
+</section>

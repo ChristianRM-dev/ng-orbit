@@ -3,6 +3,7 @@ import { DOCS_FEATURES, getTabRouteSegment, type DocsFeatureId } from './feature
 
 const tableFeatureRoutes = buildFeatureRoutes('table');
 const wizardFeatureRoutes = buildFeatureRoutes('wizard');
+const notifyFeatureRoutes = buildFeatureRoutes('notify');
 const adaptersFeatureRoutes = buildFeatureRoutes('adapters');
 
 export const appRoutes: Routes = [
@@ -13,22 +14,21 @@ export const appRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: getFeatureLoader('table'),
-        data: {
-          docsTab: 'overview',
-          legacy: true
-        }
+        pathMatch: 'full',
+        redirectTo: 'home'
+      },
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./features/home/home-page.component').then((module) => module.HomePageComponent)
       },
       ...tableFeatureRoutes,
       ...wizardFeatureRoutes,
+      ...notifyFeatureRoutes,
       ...adaptersFeatureRoutes,
       {
         path: '**',
-        loadComponent: getFeatureLoader('table'),
-        data: {
-          docsTab: 'overview',
-          legacy: true
-        }
+        redirectTo: 'home'
       }
     ]
   }
@@ -119,6 +119,11 @@ function getFeatureLoader(featureId: DocsFeatureId) {
       return () =>
         import('./features/hub/wizard-hub-page.component').then(
           (module) => module.WizardHubPageComponent
+        );
+    case 'notify':
+      return () =>
+        import('./features/hub/notify-hub-page.component').then(
+          (module) => module.NotifyHubPageComponent
         );
     case 'adapters':
       return () =>

@@ -83,6 +83,7 @@ export class DocsContentService {
 
   readonly tableDocs = computed(() => this.buildDocs('table'));
   readonly wizardDocs = computed(() => this.buildDocs('wizard'));
+  readonly notifyDocs = computed(() => this.buildDocs('notify'));
   readonly adaptersDocs = computed(() => this.buildDocs('adapters'));
 
   getDocs(featureId: DocsFeatureId): DocsFeatureDefinition {
@@ -91,6 +92,8 @@ export class DocsContentService {
         return this.tableDocs();
       case 'wizard':
         return this.wizardDocs();
+      case 'notify':
+        return this.notifyDocs();
       case 'adapters':
         return this.adaptersDocs();
     }

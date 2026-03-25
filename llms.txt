@@ -5,6 +5,8 @@ Primary audience:
 - AI agents that need a short, stable chooser for install paths, ownership boundaries, and public APIs
 
 Consumer-ready packages:
+- @ng-orbit/notify -> headless notification service for app-wide toasts, confirms, and blocking action flows
+- @ng-orbit/notify-render-plain -> semantic reference renderer for @ng-orbit/notify
 - @ng-orbit/table -> headless table controller for query intent, selection, and rendering contracts
 - @ng-orbit/wizard -> headless wizard controller for navigation, validity, and completion flows
 - @ng-orbit/wizard-kit -> Angular forms validity bridge for @ng-orbit/wizard
@@ -15,6 +17,8 @@ Consumer-ready packages:
 - @ng-orbit/wizard-render-daisy -> DaisyUI and Tailwind renderer for @ng-orbit/wizard
 
 Package chooser:
+- App-wide notifications and confirms:
+  - pnpm add @ng-orbit/notify @ng-orbit/notify-render-plain
 - Product-owned server-driven table UI:
   - pnpm add @ng-orbit/table
 - Fastest semantic table UI:
@@ -67,6 +71,12 @@ Smallest working table example:
 </section>
 ```
 
+Smallest working notify example:
+```ts
+import { provideOrbitNotify, OrbitNotifyService } from '@ng-orbit/notify';
+import { OrbitNotifyRenderPlainComponent } from '@ng-orbit/notify-render-plain';
+```
+
 Smallest working wizard example:
 ```html
 <section orbitWizard #wizard="orbitWizard" [steps]="steps" (completed)="submit()">
@@ -86,12 +96,16 @@ Smallest working wizard example:
 ```
 
 Important defaults:
+- notify toast stack limit defaults to 3 and position defaults to top-end
+- notify tone durations default to success=3000, neutral/info=4500, warning=6000, error=8000
+- notify blocking prompts are FIFO and do not close on Escape/backdrop by default
 - table query defaults to page=1, pageSize=10, sort=null, search='', filters={}
 - table page is 1-based
 - wizard linear defaults to true
 - wizard step defaults: kind='step', optional=false, disabled=false, showInNav=true
 
 Useful entry points:
+- docs host overview: /notify/overview
 - docs host overview: /table/overview
 - docs host overview: /wizard/overview
 - docs host guide: /adapters/overview

@@ -1,9 +1,10 @@
 import { ADAPTERS_DOCS } from './adapters-docs.data';
 import type { DocsFeatureDefinition, DocsTabId } from './docs.models';
+import { NOTIFY_DOCS } from './notify-docs.data';
 import { TABLE_DOCS } from './table-docs.data';
 import { WIZARD_DOCS } from './wizard-docs.data';
 
-export type DocsFeatureId = 'table' | 'wizard' | 'adapters';
+export type DocsFeatureId = 'table' | 'wizard' | 'notify' | 'adapters';
 
 export interface DocsFeatureCatalogEntry {
   readonly feature: DocsFeatureDefinition;
@@ -32,6 +33,14 @@ export const DOCS_FEATURES: Record<DocsFeatureId, DocsFeatureCatalogEntry> = {
       core: 'custom',
       material: 'material',
       daisy: 'daisy'
+    }
+  },
+  notify: {
+    feature: NOTIFY_DOCS,
+    renderIds: NOTIFY_DOCS.renders.map((renderer) => renderer.id),
+    exampleIds: NOTIFY_DOCS.examples.map((example) => example.id),
+    legacyRenderAliases: {
+      plain: 'plain'
     }
   },
   adapters: {

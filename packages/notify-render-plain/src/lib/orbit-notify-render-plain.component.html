@@ -1,0 +1,93 @@
+@for (position of positions; track position) {
+  @if (toastGroups()[position].length > 0) {
+    <section class="orbit-notify-stack" [class]="'orbit-notify-stack orbit-notify-stack--' + position">
+      @for (toast of toastGroups()[position]; track toast.id) {
+        <article
+          class="orbit-notify-toast"
+          [class]="'orbit-notify-toast orbit-notify-toast--' + toast.tone"
+          [attr.role]="toastRole(toast.tone)"
+          [attr.aria-live]="toastRole(toast.tone) === 'alert' ? 'assertive' : 'polite'"
+          tabindex="0"
+          (mouseenter)="onToastMouseEnter(toast.id)"
+          (mouseleave)="onToastMouseLeave(toast.id)"
+          (focusin)="onToastMouseEnter(toast.id)"
+          (focusout)="onToastMouseLeave(toast.id)"
+        >
+          <div class="orbit-notify-toast__content">
+            @if (toast.title) {
+              <strong class="orbit-notify-toast__title">{{ toast.title }}</strong>
+            }
+
+            <p class="orbit-notify-toast__message">{{ toast.message }}</p>
+          </div>
+
+          <div class="orbit-notify-toast__actions">
+            @if (toast.action) {
+              <button
+                class="orbit-notify-toast__action"
+                type="button"
+                (click)="onToastAction(toast.id)"
+              >
+                {{ toast.action.label }}
+              </button>
+            }
+
+            @if (toast.dismissible) {
+              <button
+                class="orbit-notify-toast__dismiss"
+                type="button"
+                aria-label="Dismiss notification"
+                (click)="onToastDismiss(toast.id)"
+              >
+                ×
+              </button>
+            }
+          </div>
+        </article>
+      }
+    </section>
+  }
+}
+
+@if (blocking()) {
+  <div class="orbit-notify-modal-backdrop" (click)="onBackdropClick($event)">
+    <section
+      class="orbit-notify-modal"
+      role="alertdialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="'orbit-notify-title-' + blocking()!.id"
+      [attr.aria-describedby]="'orbit-notify-message-' + blocking()!.id"
+    >
+      <header class="orbit-notify-modal__header">
+        <span
+          class="orbit-notify-modal__tone"
+          [class]="'orbit-notify-modal__tone orbit-notify-modal__tone--' + blocking()!.tone"
+        >
+          {{ blocking()!.tone }}
+        </span>
+        <h2 class="orbit-notify-modal__title" [id]="'orbit-notify-title-' + blocking()!.id">
+          {{ blocking()!.title }}
+        </h2>
+      </header>
+
+      @if (blocking()!.message) {
+        <p class="orbit-notify-modal__message" [id]="'orbit-notify-message-' + blocking()!.id">
+          {{ blocking()!.message }}
+        </p>
+      }
+
+      <footer class="orbit-notify-modal__footer">
+        @for (action of blocking()!.actions; track action.id) {
+          <button
+            class="orbit-notify-modal__button"
+            [class]="'orbit-notify-modal__button orbit-notify-modal__button--' + (action.appearance ?? 'secondary')"
+            type="button"
+            (click)="onBlockingAction(action.id)"
+          >
+            {{ action.label }}
+          </button>
+        }
+      </footer>
+    </section>
+  </div>
+}

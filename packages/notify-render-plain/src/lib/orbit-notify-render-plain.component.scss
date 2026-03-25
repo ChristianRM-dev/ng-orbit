@@ -1,0 +1,245 @@
+:host {
+  pointer-events: none;
+}
+
+.orbit-notify-stack {
+  position: fixed;
+  z-index: 1200;
+  display: grid;
+  gap: 0.75rem;
+  width: min(24rem, calc(100vw - 2rem));
+  padding: 1rem;
+}
+
+.orbit-notify-stack--top-start {
+  top: 0;
+  left: 0;
+}
+
+.orbit-notify-stack--top-center {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.orbit-notify-stack--top-end {
+  top: 0;
+  right: 0;
+}
+
+.orbit-notify-stack--bottom-start {
+  bottom: 0;
+  left: 0;
+}
+
+.orbit-notify-stack--bottom-center {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.orbit-notify-stack--bottom-end {
+  right: 0;
+  bottom: 0;
+}
+
+.orbit-notify-toast {
+  pointer-events: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  border: 1px solid #d8dee8;
+  border-left-width: 0.4rem;
+  border-radius: 1rem;
+  background: #ffffff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.16);
+  padding: 0.95rem 1rem;
+  color: #10203a;
+}
+
+.orbit-notify-toast--neutral {
+  border-left-color: #5b6b82;
+}
+
+.orbit-notify-toast--info {
+  border-left-color: #2877d9;
+}
+
+.orbit-notify-toast--success {
+  border-left-color: #1f8a58;
+}
+
+.orbit-notify-toast--warning {
+  border-left-color: #c67f11;
+}
+
+.orbit-notify-toast--error {
+  border-left-color: #c43838;
+}
+
+.orbit-notify-toast__content {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.orbit-notify-toast__title {
+  font-size: 0.97rem;
+}
+
+.orbit-notify-toast__message {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.orbit-notify-toast__actions {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.orbit-notify-toast__action,
+.orbit-notify-toast__dismiss,
+.orbit-notify-modal__button {
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.orbit-notify-toast__action {
+  background: #edf4ff;
+  color: #184f99;
+  padding: 0.45rem 0.8rem;
+  white-space: nowrap;
+}
+
+.orbit-notify-toast__dismiss {
+  background: #eef2f7;
+  color: #415165;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.orbit-notify-modal-backdrop {
+  pointer-events: auto;
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  display: grid;
+  place-items: center;
+  background: rgba(10, 18, 30, 0.45);
+  padding: 1.5rem;
+}
+
+.orbit-notify-modal {
+  width: min(34rem, 100%);
+  border-radius: 1.35rem;
+  background: #ffffff;
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.25);
+  padding: 1.4rem;
+  color: #10203a;
+}
+
+.orbit-notify-modal__header {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.orbit-notify-modal__tone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.orbit-notify-modal__tone--neutral {
+  background: #eef2f7;
+  color: #42556f;
+}
+
+.orbit-notify-modal__tone--info {
+  background: #e7f1ff;
+  color: #1d60b6;
+}
+
+.orbit-notify-modal__tone--success {
+  background: #e8f7ee;
+  color: #1d744a;
+}
+
+.orbit-notify-modal__tone--warning {
+  background: #fff3de;
+  color: #9b6112;
+}
+
+.orbit-notify-modal__tone--error {
+  background: #ffe8e8;
+  color: #9b2222;
+}
+
+.orbit-notify-modal__title {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.orbit-notify-modal__message {
+  margin: 1rem 0 0;
+  color: #3d4c63;
+  line-height: 1.55;
+}
+
+.orbit-notify-modal__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+}
+
+.orbit-notify-modal__button {
+  padding: 0.75rem 1rem;
+}
+
+.orbit-notify-modal__button--secondary {
+  background: #eff3f8;
+  color: #334257;
+}
+
+.orbit-notify-modal__button--primary {
+  background: #1d60b6;
+  color: #ffffff;
+}
+
+.orbit-notify-modal__button--danger {
+  background: #c43838;
+  color: #ffffff;
+}
+
+@media (max-width: 640px) {
+  .orbit-notify-stack {
+    width: calc(100vw - 1rem);
+    padding: 0.5rem;
+  }
+
+  .orbit-notify-modal-backdrop {
+    padding: 0.75rem;
+  }
+
+  .orbit-notify-modal__footer {
+    justify-content: stretch;
+  }
+
+  .orbit-notify-modal__button {
+    flex: 1 1 100%;
+  }
+}

@@ -1,5 +1,6 @@
 import { ADAPTERS_DOCS } from './adapters-docs.data';
 import { DOCS_TABS } from './docs.models';
+import { NOTIFY_DOCS } from './notify-docs.data';
 import { TABLE_DOCS } from './table-docs.data';
 import { WIZARD_DOCS } from './wizard-docs.data';
 
@@ -14,7 +15,7 @@ describe('docs content', () => {
   });
 
   it('ships unique render and example ids for each feature', () => {
-    for (const docsDefinition of [TABLE_DOCS, WIZARD_DOCS, ADAPTERS_DOCS]) {
+    for (const docsDefinition of [TABLE_DOCS, WIZARD_DOCS, NOTIFY_DOCS, ADAPTERS_DOCS]) {
       expect(new Set(docsDefinition.renders.map((renderer) => renderer.id)).size).toBe(
         docsDefinition.renders.length
       );
@@ -30,5 +31,6 @@ describe('docs content', () => {
     expect(ADAPTERS_DOCS.tabLabels?.renders).toBe('Patterns');
     expect(TABLE_DOCS.tabLabels?.renders).toBeUndefined();
     expect(WIZARD_DOCS.tabLabels?.renders).toBeUndefined();
+    expect(NOTIFY_DOCS.tabLabels?.renders).toBeUndefined();
   });
 });
