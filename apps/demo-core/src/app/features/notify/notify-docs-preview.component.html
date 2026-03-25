@@ -1,0 +1,45 @@
+<section class="ng-orbit-notify-preview">
+  <header class="ng-orbit-notify-preview__header">
+    <div>
+      <p class="ng-orbit-notify-preview__eyebrow">Renderer mounted globally</p>
+      <h3>{{ title() }}</h3>
+      <p>{{ subtitle() }}</p>
+    </div>
+
+    <button class="ng-orbit-notify-preview__ghost" type="button" (click)="clearToasts()">
+      Clear toasts
+    </button>
+  </header>
+
+  <div class="ng-orbit-notify-preview__actions">
+    @switch (variant()) {
+      @case ('success-toast') {
+        <button type="button" (click)="showSuccessToast()">Show success toast</button>
+      }
+
+      @case ('toast-action') {
+        <button type="button" (click)="showUndoToast()">Show toast with Undo</button>
+      }
+
+      @case ('blocking-multi') {
+        <button type="button" (click)="openBlockingFlow()">Open blocking notification</button>
+      }
+
+      @case ('blocking-queue') {
+        <button type="button" (click)="openBlockingQueue()">Queue 2 blocking prompts</button>
+      }
+
+      @default {
+        <button type="button" (click)="showSuccessToast()">Success</button>
+        <button type="button" (click)="showUndoToast()">Undo toast</button>
+        <button type="button" (click)="openConfirmExample()">Confirm</button>
+        <button type="button" (click)="openBlockingFlow()">Blocking 3 actions</button>
+      }
+    }
+  </div>
+
+  <section class="ng-orbit-notify-preview__result">
+    <p class="ng-orbit-notify-preview__label">Latest result</p>
+    <pre>{{ latestResult() }}</pre>
+  </section>
+</section>

@@ -80,7 +80,13 @@ export class OrbitWizardDirective {
   private readonly validityState = signal<OrbitWizardValidityMap>(EMPTY_ORBIT_WIZARD_VALIDITY);
   private initialized = false;
 
+  /**
+   * Latest normalized step collection.
+   */
   readonly steps = computed(() => this.stepsState());
+  /**
+   * Zero-based index of the current normalized step.
+   */
   readonly index = computed(() => this.indexState());
   /**
    * Current normalized step, or a defensive empty step when no enabled step can be resolved.
@@ -93,7 +99,13 @@ export class OrbitWizardDirective {
 
     return this.stepsState().find((step) => !step.disabled) ?? EMPTY_ORBIT_WIZARD_STEP;
   });
+  /**
+   * Latest visited-step set.
+   */
   readonly visited = computed(() => this.visitedState());
+  /**
+   * Latest consumer-controlled validity map.
+   */
   readonly validity = computed(() => this.validityState());
 
   /**
@@ -108,6 +120,9 @@ export class OrbitWizardDirective {
     )
   );
 
+  /**
+   * Whether the current step is the first enabled step.
+   */
   readonly isFirst = computed(() => {
     const currentIndex = findOrbitWizardStepIndexById(this.stepsState(), this.current().id);
     if (currentIndex < 0) {
@@ -117,6 +132,9 @@ export class OrbitWizardDirective {
     return findPrevEnabledOrbitWizardIndex(this.stepsState(), currentIndex) < 0;
   });
 
+  /**
+   * Whether the current step is the last enabled step.
+   */
   readonly isLast = computed(() => {
     const currentIndex = findOrbitWizardStepIndexById(this.stepsState(), this.current().id);
     if (currentIndex < 0) {
@@ -126,6 +144,9 @@ export class OrbitWizardDirective {
     return findNextEnabledOrbitWizardIndex(this.stepsState(), currentIndex) < 0;
   });
 
+  /**
+   * Whether navigation can move to a previous enabled step.
+   */
   readonly canPrev = computed(() => {
     const currentIndex = findOrbitWizardStepIndexById(this.stepsState(), this.current().id);
     if (currentIndex < 0) {
@@ -135,6 +156,9 @@ export class OrbitWizardDirective {
     return findPrevEnabledOrbitWizardIndex(this.stepsState(), currentIndex) >= 0;
   });
 
+  /**
+   * Whether the current step may proceed under the active validity rules.
+   */
   readonly canNext = computed(() => {
     const currentStep = this.current();
     if (!currentStep.id || currentStep.disabled) {

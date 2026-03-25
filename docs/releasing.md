@@ -45,6 +45,13 @@ This lets GitHub-hosted runners publish to npm through OIDC without storing a lo
 
 GitHub Pages is independent from npm releases and deploys on every push to `main`.
 
+## Package docs before release
+
+- `packages/*/src/README.md` is the canonical long-form README for each consumer-ready package
+- `pnpm docs:sync` copies the canonical README into the package root so npm tarballs publish the enriched version
+- `pnpm docs:check` fails when package READMEs drift or when placeholder packages appear outside the placeholder section in `README.md` or `llms.txt`
+- the publish workflow runs `pnpm docs:check` before `pnpm docs:sync` so release branches must stay consistent
+
 ## First release bootstrap
 
 Before `v0.1.0` exists, run `Prepare Release PR` manually from the GitHub Actions UI with:

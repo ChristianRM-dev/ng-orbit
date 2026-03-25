@@ -1,0 +1,79 @@
+.ng-orbit-notify-preview {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(33, 49, 73, 0.12);
+  border-radius: 1.4rem;
+  background:
+    radial-gradient(circle at top right, rgba(40, 119, 217, 0.12), transparent 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 252, 0.98));
+}
+
+.ng-orbit-notify-preview__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.ng-orbit-notify-preview__header h3 {
+  margin: 0.1rem 0 0.4rem;
+  font-size: 1.3rem;
+}
+
+.ng-orbit-notify-preview__header p {
+  margin: 0;
+  color: #465770;
+  line-height: 1.5;
+}
+
+.ng-orbit-notify-preview__eyebrow,
+.ng-orbit-notify-preview__label {
+  margin: 0;
+  color: #1f64bc;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ng-orbit-notify-preview__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ng-orbit-notify-preview__actions button,
+.ng-orbit-notify-preview__ghost {
+  border: 0;
+  border-radius: 999px;
+  background: #1f64bc;
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.8rem 1rem;
+}
+
+.ng-orbit-notify-preview__ghost {
+  background: #eef3f9;
+  color: #30435c;
+}
+
+.ng-orbit-notify-preview__result {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: #09101a;
+  color: #dce8ff;
+}
+
+.ng-orbit-notify-preview__result pre {
+  margin: 0.55rem 0 0;
+  font-family: 'SFMono-Regular', 'Consolas', monospace;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 720px) {
+  .ng-orbit-notify-preview__header {
+    flex-direction: column;
+  }
+}

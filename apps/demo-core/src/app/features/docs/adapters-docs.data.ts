@@ -24,7 +24,9 @@ Leave data fetching, forms, and side effects to the consumer.
       code: snippet(`
 @ng-orbit/table -> headless table controller
 @ng-orbit/wizard -> headless wizard controller
+@ng-orbit/notify -> headless notification service
 @ng-orbit/wizard-kit -> optional form-sync bridge
+@ng-orbit/notify-render-plain -> ready semantic notification renderer
 @ng-orbit/table-render-plain -> ready semantic table renderer
 @ng-orbit/table-render-material and table-render-daisy -> ready table renderers
 @ng-orbit/wizard-render-material and wizard-render-daisy -> ready wizard renderers

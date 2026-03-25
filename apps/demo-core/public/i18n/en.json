@@ -10,8 +10,10 @@
     "closeMenu": "Close menu"
   },
   "nav": {
+    "home": "Home",
     "table": "Table",
     "wizard": "Wizard",
+    "notify": "Notify",
     "adapters": "Adapters",
     "tablePlain": "Table plain",
     "tableCore": "Table core",
@@ -20,6 +22,106 @@
     "wizardCore": "Wizard core",
     "wizardMaterial": "Wizard material",
     "wizardDaisy": "Wizard daisy"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Start here",
+      "title": "Headless Angular primitives for product-owned UI",
+      "summary": "ng-orbit gives teams stable controllers for tables, wizards, and notifications without taking over data flow, forms, or the final interface.",
+      "tagline": "Use the core packages when you want total control, add renderer packages when you want a faster starting point, and rely on adapters to keep the boundary clean across design systems.",
+      "primaryCta": "Explore table docs",
+      "secondaryCta": "Understand adapters"
+    },
+    "stats": {
+      "headless": {
+        "value": "3",
+        "label": "Headless packages"
+      },
+      "helpers": {
+        "value": "1",
+        "label": "Helper kit"
+      },
+      "renderers": {
+        "value": "6",
+        "label": "Ready renderers"
+      }
+    },
+    "packageMap": {
+      "eyebrow": "Ready today",
+      "title": "Package map",
+      "summary": "Mix headless controllers, one small helper kit, and renderer packages based on how much UI you want ng-orbit to provide.",
+      "groups": {
+        "headless": "Headless controllers",
+        "helpers": "Helper kit",
+        "renderers": "Renderer packages"
+      }
+    },
+    "pillars": {
+      "headless": {
+        "eyebrow": "Core first",
+        "title": "State without markup",
+        "body": "OrbitTable, OrbitWizard, and OrbitNotify own normalized state, commands, and signals while your product continues to own how things look and behave."
+      },
+      "renderers": {
+        "eyebrow": "Fast path",
+        "title": "Renderers when you want a running start",
+        "body": "Plain, Material, and Daisy renderers stay thin on purpose: they read controller state and call commands without swallowing your business logic."
+      },
+      "adapters": {
+        "eyebrow": "Integration model",
+        "title": "Adapters keep the seam explicit",
+        "body": "An adapter is the narrow layer between ng-orbit state and your UI. That seam lets teams adopt the library inside existing design systems instead of rewriting around it."
+      }
+    },
+    "ownership": {
+      "eyebrow": "Ownership model",
+      "title": "What ng-orbit owns and what stays in your app",
+      "summary": "The quickest way to understand the library is to look at the boundary. ng-orbit centralizes reusable controller logic; your feature keeps everything product-specific.",
+      "library": {
+        "title": "ng-orbit owns",
+        "points": {
+          "state": "Controller state for query, selection, navigation, completion, and notification queues.",
+          "commands": "Normalized commands, outputs, and template-friendly signals.",
+          "contracts": "Stable UI contracts that renderers or custom markup can sit on top of."
+        }
+      },
+      "app": {
+        "title": "Your app owns",
+        "points": {
+          "data": "Fetching rows, mapping APIs, persistence, and analytics.",
+          "forms": "Forms, validation rules, and step content.",
+          "rules": "Styling, business logic, empty states, side effects, and all product decisions."
+        }
+      }
+    },
+    "quickLinks": {
+      "eyebrow": "Docs paths",
+      "title": "Start where your team needs help",
+      "summary": "Jump into the section that matches the decision you are making today.",
+      "cards": {
+        "table": {
+          "eyebrow": "Headless table",
+          "title": "Table",
+          "body": "See how OrbitTable handles query intent and selection while your feature keeps control of data loading and row layout."
+        },
+        "wizard": {
+          "eyebrow": "Headless flow",
+          "title": "Wizard",
+          "body": "Learn how OrbitWizard coordinates navigation and completion while your forms and business rules stay local."
+        },
+        "notify": {
+          "eyebrow": "Headless notifications",
+          "title": "Notify",
+          "body": "Explore the app-wide toast and confirm service that keeps timing and queue behavior headless while your feature owns the side effects."
+        },
+        "adapters": {
+          "eyebrow": "Integration seam",
+          "title": "Adapters",
+          "body": "Understand the thin layer between controller state and product UI, plus when renderers or helper kits fit."
+        }
+      },
+      "cta": "Open guide"
+    }
   },
   "docs": {
     "shared": {

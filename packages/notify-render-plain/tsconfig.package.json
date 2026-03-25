@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.lib.json",
+  "compilerOptions": {
+    "paths": {
+      "@ng-orbit/notify": [
+        "dist/packages/notify/types/ng-orbit-notify.d.ts"
+      ]
+    }
+  }
+}

@@ -1,5 +1,10 @@
 import { execSync } from 'node:child_process';
 
+execSync('pnpm docs:check', {
+  cwd: process.cwd(),
+  stdio: 'inherit'
+});
+
 function hasReleaseTags() {
   try {
     const output = execSync("git tag --list 'v*'", {

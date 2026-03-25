@@ -2,6 +2,15 @@
 
 Small composition helpers for `@ng-orbit/wizard`.
 
+## AI Quick Map
+
+- Role: optional helper package for form-backed wizard flows, not a renderer
+- Install: `pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit`
+- Pair with: `@ng-orbit/wizard`
+- Package owns: Angular form-validity wiring into `orbitWizard`
+- Consumer owns: form creation, validation rules, field UI, navigation layout, persistence, and submission behavior
+- Recommended path: add this when Angular forms should drive wizard validity without hand-written `setValid()` calls
+
 ## What it is
 
 `@ng-orbit/wizard-kit` is not a renderer package. It currently ships
@@ -30,12 +39,17 @@ pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit
 
 - wiring Angular form validity into the wizard controller
 - cleanup of the `statusChanges` subscription
+- a small composition helper instead of a visual renderer layer
 
 ## Consumer owns
 
 - the form or control instance
 - the step id
 - all field UI, validation rules, persistence, and navigation layout
+
+## Primary exports
+
+- `OrbitWizardStepFormSyncDirective` for mirroring Angular form validity into `OrbitWizardDirective`
 
 ## Smallest working example
 
@@ -60,10 +74,11 @@ pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit
 
 - `@ng-orbit/wizard` for the headless controller
 - `@ng-orbit/wizard-render-material` for a ready-made Material UI layer
-- `@ng-orbit/wizard-render-daisy` for a ready-made DaisyUI/Tailwind UI layer
+- `@ng-orbit/wizard-render-daisy` for a ready-made DaisyUI and Tailwind UI layer
 
-## Docs host
+## Docs links
 
-Run `pnpm demo` and open:
-- `http://127.0.0.1:4200/wizard`
-- `http://127.0.0.1:4200/adapters`
+- Local adapters guide: `http://127.0.0.1:4200/adapters/overview`
+- Local wizard overview: `http://127.0.0.1:4200/wizard/overview`
+- Online adapters guide: `https://christianrm-dev.github.io/ng-orbit/adapters/overview`
+- Online wizard overview: `https://christianrm-dev.github.io/ng-orbit/wizard/overview`

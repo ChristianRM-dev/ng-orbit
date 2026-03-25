@@ -1,0 +1,30 @@
+{
+  "name": "@ng-orbit/notify",
+  "version": "0.0.0",
+  "description": "Headless Angular notification service for toasts, confirms, and blocking action flows.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristianRM-dev/ng-orbit.git",
+    "directory": "packages/notify"
+  },
+  "homepage": "https://christianrm-dev.github.io/ng-orbit/notify/overview",
+  "keywords": [
+    "angular",
+    "ng-orbit",
+    "notify",
+    "toast",
+    "confirm",
+    "headless"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
+  },
+  "peerDependencies": {
+    "@angular/core": "^21.0.0"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "@ng-orbit/table-render-daisy",
-  "version": "0.1.0",
-  "description": "DaisyUI-flavored renderer for @ng-orbit/table.",
+  "version": "0.0.0",
+  "description": "DaisyUI and Tailwind renderer for the @ng-orbit/table headless controller.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   "homepage": "https://christianrm-dev.github.io/ng-orbit/table/renders/daisy",
   "keywords": [
     "angular",
+    "ng-orbit",
     "table",
     "renderer",
     "daisyui",

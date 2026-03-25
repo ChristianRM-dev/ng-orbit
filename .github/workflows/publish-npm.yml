@@ -44,6 +44,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify AI-friendly package docs
+        run: pnpm docs:check
+
+      - name: Sync package READMEs for packaging
+        run: pnpm docs:sync
+
       - name: Resolve release version
         id: release
         run: |

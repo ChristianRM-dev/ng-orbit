@@ -1,0 +1,34 @@
+{
+  "name": "notify-render-plain",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "root": "packages/notify-render-plain",
+  "sourceRoot": "packages/notify-render-plain/src",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:ng-packagr",
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{workspaceRoot}/dist/packages/notify-render-plain"
+      ],
+      "options": {
+        "project": "packages/notify-render-plain/ng-package.json",
+        "tsConfig": "packages/notify-render-plain/tsconfig.package.json"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p packages/notify-render-plain/tsconfig.spec.json --noEmit"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc -p packages/notify-render-plain/tsconfig.lib.json --noEmit"
+      }
+    }
+  }
+}

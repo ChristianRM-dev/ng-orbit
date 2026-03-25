@@ -4,6 +4,12 @@
     "baseUrl": ".",
     "rootDir": ".",
     "paths": {
+      "@ng-orbit/notify": [
+        "packages/notify/src/public-api.ts"
+      ],
+      "@ng-orbit/notify-render-plain": [
+        "packages/notify-render-plain/src/public-api.ts"
+      ],
       "@ng-orbit/table": [
         "packages/table/src/public-api.ts"
       ],

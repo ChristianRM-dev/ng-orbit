@@ -155,6 +155,34 @@
         }
       }
     },
+    "alerts": {
+      "projectType": "library",
+      "root": "packages/notify",
+      "sourceRoot": "packages/notify/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/notify/ng-package.json",
+            "tsConfig": "packages/notify/tsconfig.lib.json"
+          }
+        }
+      }
+    },
+    "notify-render-plain": {
+      "projectType": "library",
+      "root": "packages/notify-render-plain",
+      "sourceRoot": "packages/notify-render-plain/src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "packages/notify-render-plain/ng-package.json",
+            "tsConfig": "packages/notify-render-plain/tsconfig.package.json"
+          }
+        }
+      }
+    },
     "table": {
       "projectType": "library",
       "root": "packages/table",

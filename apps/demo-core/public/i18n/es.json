@@ -10,8 +10,10 @@
     "closeMenu": "Cerrar menú"
   },
   "nav": {
+    "home": "Inicio",
     "table": "Tabla",
     "wizard": "Wizard",
+    "notify": "Notify",
     "adapters": "Adaptadores",
     "tablePlain": "Tabla plain",
     "tableCore": "Tabla core",
@@ -20,6 +22,106 @@
     "wizardCore": "Wizard core",
     "wizardMaterial": "Wizard material",
     "wizardDaisy": "Wizard daisy"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Empieza aquí",
+      "title": "Primitivas headless para Angular orientadas a UI de producto",
+      "summary": "ng-orbit le da a los equipos controllers estables para tablas, wizards y notificaciones sin adueñarse del flujo de datos, los forms ni de la interfaz final.",
+      "tagline": "Usa los paquetes core cuando quieras control total, suma renderer packages cuando quieras un arranque más rápido y apóyate en adapters para mantener el límite claro entre estado y UI.",
+      "primaryCta": "Explorar docs de table",
+      "secondaryCta": "Entender adapters"
+    },
+    "stats": {
+      "headless": {
+        "value": "3",
+        "label": "Paquetes headless"
+      },
+      "helpers": {
+        "value": "1",
+        "label": "Helper kit"
+      },
+      "renderers": {
+        "value": "6",
+        "label": "Renderers listos"
+      }
+    },
+    "packageMap": {
+      "eyebrow": "Disponible hoy",
+      "title": "Mapa de paquetes",
+      "summary": "Combina controllers headless, un helper kit pequeño y renderer packages según cuánta UI quieras que ng-orbit te resuelva.",
+      "groups": {
+        "headless": "Controllers headless",
+        "helpers": "Helper kit",
+        "renderers": "Renderer packages"
+      }
+    },
+    "pillars": {
+      "headless": {
+        "eyebrow": "Core primero",
+        "title": "Estado sin apropiarse del markup",
+        "body": "OrbitTable, OrbitWizard y OrbitNotify se encargan del estado normalizado, los comandos y las signals mientras tu producto sigue decidiendo cómo se ve y cómo se comporta."
+      },
+      "renderers": {
+        "eyebrow": "Camino rápido",
+        "title": "Renderers para arrancar sin fricción",
+        "body": "Los renderers plain, Material y Daisy se mantienen delgados a propósito: leen estado del controller y llaman comandos sin tragarse tu lógica de negocio."
+      },
+      "adapters": {
+        "eyebrow": "Modelo de integración",
+        "title": "Los adapters hacen explícita la costura",
+        "body": "Un adapter es la capa angosta entre el estado de ng-orbit y tu UI. Esa costura permite adoptar la librería dentro de design systems existentes sin reescribir alrededor de ella."
+      }
+    },
+    "ownership": {
+      "eyebrow": "Modelo de ownership",
+      "title": "Qué controla ng-orbit y qué sigue dentro de tu app",
+      "summary": "La forma más rápida de entender la librería es mirar ese límite. ng-orbit centraliza la lógica reutilizable del controller; tu feature conserva todo lo específico del producto.",
+      "library": {
+        "title": "ng-orbit controla",
+        "points": {
+          "state": "Estado del controller para query, selección, navegación, completion y colas de notificaciones.",
+          "commands": "Comandos normalizados, outputs y signals amigables para templates.",
+          "contracts": "Contratos de UI estables sobre los que pueden vivir renderers o markup custom."
+        }
+      },
+      "app": {
+        "title": "Tu app controla",
+        "points": {
+          "data": "Fetch de rows, mapeo de APIs, persistencia y analytics.",
+          "forms": "Forms, reglas de validación y contenido de pasos.",
+          "rules": "Estilos, lógica de negocio, estados vacíos, side effects y todas las decisiones de producto."
+        }
+      }
+    },
+    "quickLinks": {
+      "eyebrow": "Rutas de docs",
+      "title": "Empieza por la decisión que estás tomando hoy",
+      "summary": "Salta directo a la sección que mejor encaja con la duda o el trabajo actual de tu equipo.",
+      "cards": {
+        "table": {
+          "eyebrow": "Tabla headless",
+          "title": "Table",
+          "body": "Mira cómo OrbitTable resuelve la intención de query y la selección mientras tu feature conserva el control del data loading y del layout de filas."
+        },
+        "wizard": {
+          "eyebrow": "Flujo headless",
+          "title": "Wizard",
+          "body": "Entiende cómo OrbitWizard coordina navegación y completion mientras tus forms y reglas de negocio siguen siendo locales."
+        },
+        "notify": {
+          "eyebrow": "Notificaciones headless",
+          "title": "Notify",
+          "body": "Explora el servicio global de toasts y confirms que mantiene el timing y las colas de forma headless mientras tu feature conserva los side effects."
+        },
+        "adapters": {
+          "eyebrow": "Capa de integración",
+          "title": "Adapters",
+          "body": "Entiende la capa delgada entre el estado del controller y la UI de producto, además de cuándo conviene usar renderers o helper kits."
+        }
+      },
+      "cta": "Abrir guía"
+    }
   },
   "docs": {
     "shared": {

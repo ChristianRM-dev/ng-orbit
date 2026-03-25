@@ -1,7 +1,7 @@
 {
   "name": "@ng-orbit/wizard-kit",
-  "version": "0.1.0",
-  "description": "Angular composition helpers for @ng-orbit/wizard.",
+  "version": "0.0.0",
+  "description": "Angular forms composition helpers for @ng-orbit/wizard.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,7 +11,9 @@
   "homepage": "https://christianrm-dev.github.io/ng-orbit/adapters/overview",
   "keywords": [
     "angular",
+    "ng-orbit",
     "wizard",
+    "kit",
     "forms",
     "headless",
     "adapter"

@@ -12,6 +12,7 @@ This document explains how to choose between the different integration layers in
 ## Ready packages today
 
 ### Core
+- `@ng-orbit/notify`
 - `@ng-orbit/table`
 - `@ng-orbit/wizard`
 
@@ -19,6 +20,7 @@ This document explains how to choose between the different integration layers in
 - `@ng-orbit/wizard-kit`
 
 ### Ready renderer packages
+- `@ng-orbit/notify-render-plain`
 - `@ng-orbit/table-render-plain`
 - `@ng-orbit/table-render-material`
 - `@ng-orbit/table-render-daisy`
@@ -53,6 +55,13 @@ Example flow for wizard:
 2. `OrbitWizardDirective` updates current, visited, validity, and progress state
 3. the consuming feature decides what completion means and persists data if needed
 
+Example flow for notify:
+
+1. a feature calls `notify.success(...)`, `notify.show(...)`, `notify.openBlocking(...)`, or `notify.confirm(...)`
+2. `OrbitNotifyService` updates the visible toast stack or blocking queue
+3. a renderer reflects the latest state and forwards actions back into the service
+4. the consuming feature reacts to the resolved result and performs product side effects
+
 ## Adapter boundaries
 
 What belongs in an adapter:
@@ -75,6 +84,7 @@ What stays outside:
 - if you need a faster first UI layer, install one of the ready renderer packages
 
 Use the local docs host for live guidance:
+- `/notify`
 - `/table`
 - `/wizard`
 - `/adapters`

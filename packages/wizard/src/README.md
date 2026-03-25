@@ -3,6 +3,15 @@
 Headless wizard controller for Angular applications that want consumer-owned forms, layout,
 validation, and submission behavior.
 
+## AI Quick Map
+
+- Role: headless wizard controller that owns navigation state and completion rules, not forms or submission
+- Install: `pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit`
+- Pair with: `@ng-orbit/wizard-kit`, `@ng-orbit/wizard-render-material`, or `@ng-orbit/wizard-render-daisy`
+- Package owns: current step pointer, visited state, validity map, derived progress, and navigation commands
+- Consumer owns: forms, validation rules, routing, submission side effects, persistence, analytics, and final layout
+- Recommended path: use core plus `wizard-kit` for form-backed flows, then add a renderer only if you want a ready-made shell
+
 ## What it is
 
 `@ng-orbit/wizard` exposes a standalone directive, step types, progress state, and a command
@@ -47,6 +56,12 @@ pnpm add @ng-orbit/wizard @ng-orbit/wizard-kit
 - forms and validation rules
 - persistence, analytics, routing, and submission side effects
 - final layout and styling
+
+## Primary exports
+
+- `OrbitWizardDirective` for the standalone controller exposed as `#wizard="orbitWizard"`
+- `OrbitWizardStepDef`, `OrbitWizardProgress`, and `OrbitWizardStepChangeEvent` for the stable workflow contract
+- `normalizeOrbitWizardSteps()` and `resolveOrbitWizardInitialIndex()` for advanced step normalization and startup logic
 
 ## Smallest working example
 
@@ -99,10 +114,11 @@ export class SignupWizardComponent {
 
 - `@ng-orbit/wizard-kit` for Angular forms validity sync
 - `@ng-orbit/wizard-render-material` for Angular Material apps
-- `@ng-orbit/wizard-render-daisy` for DaisyUI/Tailwind apps
+- `@ng-orbit/wizard-render-daisy` for DaisyUI and Tailwind apps
 
-## Docs host
+## Docs links
 
-Run `pnpm demo` and open:
-- `http://127.0.0.1:4200/wizard`
-- `http://127.0.0.1:4200/adapters`
+- Local overview: `http://127.0.0.1:4200/wizard/overview`
+- Local adapters guide: `http://127.0.0.1:4200/adapters/overview`
+- Online overview: `https://christianrm-dev.github.io/ng-orbit/wizard/overview`
+- Online adapters guide: `https://christianrm-dev.github.io/ng-orbit/adapters/overview`

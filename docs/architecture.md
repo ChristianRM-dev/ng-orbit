@@ -18,6 +18,7 @@ Core packages do not own:
 - business filtering, sorting, or submission rules
 
 Current headless packages:
+- `@ng-orbit/notify`
 - `@ng-orbit/table`
 - `@ng-orbit/wizard`
 
@@ -41,6 +42,7 @@ Kits should:
 Renderers are ready-to-install UI packages for specific visual stacks.
 
 Ready renderer packages today:
+- `@ng-orbit/notify-render-plain`
 - `@ng-orbit/table-render-plain`
 - `@ng-orbit/table-render-material`
 - `@ng-orbit/table-render-daisy`
@@ -83,4 +85,3 @@ renderer packages listed above.
 ## Angular target
 
 Development baseline is Angular `21.2.1`, with the first stable release aimed at Angular `22`.
-

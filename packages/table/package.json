@@ -1,7 +1,7 @@
 {
   "name": "@ng-orbit/table",
-  "version": "0.1.0",
-  "description": "Headless Angular table controller for consumer-owned data fetching, selection, and rendering.",
+  "version": "0.0.0",
+  "description": "Headless Angular table controller for consumer-owned data, query intent, selection, and rendering.",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -11,6 +11,7 @@
   "homepage": "https://christianrm-dev.github.io/ng-orbit/table/overview",
   "keywords": [
     "angular",
+    "ng-orbit",
     "table",
     "headless",
     "signals",
